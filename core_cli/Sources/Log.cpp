@@ -9,6 +9,8 @@
 
 namespace Core {
 
+static Log singletonLog;
+
 Log::Log() {
 	// TODO Auto-generated constructor stub
 
@@ -16,6 +18,13 @@ Log::Log() {
 
 Log::~Log() {
 	// TODO Auto-generated destructor stub
+}
+
+Log getSingleton() {
+	return singletonLog;
+}
+Log* getSingletonPtr() {
+	return &singletonLog;
 }
 
 } /* namespace Core */

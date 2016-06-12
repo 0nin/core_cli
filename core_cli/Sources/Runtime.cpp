@@ -7,6 +7,8 @@
 
 #include "Runtime.h"
 
+//#include <iostream>
+
 namespace Core {
 
 static Runtime instance;
@@ -61,4 +63,4 @@ Runtime Runtime::getSingleton() {
 	return instance;
 }
 
-} /* namespace core */
+} /* namespace Core */

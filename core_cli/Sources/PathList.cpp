@@ -1,6 +1,10 @@
 // #include "Exception.h"
 #include "PathList.h"
 
+#include "Exception.h"
+
+//#include <iostream>
+
 #if defined __WIN32__ || _WIN32 && _MSC_VER
 #pragma warning (disable : 4996)
 #else
@@ -12,7 +16,7 @@
 
 namespace Core {
 
-static PathList instance;
+static PathList singletonPathList;
 std::string path;
 
 PathList::PathList() {
@@ -76,11 +80,11 @@ std::string PathList::getPath(const std::string &file/*, std::string &path*/) {
 }
 
 PathList* PathList::getSingletonPtr() {
-	return &instance;
+	return &singletonPathList;
 }
 
 PathList PathList::getSingleton() {
-	return instance;
+	return singletonPathList;
 }
 
 void PathList::print() {

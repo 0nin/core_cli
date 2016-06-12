@@ -1,9 +1,10 @@
 #ifndef _File_h_
 #define _File_h_
 
-#include <string>
-#include <list>
-#include <vector>
+#include "Common.h"
+
+//#include <string>
+//#include <vector>
 
 namespace Core {
 
@@ -17,24 +18,36 @@ protected:
 
 public:
 	TextFile();
+
 	TextFile(std::string fileName);
+
 	virtual ~TextFile();
 
 public:
 	void print();
+
 	virtual void write(std::string text);
+
 	virtual void clear();
+
 	static void write(std::string text, std::string fileName);
+
 	static void clear(std::string fileName);
-	template<class T> static std::string atos( /*double*/T real);
+
+	template <class T> static std::string atos(T _t);
+
 	void copyByStrokes();
+
 	void copyByStrokes(std::string fileName);
+
 	void copyByWords();
+
 	void copyByWords(std::string fileName);
+
 	virtual void bindFile(std::string fileName);
 };
 // class File;
-}
+} /* namespace Core */
 
-#endif // #ifndef _File_h_
+#endif // #ifndef _TextFile_h_
 

@@ -1,12 +1,13 @@
 #ifndef _Script_h_
 #define _Script_h_
 
-#include <map>
-#include <list>
-#include <vector>
+//#include <map>
+//#include <list>
+//#include <vector>
 
 //#include "Uncopy.h"
 #include "Common.h"
+
 #include "TextFile.h"
 
 namespace Core {

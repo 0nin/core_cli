@@ -8,7 +8,9 @@
 #ifndef SOURCE_LOG_H_
 #define SOURCE_LOG_H_
 
-#include "Uncopy.h"
+#include "Common.h"
+
+//#include "Uncopy.h"
 
 namespace Core {
 
@@ -16,6 +18,9 @@ class Log: public Uncopy {
 public:
 	Log();
 	virtual ~Log();
+
+	static Log getSingleton();
+	static Log* getSingletonPtr();
 };
 
 } /* namespace Core */

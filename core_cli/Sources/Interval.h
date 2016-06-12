@@ -9,7 +9,11 @@
 #define SOURCE_INTERVAL_H_
 
 #include "Common.h"
+
 #include "Uncopy.h"
+
+#include <string>
+#include <chrono>
 
 namespace Core {
 

@@ -2,6 +2,7 @@
 #define _Exception_h_
 
 #include "Common.h"
+
 #include "TextFile.h"
 //#include <string>
 //#include <iostream>

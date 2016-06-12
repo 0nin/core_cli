@@ -15,8 +15,8 @@ extern void eBox( std::string message, std::string caption){
 }
 #endif
 
-#include <stdlib.h>
-#include <iostream>
+//#include <stdlib.h>
+//#include <iostream>
 
 //using namespace std;
 //using namespace Core;

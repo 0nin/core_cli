@@ -1,10 +1,15 @@
 #include "Application.h"
 
 #include "Exception.h"
-#include "Global.h"
 #include "Library.h"
-#include "PathList.h"
 #include "Runtime.h"
+
+//#include <iostream>
+//#include "Exception.h"
+//#include "Global.h"
+//#include "Library.h"
+//#include "PathList.h"
+//#include "Runtime.h"
 
 namespace Core {
 
@@ -56,13 +61,12 @@ void Application::loop() {
 		} else if (in == "start") {
 			std::string x;
 			std::cin >> x;
-			tt->start (x);
+			tt->start(x);
 		} else if (in == "stop") {
 			std::string x;
 			std::cin >> x;
 			tt->stop(x);
-		}
-		else if (in == "time") {
+		} else if (in == "time") {
 			tt->print();
 		} else {
 			std::cout << "LOL:" << std::endl;

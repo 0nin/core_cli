@@ -6,6 +6,7 @@
 #endif
 
 #include "TextFile.h"
+
 #include "Exception.h"
 
 #include <sstream>
@@ -13,11 +14,12 @@
 #include <fstream>
 
 //using namespace std;
-using namespace Core;
+//using namespace Core;
 //using std::ofstream;
 //using std::fstream;
 //using std::std::string;
 
+namespace Core {
 
 void TextFile::write( std::string text, std::string fileName)
 {
@@ -125,3 +127,5 @@ template <class T> std::string TextFile::atos( T real){
     std::string str = strs.str();
     return str;
 }
+
+} /* namespace Core */
