@@ -15,8 +15,7 @@ namespace Core {
 /**
  *
  */
-class Library : public Table, public TextFile
-{
+class Library: public Table, public TextFile {
 protected:
 //	TextFile scriptCopy;
 	unsigned currentString;

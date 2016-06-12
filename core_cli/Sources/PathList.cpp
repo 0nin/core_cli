@@ -23,11 +23,11 @@ PathList::PathList() {
 	const char *env = getenv("PATH");
 
 	//search local paths first, in-case someone has the SDK installed while hacking another copy
-	_pathList.push_back("./");  // present directory
-	_pathList.push_back("../"); // back one
-	_pathList.push_back("../../"); // back two
+	pathList.push_back("./");  // present directory
+	pathList.push_back("../"); // back one
+	pathList.push_back("../../"); // back two
 	if (env) {
-		_pathList.push_back(std::string(env) + "/"); // Path lacks a terminating slash
+		pathList.push_back(std::string(env) + "/"); // Path lacks a terminating slash
 	}
 }
 
@@ -37,18 +37,18 @@ PathList::~PathList() {
 
 
 void PathList::addPath(const std::string &path) {
-	_pathList.push_back(path);
+	pathList.push_back(path);
 }
 
 void PathList::clearPaths() {
-	_pathList.clear();
+	pathList.clear();
 }
 
 std::string PathList::getFilePath(
 		const std::string &file/*, std::string &path*/) {
 	std::string pathString;
 
-	for (auto it = _pathList.begin(); it != _pathList.end(); it++) {
+	for (auto it = pathList.begin(); it != pathList.end(); it++) {
 		pathString = *it + file;
 		FILE *fp = fopen(pathString.c_str(), "rb");
 		if (fp) {
@@ -65,7 +65,7 @@ std::string PathList::getFilePath(
 std::string PathList::getPath(const std::string &file/*, std::string &path*/) {
 	std::string pathString;
 
-	for (auto it = _pathList.begin(); it != _pathList.end(); it++) {
+	for (auto it = pathList.begin(); it != pathList.end(); it++) {
 		pathString = *it + file;
 		FILE *fp = fopen(pathString.c_str(), "rb");
 		if (fp) {
@@ -88,7 +88,7 @@ PathList PathList::getSingleton() {
 }
 
 void PathList::print() {
-	for (auto it = _pathList.begin(); it != _pathList.end();
+	for (auto it = pathList.begin(); it != pathList.end();
 			it++) {
 		std::cout << *(it) << std::endl;
 	}

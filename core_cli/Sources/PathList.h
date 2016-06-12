@@ -31,8 +31,8 @@ public:
 
   virtual void print();
 
-private:
-  std::vector <std::string> _pathList;
+protected:
+  std::vector <std::string> pathList;
 }; // class PathList
 
 } /* namespace Core */
