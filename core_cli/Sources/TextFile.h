@@ -10,16 +10,21 @@ namespace Core {
 
 class Library;
 
+template <class T>
+extern std::string atos(T _t);
+
+
+
 class TextFile {
 protected:
 	std::string fileName;
-	std::vector<std::string> fileCopy;
-	friend class Library;
+	std::vector <std::string> fileCopy;
+//	friend class Library;
 
 public:
-	TextFile();
+	explicit TextFile();
 
-	TextFile(std::string fileName);
+	explicit TextFile(std::string fileName);
 
 	virtual ~TextFile();
 
@@ -34,7 +39,7 @@ public:
 
 	static void clear(std::string fileName);
 
-	template <class T> static std::string atos(T _t);
+
 
 	void copyByStrokes();
 

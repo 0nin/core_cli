@@ -102,7 +102,7 @@ void TextFile::print() {
 		std::cout << *(it) << " ";
 }
 
-template<class T> std::string TextFile::atos(T real) {
+template<class T> std::string atos(T real) {
 	std::ostringstream strs;
 	strs << real;
 	std::string str = strs.str();

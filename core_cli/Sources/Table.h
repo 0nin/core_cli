@@ -8,7 +8,8 @@
 #ifndef TABLE_H_
 #define TABLE_H_
 
-#include "Uncopy.h"
+//#include "Uncopy.h"
+#include "Common.h"
 
 namespace Core {
 
@@ -18,6 +19,10 @@ public:
 	virtual ~Table();
 
 //	virtual void add (std::string);
+protected:
+//	template <class T>
+	std::map <std::string, std::string> table;
+	std::map <std::string, double> values;
 };
 
 } /* namespace Core */

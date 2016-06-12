@@ -70,9 +70,14 @@ std::string Library::getParam(std::string param) {
 void Library::loadConfigFile(std::string fileName) {
 	currentFileName = fileName;
 	//scriptCopy.clear();
-	scriptCopy.copyByStrokes(fileName);
-	auto it = scriptCopy.fileCopy.begin(),
-			end = scriptCopy.fileCopy.end();
+//	scriptCopy.copyByStrokes(fileName);
+	copyByStrokes(fileName);
+//	auto it = scriptCopy.fileCopy.begin(),
+//			end = scriptCopy.fileCopy.end();
+//	for (; it != end; ++it) {
+//		configStroke(*(it));
+	auto it = this->fileCopy.begin(),
+			end = this->fileCopy.end();
 	for (; it != end; ++it) {
 		configStroke(*(it));
 		currentString++;
@@ -105,7 +110,8 @@ void Library::configStroke(std::string stroke) {
 }
 
 void Library::clear() {
-	scriptCopy.clear();
+//	scriptCopy.clear();
+	this->fileCopy.clear ();
 	table.clear();
 }
 
