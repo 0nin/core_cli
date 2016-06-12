@@ -80,7 +80,6 @@ void Library::loadConfigFile(std::string fileName) {
 }
 
 void Library::addParam(std::string x, std::string y) {
-//	table.insert(std::pair<std::string, std::string>(x, y));
 	table.insert(std::make_pair(x, y));
 }
 
@@ -97,13 +96,11 @@ void Library::configStroke(std::string stroke) {
 		ist >> x;
 		PathList::getSingletonPtr()->addPath(x);
 	}
-//     else if ()
-//     {
-//     }
+
 	else if (head == ":") {
 		ist >> x;
 		ist >> y;
-		table.insert(std::pair<std::string, std::string>(x, y));
+		table.insert(std::make_pair(x, y));
 	}
 }
 
@@ -117,9 +114,7 @@ void Library::printAllPaths() {
 }
 
 void Library::printAll() {
-//	printAllPaths();
-	for (auto it = table.begin();
-			it != table.end(); ++it) {
+	for (auto it = table.begin(); it != table.end(); ++it) {
 		std::cout << it->first << "  " << it->second << std::endl;
 	}
 }

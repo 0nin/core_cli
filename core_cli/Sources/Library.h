@@ -7,6 +7,7 @@
 
 //#include "Uncopy.h"
 #include "Common.h"
+#include "Table.h"
 
 #include "TextFile.h"
 
@@ -14,8 +15,7 @@ namespace Core {
 /**
  *
  */
-class Library
-//:public Uncopy
+class Library : public Table
 {
 protected:
 	TextFile scriptCopy;
