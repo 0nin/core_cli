@@ -8,7 +8,8 @@
 #ifndef CFGTABLE_H_
 #define CFGTABLE_H_
 
-#include "Uncopy.h"
+//#include "Uncopy.h"
+#include "Common.h"
 #include "Table.h"
 
 namespace Core {

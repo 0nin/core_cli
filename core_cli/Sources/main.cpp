@@ -15,10 +15,12 @@ INT WINAPI WinMain
 		_In_ LPSTR lpCmdLine,
 		_In_ int nShowCmd
 ) {
+	return _main();
+
 #else
 int main(int argc, char* args[]) {
-#endif
 	return _main(argc, args);
+#endif
 }
 
 #ifdef __cplusplus

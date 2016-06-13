@@ -13,6 +13,8 @@
 
 namespace Core {
 
+//static Application singletonApplication;
+
 #define errorNULL throw Exception( "null pointer");
 
 Application::Application(std::string path, std::string configFile) {
@@ -95,5 +97,13 @@ void Application::go() {
 	loop();
 	kill();
 }
+
+//Application* Application::getSingletonPtr() {
+//	return &singletonApplication;
+//}
+//
+//Application Application::getSingleton() {
+//	return singletonApplication;
+//}
 
 }

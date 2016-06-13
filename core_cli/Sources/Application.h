@@ -3,6 +3,7 @@
 
 #include "Common.h"
 
+#include "Engine.h"
 //#include "Uncopy.h"
 
 //#include <string>
@@ -11,9 +12,7 @@ namespace Core {
 /**
  * 
  */
-class Application
-:public Uncopy
-{
+class Application :public Engine {
 protected:
     bool _exit;
     std::string config;
@@ -22,15 +21,27 @@ public:
   /**
    * 
    */
-    Application (std::string path, std::string configFile);
+//    explicit Application ();
+
+    explicit Application (std::string path, std::string configFile);
+
     virtual ~Application ();
     
     virtual void init ();
+
     virtual void loop ();
+
     virtual void go ();
+
     virtual void handle (std::string msg);
+
     virtual void kill ();
+
     virtual void quit ();
+
+//    static Application* getSingletonPtr();
+//
+//    static Application getSingleton();
 }; // class Application
 
 }
