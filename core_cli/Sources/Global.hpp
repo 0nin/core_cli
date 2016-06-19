@@ -7,7 +7,7 @@
 #define PLATFORM UNIX
 #endif
 
-#include "Common.h"
+#include "Common.hpp"
 
 extern int _main(int argc, char* args[]);
 

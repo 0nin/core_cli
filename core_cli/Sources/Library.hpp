@@ -6,10 +6,9 @@
 //#include <vector>
 
 //#include "Uncopy.h"
-#include "Common.h"
-#include "Table.h"
-
-#include "TextFile.h"
+#include "Common.hpp"
+#include "Table.hpp"
+#include "TextFile.hpp"
 
 namespace Core {
 /**

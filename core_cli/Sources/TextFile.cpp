@@ -5,7 +5,7 @@
 //
 #endif
 
-#include "TextFile.h"
+#include "TextFile.hpp"
 
 #include "Exception.h"
 

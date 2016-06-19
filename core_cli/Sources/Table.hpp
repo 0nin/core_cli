@@ -5,11 +5,11 @@
  *      Author: avs
  */
 
-#ifndef TABLE_H_
-#define TABLE_H_
+#ifndef TABLE_HPP_
+#define TABLE_HPP_
 
 //#include "Uncopy.h"
-#include "Common.h"
+#include "Common.hpp"
 
 namespace Core {
 
@@ -27,4 +27,4 @@ protected:
 
 } /* namespace Core */
 
-#endif /* TABLE_H_ */
+#endif /* TABLE_HPP_ */

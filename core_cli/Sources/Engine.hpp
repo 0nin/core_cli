@@ -5,10 +5,10 @@
  *      Author: avs
  */
 
-#ifndef ENGINE_H_
-#define ENGINE_H_
+#ifndef ENGINE_HPP_
+#define ENGINE_HPP_
 
-#include "Common.h"
+#include "Common.hpp"
 //#include "Uncopy.h"
 
 namespace Core {
@@ -23,4 +23,4 @@ protected:
 
 } /* namespace Core */
 
-#endif /* ENGINE_H_ */
+#endif /* ENGINE_HPP_ */

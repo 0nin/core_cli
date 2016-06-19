@@ -5,7 +5,7 @@
  *      Author: avs
  */
 
-#include "Log.h"
+#include "Log.hpp"
 
 namespace Core {
 

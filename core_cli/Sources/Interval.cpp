@@ -5,7 +5,7 @@
  *      Author: avs
  */
 
-#include "Interval.h"
+#include "Interval.hpp"
 
 namespace Core {
 

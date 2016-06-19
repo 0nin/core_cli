@@ -8,7 +8,7 @@
 #ifndef SOURCE_LOG_H_
 #define SOURCE_LOG_H_
 
-#include "Common.h"
+#include "Common.hpp"
 
 //#include "Uncopy.h"
 

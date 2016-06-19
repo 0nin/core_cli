@@ -1,9 +1,8 @@
 #ifndef _Application_h_
 #define _Application_h_
 
-#include "Common.h"
-
-#include "Engine.h"
+#include "Common.hpp"
+#include "Engine.hpp"
 //#include "Uncopy.h"
 
 //#include <string>

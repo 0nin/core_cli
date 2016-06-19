@@ -11,13 +11,13 @@
 //#include "Common.h"
 //#include "Interval.h"
 
-#include "Interval.h"
-#include "Common.h"
-#include "Log.h"
-
 #include <string>
 #include <chrono>
 #include <map>
+
+#include "Common.hpp"
+#include "Interval.hpp"
+#include "Log.hpp"
 
 namespace Core {
 

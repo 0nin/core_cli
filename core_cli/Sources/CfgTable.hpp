@@ -5,12 +5,12 @@
  *      Author: avs
  */
 
-#ifndef CFGTABLE_H_
-#define CFGTABLE_H_
+#ifndef CFGTABLE_HPP_
+#define CFGTABLE_HPP_
 
 //#include "Uncopy.h"
-#include "Common.h"
-#include "Table.h"
+#include "Common.hpp"
+#include "Table.hpp"
 
 namespace Core {
 
@@ -22,4 +22,4 @@ public:
 
 } /* namespace Core */
 
-#endif /* CFGTABLE_H_ */
+#endif /* CFGTABLE_HPP_ */

@@ -1,6 +1,6 @@
 #include "Exception.h"
 
-#include "TextFile.h"
+#include "TextFile.hpp"
 
 #if defined __WIN32__ || _WIN32 && defined _MSC_VER
 #define WIN32_LEAN_AND_MEAN

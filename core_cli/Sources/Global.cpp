@@ -1,6 +1,7 @@
-#include "Application.h"
+#include "Global.hpp"
+
 #include "Exception.h"
-#include "Global.h"
+#include "Application.hpp"
 
 extern int _main(int argc=0, char* args[]=nullptr) {
 	try {

@@ -1,4 +1,4 @@
-#include "Global.h"
+#include "Global.hpp"
 
 #ifdef __cplusplus
 extern "C" {

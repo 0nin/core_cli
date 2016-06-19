@@ -8,10 +8,6 @@
 #ifndef _common_h_
 #define _common_h_
 
-#include "Uncopy.h"
-//#include "Exception.h"
-//#include "Log.h"
-//
 #include <string>
 #include <vector>
 #include <map>
@@ -19,6 +15,7 @@
 #include <iostream>
 //#include <stdio.h>
 #include <stdlib.h>
+#include "Uncopy.hpp"
 
 #ifdef DEBUG
 	#define ENABLE_RUNTIME

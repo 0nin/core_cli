@@ -1,8 +1,8 @@
-#include "Application.h"
+#include "Application.hpp"
 
 #include "Exception.h"
-#include "Library.h"
-#include "Runtime.h"
+#include "Library.hpp"
+#include "Runtime.hpp"
 
 //#include <iostream>
 //#include "Exception.h"

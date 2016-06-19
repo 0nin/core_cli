@@ -1,9 +1,8 @@
 #ifndef _Exception_h_
 #define _Exception_h_
 
-#include "Common.h"
-
-#include "TextFile.h"
+#include "Common.hpp"
+#include "TextFile.hpp"
 //#include <string>
 //#include <iostream>
 //#include <exception>
