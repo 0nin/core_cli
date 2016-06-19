@@ -10,30 +10,30 @@
 
 namespace Core {
 
-class PathList : public Uncopy
-{
+class PathList {
 public:
-  explicit PathList();
+	explicit PathList();
 
-  virtual ~PathList ();
+	virtual ~PathList();
 
-  virtual void addPath(const std::string &path);
+	virtual void addPath(const std::string &path);
 
-  virtual void clearPaths();
+	virtual void clearPaths();
 
-  virtual std::string getFilePath(const std::string &fileName);
+	virtual std::string getFilePath(const std::string &fileName);
 
-  virtual std::string getPath(const std::string &fileName);
+	virtual std::string getPath(const std::string &fileName);
 
-  static PathList* getSingletonPtr();
+	static PathList* getSingletonPtr();
 
-  static PathList getSingleton();
+	static PathList getSingleton();
 
-  virtual void print();
+	virtual void print();
 
 protected:
-  std::vector <std::string> pathList;
-}; // class PathList
+	std::vector<std::string> pathList;
+};
+// class PathList
 
 } /* namespace Core */
 #endif // _PathList_h_

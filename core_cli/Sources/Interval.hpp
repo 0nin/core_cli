@@ -12,13 +12,12 @@
 #include <chrono>
 
 #include "Common.hpp"
-#include "Uncopy.hpp"
 
 namespace Core {
 
 class Runtime;
 
-class Interval: public Uncopy {
+class Interval {
 public:
 	friend class Core::Runtime;
 

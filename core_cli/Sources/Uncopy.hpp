@@ -11,9 +11,11 @@ public:
 		//empty
 	}
 
-//private:
-//	Uncopy(const Uncopy& s);
-//	Uncopy& operator=(const Uncopy& s);
+private:
+	Uncopy(const Uncopy&) = delete;
+	Uncopy(Uncopy&&) = delete;
+	Uncopy& operator =(Uncopy) = delete;
+	Uncopy& operator =(Uncopy&&) = delete;
 };
 // class Uncopy;
 

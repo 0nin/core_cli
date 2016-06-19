@@ -14,7 +14,7 @@
 
 namespace Core {
 
-class Log: public Uncopy {
+class Log {
 public:
 	Log();
 	virtual ~Log();

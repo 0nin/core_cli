@@ -13,7 +13,7 @@
 
 namespace Core {
 
-class Engine: public Uncopy {
+class Engine {
 public:
 	explicit Engine();
 	virtual ~Engine();

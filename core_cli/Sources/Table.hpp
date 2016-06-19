@@ -13,7 +13,7 @@
 
 namespace Core {
 
-class Table: public Uncopy {
+class Table {
 public:
 	explicit Table();
 	virtual ~Table();

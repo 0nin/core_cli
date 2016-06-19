@@ -14,7 +14,7 @@
 
 namespace Core {
 
-class CfgTable: public Uncopy {
+class CfgTable {
 public:
 	explicit CfgTable();
 	virtual ~CfgTable();
