@@ -52,15 +52,18 @@ unsigned calc(const std::vector<std::string> & input) {
     return 0;
 }
 
+//int main(int argc, char *args[]) {
+//		try {
+//			Core::Application* app = new Core::Application("path.sc", "config.sc");
+//			app->go();
+//		} catch (Core::Exception& e) {
+//			Core::Exception::die(e.getDescription(), std::string("error.log"));
+//			return 1;
+//		}
+//		return 0;
+//}
+
 int main(int argc, char* args[]) {
-//	try {
-//		Core::Application* app = new Core::Application("path.sc", "config.sc");
-//		app->go();
-//	} catch (Core::Exception& e) {
-//		Core::Exception::die(e.getDescription(), std::string("error.log"));
-//		return 1;
-//	}
-//	return 0;
     // We create a console. The '>' character is used as the prompt.
     // Note that multiple Consoles can exist at once, as they automatically
     // manage the underlying global readline state.
