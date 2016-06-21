@@ -3,7 +3,7 @@
 #include "Exception.h"
 #include "Application.hpp"
 
-extern int _main(int argc=0, char* args[]=nullptr) {
+int main(int argc, char* args[]) {
 	try {
 		Core::Application* app = new Core::Application("path.sc", "config.sc");
 		app->go();

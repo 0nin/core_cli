@@ -9,6 +9,6 @@
 
 #include "Common.hpp"
 
-extern int _main(int argc, char* args[]);
+//extern int _main(int argc, char* args[]);
 
 #endif
