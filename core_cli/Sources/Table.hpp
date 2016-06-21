@@ -21,8 +21,8 @@ public:
 //	virtual void add (std::string);
 protected:
 //	template <class T>
-	std::map <std::string, std::string> table;
-	std::map <std::string, double> values;
+	std::map<std::string, std::string> table;
+	std::map<std::string, double> values;
 };
 
 } /* namespace Core */
