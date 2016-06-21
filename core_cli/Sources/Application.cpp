@@ -13,6 +13,8 @@
 
 namespace Core {
 
+using namespace CppReadline;
+
 //static Application singletonApplication;
 
 #define errorNULL throw Exception( "null pointer");
