@@ -1,11 +1,6 @@
 #ifndef _Script_h_
 #define _Script_h_
 
-//#include <map>
-//#include <list>
-//#include <vector>
-
-//#include "Uncopy.h"
 #include "Common.hpp"
 #include "Table.hpp"
 #include "TextFile.hpp"

@@ -7,7 +7,7 @@
 
 #include "TextFile.hpp"
 
-#include "Exception.h"
+#include "Exception.hpp"
 
 #include <sstream>
 #include <fstream>

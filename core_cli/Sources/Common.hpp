@@ -11,11 +11,8 @@
 #include <string>
 #include <vector>
 #include <map>
-//#include <cstdlib>
 #include <iostream>
-//#include <stdio.h>
 #include <stdlib.h>
-//#include "Uncopy.hpp"
 
 #ifdef DEBUG
 	#define ENABLE_RUNTIME

@@ -3,9 +3,6 @@
 
 #include "Common.hpp"
 #include "TextFile.hpp"
-//#include <string>
-//#include <iostream>
-//#include <exception>
 
 namespace Core {
 

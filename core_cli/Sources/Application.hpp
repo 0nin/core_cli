@@ -6,8 +6,6 @@
 #include "Console.hpp"
 #include "Uncopy.hpp"
 
-//#include <string>
-
 namespace Core {
 /**
  * 

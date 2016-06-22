@@ -5,10 +5,10 @@
 #include <iostream>
 #include <sstream>
 #include <time.h>
-#include "Exception.h"
+
+#include "Exception.hpp"
 #include "PathList.hpp"
 
-//using namespace Core;
 
 namespace Core {
 

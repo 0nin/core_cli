@@ -3,10 +3,6 @@
 
 #include "Common.hpp"
 
-//#include "Uncopy.h"
-
-//#include <string>
-//#include <vector>
 
 namespace Core {
 

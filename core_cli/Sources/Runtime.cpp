@@ -7,8 +7,6 @@
 
 #include "Runtime.hpp"
 
-//#include <iostream>
-
 namespace Core {
 
 static Runtime instance;

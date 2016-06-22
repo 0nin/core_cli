@@ -8,7 +8,6 @@
 #ifndef CFGTABLE_HPP_
 #define CFGTABLE_HPP_
 
-//#include "Uncopy.hpp"
 #include "Common.hpp"
 #include "Table.hpp"
 

@@ -11,8 +11,6 @@
 #include "Common.hpp"
 #include "TextFile.hpp"
 
-//#include "Uncopy.h"
-
 namespace Core {
 
 class Log : public Core::TextFile {

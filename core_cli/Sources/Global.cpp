@@ -1,8 +1,8 @@
 #include "Global.hpp"
 
-#include "Exception.h"
 #include "Application.hpp"
 #include "Console.hpp"
+#include "Exception.hpp"
 
 namespace cr = CppReadline;
 using ret = cr::Console::ReturnCode;

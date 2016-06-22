@@ -1,18 +1,9 @@
 #include "Application.hpp"
 
-#include "Exception.h"
 #include "Library.hpp"
 #include "Runtime.hpp"
 #include "Console.hpp"
-
-
-
-//#include <iostream>
-//#include "Exception.h"
-//#include "Global.h"
-//#include "Library.h"
-//#include "PathList.h"
-//#include "Runtime.h"
+#include "Exception.hpp"
 
 namespace Core {
 
