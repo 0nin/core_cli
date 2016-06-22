@@ -1,23 +1,12 @@
 // #include "Exception.h"
-#include "PathList.h"
+#include "PathList.hpp"
 
 #include "Exception.h"
-
-//#include <iostream>
-
-#if defined __WIN32__ || _WIN32 && _MSC_VER
-#pragma warning (disable : 4996)
-#else
-//
-#endif
-
-//using namespace std;
-//using namespace Core;
 
 namespace Core {
 
 static PathList singletonPathList;
-std::string path;
+//std::string path;
 
 PathList::PathList() {
 	const char *env = getenv("PATH");
@@ -41,11 +30,12 @@ void PathList::addPath(const std::string &path) {
 }
 
 void PathList::clearPaths() {
-	pathList.clear();
+	if (!pathList.empty()) {
+		pathList.clear();
+	}
 }
 
-std::string PathList::getFilePath(
-		const std::string &file/*, std::string &path*/) {
+std::string PathList::getFilePath(const std::string &file) {
 	std::string pathString;
 
 	for (auto it = pathList.begin(); it != pathList.end(); it++) {
@@ -54,15 +44,16 @@ std::string PathList::getFilePath(
 		if (fp) {
 			fclose(fp);
 			path = pathString;
-			//return true;
+			pathString.clear();
 			return path;
 		}
 	}
+	pathString.clear();
 	throw Exception("File with name " + file + " doesn't exist;");
-	//return false;
+	return "";
 }
 
-std::string PathList::getPath(const std::string &file/*, std::string &path*/) {
+std::string PathList::getPath(const std::string &file) {
 	std::string pathString;
 
 	for (auto it = pathList.begin(); it != pathList.end(); it++) {
@@ -88,8 +79,7 @@ PathList PathList::getSingleton() {
 }
 
 void PathList::print() {
-	for (auto it = pathList.begin(); it != pathList.end();
-			it++) {
+	for (auto it = pathList.begin(); it != pathList.end(); it++) {
 		std::cout << *(it) << std::endl;
 	}
 }

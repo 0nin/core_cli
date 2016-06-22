@@ -9,12 +9,13 @@
 #define SOURCE_LOG_H_
 
 #include "Common.hpp"
+#include "TextFile.hpp"
 
 //#include "Uncopy.h"
 
 namespace Core {
 
-class Log {
+class Log : public Core::TextFile {
 public:
 	Log();
 	virtual ~Log();

@@ -18,7 +18,16 @@ public:
 	explicit Engine();
 	virtual ~Engine();
 
-protected:
+//protected:
+	virtual void init() = 0;
+
+	virtual void loop() = 0;
+
+	virtual void kill() = 0;
+
+	virtual void quit() = 0;
+
+	void go();
 };
 
 } /* namespace Core */

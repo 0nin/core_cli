@@ -31,6 +31,7 @@ public:
 	virtual void print();
 
 protected:
+	std::string path;
 	std::vector<std::string> pathList;
 };
 // class PathList

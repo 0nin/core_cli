@@ -18,6 +18,7 @@
 #include "Common.hpp"
 #include "Interval.hpp"
 #include "Log.hpp"
+#include "Uncopy.hpp"
 
 namespace Core {
 

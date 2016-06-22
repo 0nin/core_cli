@@ -4,7 +4,7 @@
 #include "Common.hpp"
 #include "Engine.hpp"
 #include "Console.hpp"
-//#include "Uncopy.h"
+#include "Uncopy.hpp"
 
 //#include <string>
 
@@ -12,7 +12,7 @@ namespace Core {
 /**
  * 
  */
-class Application :public Engine {
+class Application :public Engine, public CppReadline::Console, public Uncopy {
 protected:
     bool _exit;
     std::string config;
@@ -27,21 +27,17 @@ public:
 
     virtual ~Application ();
     
-    virtual void init ();
+    void init ();
 
-    virtual void loop ();
+    void loop ();
 
-    virtual void go ();
-
-    virtual void handle (std::string msg);
-
-    virtual void kill ();
+//    void go ();
+//
+    void handle (std::string msg);
+//
+    void kill ();
 
     virtual void quit ();
-
-//    static Application* getSingletonPtr();
-//
-//    static Application getSingleton();
 }; // class Application
 
 }

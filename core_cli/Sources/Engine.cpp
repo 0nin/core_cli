@@ -18,4 +18,11 @@ Engine::~Engine() {
 	// TODO Auto-generated destructor stub
 }
 
+void Engine::go() {
+	init();
+	loop();
+	kill();
+
+}
+
 } /* namespace Core */

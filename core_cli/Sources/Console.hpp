@@ -45,7 +45,7 @@ public:
 	 *
 	 * Frees the history which is been produced by GNU readline.
 	 */
-	~Console();
+	virtual ~Console();
 
 	/**
 	 * @brief This function registers a new command within the Console.
@@ -106,10 +106,10 @@ public:
 	 */
 	int readLine();
 private:
-	Console(const Console&) = delete;
-	Console(Console&&) = delete;
-	Console& operator =(Console const&) = delete;
-	Console& operator =(Console&&) = delete;
+//	Console(const Console&) = delete;
+//	Console(Console&&) = delete;
+//	Console& operator =(Console const&) = delete;
+//	Console& operator =(Console&&) = delete;
 
 	struct Impl;
 	using PImpl = ::std::unique_ptr<Impl>;

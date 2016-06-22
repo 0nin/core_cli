@@ -35,15 +35,16 @@ TextFile::TextFile() {
 		this->fileName.clear();
 }
 
-TextFile::TextFile(std::string fileName) {
-	bindFile(fileName);
+TextFile::TextFile(std::string fileName) :
+		fileCopy() {
+	attachFile(fileName);
 }
 
 TextFile::~TextFile() {
 	return;
 }
 
-void TextFile::bindFile(std::string fileName) {
+void TextFile::attachFile(std::string fileName) {
 	this->fileName = fileName;
 	std::fstream m_stream;
 	m_stream.open(fileName.c_str());

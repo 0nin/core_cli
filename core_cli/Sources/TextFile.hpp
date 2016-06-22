@@ -8,7 +8,7 @@
 
 namespace Core {
 
-class Library;
+//class Library;
 
 template <class T>
 extern std::string atos(T _t);
@@ -18,7 +18,7 @@ extern std::string atos(T _t);
 class TextFile {
 protected:
 	std::string fileName;
-	std::vector <std::string> fileCopy;
+	std::vector<std::string> fileCopy;
 //	friend class Library;
 
 public:
@@ -39,8 +39,6 @@ public:
 
 	static void clear(std::string fileName);
 
-
-
 	void copyByStrokes();
 
 	void copyByStrokes(std::string fileName);
@@ -49,7 +47,7 @@ public:
 
 	void copyByWords(std::string fileName);
 
-	virtual void bindFile(std::string fileName);
+	virtual void attachFile(std::string fileName);
 };
 // class File;
 } /* namespace Core */

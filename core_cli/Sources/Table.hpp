@@ -10,6 +10,7 @@
 
 //#include "Uncopy.h"
 #include "Common.hpp"
+#include "Uncopy.hpp"
 
 namespace Core {
 
