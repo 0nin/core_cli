@@ -7,60 +7,67 @@
 namespace cr = CppReadline;
 using ret = cr::Console::ReturnCode;
 
-unsigned info(const std::vector<std::string> &) {
-    std::cout << "Welcome to the example console. This command does not really\n"
-              << "do anything aside from printing this statement. Thus it does\n"
-              << "not need to look into the arguments that are passed to it.\n";
-    return ret::Ok;
+unsigned info(const std::vector<std::string> &)
+{
+	std::cout
+			<< "Welcome to the example console. This command does not really\n"
+			<< "do anything aside from printing this statement. Thus it does\n"
+			<< "not need to look into the arguments that are passed to it.\n";
+	return ret::Ok;
 }
 
 // In this command we implement a basic calculator
-unsigned calc(const std::vector<std::string> & input) {
-    if ( input.size() != 4 ) {
-        // The first element of the input array is always the name of the
-        // command as registered in the console.
-        std::cout << "Usage: " << input[0] << " num1 operator num2\n";
-        // We can return an arbitrary error code, which we can catch later
-        // as Console will return it.
-        return 1;
-    }
-    double num1 = std::stod(input[1]),
-           num2 = std::stod(input[3]);
+unsigned calc(const std::vector<std::string> & input)
+{
+	if (input.size() != 4)
+	{
+		// The first element of the input array is always the name of the
+		// command as registered in the console.
+		std::cout << "Usage: " << input[0] << " num1 operator num2\n";
+		// We can return an arbitrary error code, which we can catch later
+		// as Console will return it.
+		return 1;
+	}
+	double num1 = std::stod(input[1]), num2 = std::stod(input[3]);
 
-    char op = input[2][0];
+	char op = input[2][0];
 
-    double result;
-    switch ( op ) {
-        case '*':
-            result = num1 * num2;
-            break;
-        case '+':
-            result = num1 + num2;
-            break;
-        case '/':
-            result = num1 / num2;
-            break;
-        case '-':
-            result = num1 - num2;
-            break;
-        default:
-            std::cout << "The inserted operator is not supported\n";
-            // Again, we can return an arbitrary error code to catch it later.
-            return 2;
-    }
-    std::cout << "Result: " << result << '\n';
-    return 0;
+	double result;
+	switch (op)
+	{
+	case '*':
+		result = num1 * num2;
+		break;
+	case '+':
+		result = num1 + num2;
+		break;
+	case '/':
+		result = num1 / num2;
+		break;
+	case '-':
+		result = num1 - num2;
+		break;
+	default:
+		std::cout << "The inserted operator is not supported\n";
+		// Again, we can return an arbitrary error code to catch it later.
+		return 2;
+	}
+	std::cout << "Result: " << result << '\n';
+	return 0;
 }
 
-int main(int argc, char *args[]) {
-		try {
-			Core::Application* app = new Core::Application("path.sc", "config.sc");
-			app->go();
-		} catch (Core::Exception& e) {
-			Core::Exception::die(e.getDescription(), std::string("error.log"));
-			return 1;
-		}
-		return 0;
+int main(int argc, char *args[])
+{
+	try
+	{
+		Core::Application* app = new Core::Application("path.sc", "config.sc");
+		app->go();
+	} catch (Core::Exception& e)
+	{
+		Core::Exception::die(e.getDescription(), std::string("error.log"));
+		return 1;
+	}
+	return 0;
 }
 //
 //int main(int argc, char* args[]) {

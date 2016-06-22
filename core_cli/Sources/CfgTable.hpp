@@ -11,9 +11,11 @@
 #include "Common.hpp"
 #include "Table.hpp"
 
-namespace Core {
+namespace Core
+{
 
-class CfgTable {
+class CfgTable
+{
 public:
 	explicit CfgTable();
 	virtual ~CfgTable();

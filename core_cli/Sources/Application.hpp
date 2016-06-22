@@ -6,37 +6,39 @@
 #include "Console.hpp"
 #include "Uncopy.hpp"
 
-namespace Core {
+namespace Core
+{
 /**
  * 
  */
-class Application :public Engine, public CppReadline::Console, public Uncopy {
+class Application: public Engine, public CppReadline::Console, public Uncopy
+{
 protected:
-    bool _exit;
-    std::string config;
-    std::string path;
+	bool _exit;
+	std::string config;
+	std::string path;
 public:
-  /**
-   * 
-   */
+	/**
+	 *
+	 */
 //    explicit Application ();
+	explicit Application(std::string path, std::string configFile);
 
-    explicit Application (std::string path, std::string configFile);
+	virtual ~Application();
 
-    virtual ~Application ();
-    
-    void init ();
+	void init();
 
-    void loop ();
+	void loop();
 
 //    void go ();
 //
-    void handle (std::string msg);
+	void handle(std::string msg);
 //
-    void kill ();
+	void kill();
 
-    virtual void quit ();
-}; // class Application
+	virtual void quit();
+};
+// class Application
 
 }
 #endif // #ifndef _Application_h_

@@ -7,14 +7,17 @@
 
 #include "Table.hpp"
 
-namespace Core {
+namespace Core
+{
 
-Table::Table() {
+Table::Table()
+{
 	// TODO Auto-generated constructor stub
 
 }
 
-Table::~Table() {
+Table::~Table()
+{
 	// TODO Auto-generated destructor stub
 }
 

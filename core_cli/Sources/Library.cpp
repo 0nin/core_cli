@@ -9,8 +9,8 @@
 #include "Exception.hpp"
 #include "PathList.hpp"
 
-
-namespace Core {
+namespace Core
+{
 
 static Library singletonManager;
 
@@ -32,14 +32,16 @@ static const std::string errorConvert = "Can't convert to: ";
 #define OUT std::cout<<
 #define IGNORE ;
 
-template<class T> std::string atos(T real) {
+template<class T> std::string atos(T real)
+{
 	std::ostringstream strs;
 	strs << real;
 	std::string str = strs.str();
 	return str;
 }
 
-bool stob(std::string str) {
+bool stob(std::string str)
+{
 	if (str == "true" || str == "TRUE" || str == "1")
 		return true;
 	else if (str == "false" || str == "FALSE" || str == "0")
@@ -48,26 +50,32 @@ bool stob(std::string str) {
 		ERRCONVERT
 }
 
-Library::Library() {
+Library::Library()
+{
 	currentString = 1;
 }
 
-Library::~Library() {
+Library::~Library()
+{
 }
 
-Library Library::getSingleton() {
+Library Library::getSingleton()
+{
 	return singletonManager;
 }
 
-Library* Library::getSingletonPtr() {
+Library* Library::getSingletonPtr()
+{
 	return &singletonManager;
 }
 
-std::string Library::getParam(std::string param) {
+std::string Library::getParam(std::string param)
+{
 	return table.at(param);
 }
 
-void Library::loadConfigFile(std::string fileName) {
+void Library::loadConfigFile(std::string fileName)
+{
 	currentFileName = fileName;
 	//scriptCopy.clear();
 //	scriptCopy.copyByStrokes(fileName);
@@ -76,19 +84,21 @@ void Library::loadConfigFile(std::string fileName) {
 //			end = scriptCopy.fileCopy.end();
 //	for (; it != end; ++it) {
 //		configStroke(*(it));
-	auto it = this->fileCopy.begin(),
-			end = this->fileCopy.end();
-	for (; it != end; ++it) {
+	auto it = this->fileCopy.begin(), end = this->fileCopy.end();
+	for (; it != end; ++it)
+	{
 		configStroke(*(it));
 		currentString++;
 	}
 }
 
-void Library::addParam(std::string x, std::string y) {
+void Library::addParam(std::string x, std::string y)
+{
 	table.insert(std::make_pair(x, y));
 }
 
-void Library::configStroke(std::string stroke) {
+void Library::configStroke(std::string stroke)
+{
 	std::istringstream ist(stroke);
 	std::string head = "", x = "", y = "", z = "", add = currentSpace
 			+ currentClaster;
@@ -97,30 +107,36 @@ void Library::configStroke(std::string stroke) {
 		return;
 	else if (head[0] == '#')
 		return;
-	else if (head == "path" || head == "PATH") {
+	else if (head == "path" || head == "PATH")
+	{
 		ist >> x;
 		PathList::getSingletonPtr()->addPath(x);
 	}
 
-	else if (head == ":") {
+	else if (head == ":")
+	{
 		ist >> x;
 		ist >> y;
 		table.insert(std::make_pair(x, y));
 	}
 }
 
-void Library::clear() {
+void Library::clear()
+{
 //	scriptCopy.clear();
-	this->fileCopy.clear ();
+	this->fileCopy.clear();
 	table.clear();
 }
 
-void Library::printAllPaths() {
+void Library::printAllPaths()
+{
 	PathList::getSingletonPtr()->print();
 }
 
-void Library::printAll() {
-	for (auto it = table.begin(); it != table.end(); ++it) {
+void Library::printAll()
+{
+	for (auto it = table.begin(); it != table.end(); ++it)
+	{
 		std::cout << it->first << "  " << it->second << std::endl;
 	}
 }

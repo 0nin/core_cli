@@ -1,13 +1,17 @@
 #ifndef _Uncopy_h_
 #define _Uncopy_h_
 
-namespace Core {
-class Uncopy {
+namespace Core
+{
+class Uncopy
+{
 public:
-	explicit Uncopy() {
+	explicit Uncopy()
+	{
 		//empty
 	}
-	virtual ~Uncopy() {
+	virtual ~Uncopy()
+	{
 		//empty
 	}
 

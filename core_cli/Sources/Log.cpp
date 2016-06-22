@@ -7,23 +7,28 @@
 
 #include "Log.hpp"
 
-namespace Core {
+namespace Core
+{
 
 static Log singletonLog;
 
-Log::Log() {
+Log::Log()
+{
 	// TODO Auto-generated constructor stub
 
 }
 
-Log::~Log() {
+Log::~Log()
+{
 	// TODO Auto-generated destructor stub
 }
 
-Log getSingleton() {
+Log getSingleton()
+{
 	return singletonLog;
 }
-Log* getSingletonPtr() {
+Log* getSingletonPtr()
+{
 	return &singletonLog;
 }
 

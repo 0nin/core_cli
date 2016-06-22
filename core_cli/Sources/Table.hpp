@@ -11,9 +11,11 @@
 #include "Common.hpp"
 #include "Uncopy.hpp"
 
-namespace Core {
+namespace Core
+{
 
-class Table {
+class Table
+{
 public:
 	explicit Table();
 	virtual ~Table();

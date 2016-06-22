@@ -7,14 +7,17 @@
 
 #include "CfgTable.hpp"
 
-namespace Core {
+namespace Core
+{
 
-CfgTable::CfgTable() {
+CfgTable::CfgTable()
+{
 	// TODO Auto-generated constructor stub
 
 }
 
-CfgTable::~CfgTable() {
+CfgTable::~CfgTable()
+{
 	// TODO Auto-generated destructor stub
 }
 

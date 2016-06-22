@@ -6,8 +6,10 @@
 #include <vector>
 #include <memory>
 
-namespace CppReadline {
-class Console {
+namespace CppReadline
+{
+class Console
+{
 public:
 	/**
 	 * @brief This is the function type that is used to interface with the Console class.
@@ -21,7 +23,8 @@ public:
 	using Arguments = std::vector<std::string>;
 	using CommandFunction = std::function<int(const Arguments &)>;
 
-	enum ReturnCode {
+	enum ReturnCode
+	{
 		Quit = -1, Ok = 0, Error = 1 // Or greater!
 	};
 

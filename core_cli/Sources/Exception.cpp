@@ -5,12 +5,14 @@
 #if defined __WIN32__ || _WIN32
 #define WIN32_LEAN_AND_MEAN
 #include <Windows.h>
-extern void eBox( std::string message, std::string caption) {
+extern void eBox( std::string message, std::string caption)
+{
 	MessageBox(NULL, message.c_str(), caption.c_str(), MB_ICONERROR);
 	return;
 }
 #else
-extern void eBox(std::string message, std::string caption) {
+extern void eBox(std::string message, std::string caption)
+{
 	return;
 }
 #endif
@@ -21,9 +23,11 @@ extern void eBox(std::string message, std::string caption) {
 //using namespace std;
 //using namespace Core;
 
-namespace Core {
+namespace Core
+{
 
-void Exception::die(std::string msg, std::string t_errorlog) {
+void Exception::die(std::string msg, std::string t_errorlog)
+{
 	std::string str = "mp::Exception: " + msg + " " + ";\n";
 	std::cout << str;
 	TextFile::write(str, t_errorlog);
@@ -32,32 +36,37 @@ void Exception::die(std::string msg, std::string t_errorlog) {
 	exit(1);
 }
 
-void Exception::error(std::string msg, std::string t_errorlog) {
+void Exception::error(std::string msg, std::string t_errorlog)
+{
 	std::string str = "mp::Exception: " + msg + " " + ";\n";
 	std::cout << str;
 	TextFile::write(str, t_errorlog);
 	eBox(msg, "Exception");
 }
 
-Exception::Exception(const std::string dsc) {
+Exception::Exception(const std::string dsc)
+{
 	description = dsc;
 }
 
-Exception::~Exception() {
+Exception::~Exception()
+{
 }
 
-std::string Exception::getDescription() {
+std::string Exception::getDescription()
+{
 	return description;
 
 }
 
-ExceptionNoFile::ExceptionNoFile (const std::string fileName) :
-	Exception(fileName){
+ExceptionNoFile::ExceptionNoFile(const std::string fileName) :
+		Exception(fileName)
+{
 
 }
-ExceptionNoFile::~ExceptionNoFile(){
+ExceptionNoFile::~ExceptionNoFile()
+{
 
 }
-
 
 } /* namespace Core */

@@ -5,56 +5,60 @@
 #include "Console.hpp"
 #include "Exception.hpp"
 
-namespace Core {
+namespace Core
+{
 
 namespace cr = CppReadline;
 using ret = cr::Console::ReturnCode;
 
-unsigned info(const std::vector<std::string> &) {
-    std::cout << "Welcome to the example console. This command does not really\n"
-              << "do anything aside from printing this statement. Thus it does\n"
-              << "not need to look into the arguments that are passed to it.\n";
-    return ret::Ok;
+unsigned info(const std::vector<std::string> &)
+{
+	std::cout
+			<< "Welcome to the example console. This command does not really\n"
+			<< "do anything aside from printing this statement. Thus it does\n"
+			<< "not need to look into the arguments that are passed to it.\n";
+	return ret::Ok;
 }
 
 // In this command we implement a basic calculator
-unsigned calc(const std::vector<std::string> & input) {
-    if ( input.size() != 4 ) {
-        // The first element of the input array is always the name of the
-        // command as registered in the console.
-        std::cout << "Usage: " << input[0] << " num1 operator num2\n";
-        // We can return an arbitrary error code, which we can catch later
-        // as Console will return it.
-        return 1;
-    }
-    double num1 = std::stod(input[1]),
-           num2 = std::stod(input[3]);
+unsigned calc(const std::vector<std::string> & input)
+{
+	if (input.size() != 4)
+	{
+		// The first element of the input array is always the name of the
+		// command as registered in the console.
+		std::cout << "Usage: " << input[0] << " num1 operator num2\n";
+		// We can return an arbitrary error code, which we can catch later
+		// as Console will return it.
+		return 1;
+	}
+	double num1 = std::stod(input[1]), num2 = std::stod(input[3]);
 
-    char op = input[2][0];
+	char op = input[2][0];
 
-    double result;
-    switch ( op ) {
-        case '*':
-            result = num1 * num2;
-            break;
-        case '+':
-            result = num1 + num2;
-            break;
-        case '/':
-            result = num1 / num2;
-            break;
-        case '-':
-            result = num1 - num2;
-            break;
-        default:
-            std::cout << "The inserted operator is not supported\n";
-            // Again, we can return an arbitrary error code to catch it later.
-            return 2;
-    }
-    std::cout << "Result: " << result << '\n';
-    return 0;
+	double result;
+	switch (op)
+	{
+	case '*':
+		result = num1 * num2;
+		break;
+	case '+':
+		result = num1 + num2;
+		break;
+	case '/':
+		result = num1 / num2;
+		break;
+	case '-':
+		result = num1 - num2;
+		break;
+	default:
+		std::cout << "The inserted operator is not supported\n";
+		// Again, we can return an arbitrary error code to catch it later.
+		return 2;
+	}
+	std::cout << "Result: " << result << '\n';
+	return 0;
 }
-
 
 using namespace CppReadline;
 
@@ -63,78 +67,85 @@ using namespace CppReadline;
 #define errorNULL throw Exception( "null pointer");
 
 Application::Application(std::string path, std::string configFile) :
-		Console(">>> "), Uncopy() {
+		Console(">> "), Uncopy()
+{
 	_exit = false;
 	this->path = path;
 	this->config = configFile;
 }
 
-Application::~Application() {
+Application::~Application()
+{
 	// empty
 }
 
-void Application::init() {
+void Application::init()
+{
 	Library::getSingletonPtr()->loadConfigFile("config.conf");
-    // We create a console. The '>' character is used as the prompt.
-    // Note that multiple Consoles can exist at once, as they automatically
-    // manage the underlying global readline state.
+	// We create a console. The '>' character is used as the prompt.
+	// Note that multiple Consoles can exist at once, as they automatically
+	// manage the underlying global readline state.
 
 //	const char* prompt = ">>> ";
 //    cr::Console c(prompt);
 
-    // Here we register a new command. The string "info" names the command that
-    // the user will have to type in in order to trigger this command (it can
-    // be different from the function name).
-    registerCommand("info", info);
-    registerCommand("calc", calc);
+	// Here we register a new command. The string "info" names the command that
+	// the user will have to type in in order to trigger this command (it can
+	// be different from the function name).
+	registerCommand("info", info);
+	registerCommand("calc", calc);
 
-    // Here we call one of the defaults command of the console, "help". It lists
-    // all currently registered commands within the console, so that the user
-    // can know which commands are available.
-    executeCommand("help");
+	// Here we call one of the defaults command of the console, "help". It lists
+	// all currently registered commands within the console, so that the user
+	// can know which commands are available.
+	executeCommand("help");
 
-    // Here we try to call a script. The script is read line by line, and each line
-    // (be it empty or not) is treated as a separate command. The execution is stopped
-    // as soon as any command returns an error.
+	// Here we try to call a script. The script is read line by line, and each line
+	// (be it empty or not) is treated as a separate command. The execution is stopped
+	// as soon as any command returns an error.
 //    c.executeFile("exampleScript");
 
-    // This basic loops continues to read input from the user until a command returns
-    // the termination code (ret::Quit). Here it would be one of the default
-    // quitting commands ("quit" or "exit").
-    /*
-     * while ( c.readLine() != ret::Quit );
-     */
+	// This basic loops continues to read input from the user until a command returns
+	// the termination code (ret::Quit). Here it would be one of the default
+	// quitting commands ("quit" or "exit").
+	/*
+	 * while ( c.readLine() != ret::Quit );
+	 */
 
-    // Otherwise we can modify the code to catch Console error code
+	// Otherwise we can modify the code to catch Console error code
 }
 
-void Application::quit() {
+void Application::quit()
+{
 	this->_exit = true;
 }
 
-void Application::loop() {
+void Application::loop()
+{
 	std::string in, in_prev;
 	Runtime* tt = Runtime::getSingletonPtr();
 
-    int retCode;
-    do {
-        retCode = readLine();
-        // We can also change the prompt based on last return value:
-        if ( retCode == ret::Ok )
-            setGreeting(">>> ");
-        else
-            setGreeting(">>> ");
+	int retCode;
+	do
+	{
+		retCode = readLine();
+		// We can also change the prompt based on last return value:
+		if (retCode == ret::Ok)
+			setGreeting(">> ");
+		else
+			setGreeting(">> ");
 
-        if ( retCode == 1 ) {
-            std::cout << "Received error code 1\n";
-        }
-        else if ( retCode == 2 ) {
-            std::cout << "Received error code 2\n";
-        }
-    }
-    while ( retCode != ret::Quit );
+		if (retCode == 1)
+		{
+			std::cout << "Received error code 1\n";
+		}
+		else if (retCode == 2)
+		{
+			std::cout << "Received error code 2\n";
+		}
+	} while (retCode != ret::Quit);
 
-    quit();
+	quit();
 
 //	while (_exit != true) {
 //		printf("> ");
@@ -170,18 +181,23 @@ void Application::loop() {
 //		} else {
 //			std::cout << "LOL:" << std::endl;
 //		}
-		//handle(in)
+	//handle(in)
 }
 
-void Application::handle(std::string msg) {
-	if (msg == "exit") {
+void Application::handle(std::string msg)
+{
+	if (msg == "exit")
+	{
 		quit();
-	} else if (msg.empty() || msg != "exit") {
+	}
+	else if (msg.empty() || msg != "exit")
+	{
 		std::cout << "Wrong word!" << std::endl;
 	}
 }
 
-void Application::kill() {
+void Application::kill()
+{
 	//empty
 }
 

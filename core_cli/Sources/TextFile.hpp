@@ -3,16 +3,16 @@
 
 #include "Common.hpp"
 
-namespace Core {
+namespace Core
+{
 
 //class Library;
 
-template <class T>
+template<class T>
 extern std::string atos(T _t);
 
-
-
-class TextFile {
+class TextFile
+{
 protected:
 	std::string fileName;
 	std::vector<std::string> fileCopy;

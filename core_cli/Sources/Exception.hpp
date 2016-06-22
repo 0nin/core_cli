@@ -4,29 +4,31 @@
 #include "Common.hpp"
 #include "TextFile.hpp"
 
-namespace Core {
+namespace Core
+{
 
 class TextFile;
 
-class Exception
-:public std::exception, Core::TextFile
+class Exception: public std::exception, Core::TextFile
 {
 public:
 	explicit Exception(const std::string fileName);
-    virtual ~Exception();
+	virtual ~Exception();
 
-    static void die( std::string description, std::string fileName);
-    static void error( std::string description, std::string fileName);
+	static void die(std::string description, std::string fileName);
+	static void error(std::string description, std::string fileName);
 
-    std::string getDescription();
+	std::string getDescription();
 
 protected:
-    std::string description;
-}; // class Exception
+	std::string description;
+};
+// class Exception
 
-class ExceptionNoFile: public Exception {
+class ExceptionNoFile: public Exception
+{
 public:
-	explicit ExceptionNoFile (const std::string fileName);
+	explicit ExceptionNoFile(const std::string fileName);
 	virtual ~ExceptionNoFile();
 };
 

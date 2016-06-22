@@ -2,45 +2,53 @@
 
 #include "Exception.hpp"
 
-namespace Core {
+namespace Core
+{
 
 static PathList singletonPathList;
-//std::string path;
 
-PathList::PathList() {
+PathList::PathList()
+{
 	const char *env = getenv("PATH");
 
 	//search local paths first, in-case someone has the SDK installed while hacking another copy
 	pathList.push_back("./");  // present directory
 	pathList.push_back("../"); // back one
 	pathList.push_back("../../"); // back two
-	if (env) {
+	if (env)
+	{
 		pathList.push_back(std::string(env) + "/"); // Path lacks a terminating slash
 	}
 }
 
-PathList::~PathList() {
-	clearPaths ();
+PathList::~PathList()
+{
+	clearPaths();
 }
 
-
-void PathList::addPath(const std::string &path) {
+void PathList::addPath(const std::string &path)
+{
 	pathList.push_back(path);
 }
 
-void PathList::clearPaths() {
-	if (!pathList.empty()) {
+void PathList::clearPaths()
+{
+	if (!pathList.empty())
+	{
 		pathList.clear();
 	}
 }
 
-std::string PathList::getFilePath(const std::string &file) {
+std::string PathList::getFilePath(const std::string &file)
+{
 	std::string pathString;
 
-	for (auto it = pathList.begin(); it != pathList.end(); it++) {
+	for (auto it = pathList.begin(); it != pathList.end(); it++)
+	{
 		pathString = *it + file;
 		FILE *fp = fopen(pathString.c_str(), "rb");
-		if (fp) {
+		if (fp)
+		{
 			fclose(fp);
 			path = pathString;
 			pathString.clear();
@@ -52,13 +60,16 @@ std::string PathList::getFilePath(const std::string &file) {
 	return "";
 }
 
-std::string PathList::getPath(const std::string &file) {
+std::string PathList::getPath(const std::string &file)
+{
 	std::string pathString;
 
-	for (auto it = pathList.begin(); it != pathList.end(); it++) {
+	for (auto it = pathList.begin(); it != pathList.end(); it++)
+	{
 		pathString = *it + file;
 		FILE *fp = fopen(pathString.c_str(), "rb");
-		if (fp) {
+		if (fp)
+		{
 			fclose(fp);
 			path = *it;
 			//return true;
@@ -69,16 +80,20 @@ std::string PathList::getPath(const std::string &file) {
 	throw Exception("File with name" + file + "doesn't exist");
 }
 
-PathList* PathList::getSingletonPtr() {
+PathList* PathList::getSingletonPtr()
+{
 	return &singletonPathList;
 }
 
-PathList PathList::getSingleton() {
+PathList PathList::getSingleton()
+{
 	return singletonPathList;
 }
 
-void PathList::print() {
-	for (auto it = pathList.begin(); it != pathList.end(); it++) {
+void PathList::print()
+{
+	for (auto it = pathList.begin(); it != pathList.end(); it++)
+	{
 		std::cout << *(it) << std::endl;
 	}
 }

@@ -7,35 +7,44 @@
 
 #include "Interval.hpp"
 
-namespace Core {
+namespace Core
+{
 
-Interval::Interval(std::string name) {
+Interval::Interval(std::string name)
+{
 //	this->begin = std::chrono::steady_clock::now();
 	this->name = name;
 }
 
-Interval::~Interval() {
+Interval::~Interval()
+{
 }
 
-void Interval::start() {
+void Interval::start()
+{
 	begin = std::chrono::steady_clock::now();
 }
 
-void Interval::stop() {
+void Interval::stop()
+{
 	end = std::chrono::steady_clock::now();
 }
 
-std::string Interval::getName() {
+std::string Interval::getName()
+{
 	return this->name;
 }
 
-double Interval::getMs() {
-	return std::chrono::duration_cast <std::chrono::microseconds> (this->end - this->begin).count() / (double) 1000000.0f;
+double Interval::getMs()
+{
+	return std::chrono::duration_cast < std::chrono::microseconds
+			> (this->end - this->begin).count() / (double) 1000000.0f;
 }
 
-double Interval::getSec() {
-	return std::chrono::duration_cast <std::chrono::microseconds> (this->end - this->begin).count() / (double) 1000000.0f;
+double Interval::getSec()
+{
+	return std::chrono::duration_cast < std::chrono::microseconds
+			> (this->end - this->begin).count() / (double) 1000000.0f;
 }
-
 
 } /* namespace Core */

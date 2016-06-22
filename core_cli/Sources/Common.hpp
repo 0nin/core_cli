@@ -15,12 +15,11 @@
 #include <stdlib.h>
 
 #ifdef DEBUG
-	#define ENABLE_RUNTIME
-	#define ENABLE_LOG2FILE
+#define ENABLE_RUNTIME
+#define ENABLE_LOG2FILE
 #endif
 
 //#include <chrono>
 
 #endif
-
 

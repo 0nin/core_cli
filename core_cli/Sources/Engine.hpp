@@ -10,9 +10,11 @@
 
 #include "Common.hpp"
 
-namespace Core {
+namespace Core
+{
 
-class Engine {
+class Engine
+{
 public:
 	explicit Engine();
 	virtual ~Engine();

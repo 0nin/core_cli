@@ -7,18 +7,22 @@
 
 #include "Engine.hpp"
 
-namespace Core {
+namespace Core
+{
 
-Engine::Engine() {
+Engine::Engine()
+{
 	// TODO Auto-generated constructor stub
 
 }
 
-Engine::~Engine() {
+Engine::~Engine()
+{
 	// TODO Auto-generated destructor stub
 }
 
-void Engine::go() {
+void Engine::go()
+{
 	init();
 	loop();
 	kill();

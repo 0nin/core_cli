@@ -3,10 +3,11 @@
 
 #include "Common.hpp"
 
+namespace Core
+{
 
-namespace Core {
-
-class PathList {
+class PathList
+{
 public:
 	explicit PathList();
 

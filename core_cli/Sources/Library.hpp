@@ -5,11 +5,13 @@
 #include "Table.hpp"
 #include "TextFile.hpp"
 
-namespace Core {
+namespace Core
+{
 /**
  *
  */
-class Library: public Table, public TextFile {
+class Library: public Table, public TextFile
+{
 protected:
 
 	unsigned currentString;
