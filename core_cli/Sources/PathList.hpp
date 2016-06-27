@@ -13,13 +13,14 @@ public:
 
 	virtual ~PathList();
 
+public:
 	virtual void addPath(const std::string &path);
 
 	virtual void clearPaths();
 
-	virtual std::string getFilePath(const std::string &fileName);
+//	virtual bool getFilePath(const std::string &fileName, std::string &fullPath);
 
-	virtual std::string getPath(const std::string &fileName);
+	virtual bool getPath(const std::string &fileName, std::string &fullPath);
 
 	static PathList* getSingletonPtr();
 
@@ -28,7 +29,7 @@ public:
 	virtual void print();
 
 protected:
-	std::string path;
+//	std::string path;
 	std::vector<std::string> pathList;
 };
 // class PathList

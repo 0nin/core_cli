@@ -39,46 +39,49 @@ void PathList::clearPaths()
 	}
 }
 
-std::string PathList::getFilePath(const std::string &file)
+bool PathList::getPath(const std::string &file, std::string &path)
 {
+	bool sucess = false;
 	std::string pathString;
+	FILE *fp;
 
 	for (auto it = pathList.begin(); it != pathList.end(); it++)
 	{
 		pathString = *it + file;
-		FILE *fp = fopen(pathString.c_str(), "rb");
+		fp = fopen(pathString.c_str(), "rb");
 		if (fp)
 		{
 			fclose(fp);
 			path = pathString;
-			pathString.clear();
-			return path;
+			sucess = true;
+			it = pathList.end();
+//			pathString.clear();
+//			return;
 		}
 	}
 	pathString.clear();
-	throw Exception("File with name " + file + " doesn't exist;");
-	return "";
+//	throw Exception("File with name " + file + " doesn't exist;");
+	return sucess;
 }
 
-std::string PathList::getPath(const std::string &file)
-{
-	std::string pathString;
-
-	for (auto it = pathList.begin(); it != pathList.end(); it++)
-	{
-		pathString = *it + file;
-		FILE *fp = fopen(pathString.c_str(), "rb");
-		if (fp)
-		{
-			fclose(fp);
-			path = *it;
-			//return true;
-			return path;
-		}
-	}
-	//return false;
-	throw Exception("File with name" + file + "doesn't exist");
-}
+//std::string PathList::getPath(const std::string &file)
+//{
+//	std::string pathString;
+//
+//	for (auto it = pathList.begin(); it != pathList.end(); it++)
+//	{
+//		pathString = *it + file;
+//		FILE *fp = fopen(pathString.c_str(), "rb");
+//		if (fp)
+//		{
+//			fclose(fp);
+//			path = *it;
+//			//return true;
+//			return path;
+//		}
+//	}
+//	throw Exception("File with name" + file + "doesn't exist");
+//}
 
 PathList* PathList::getSingletonPtr()
 {

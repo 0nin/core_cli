@@ -1,109 +1,129 @@
-
-#if defined _WIN32 || __WIN32__ && defined _MSC_VER
-#pragma warning (disable : 4996)
-#else
+//#if defined _WIN32 || __WIN32__
+//#pragma warning (disable : 4996)
+//#else
 //
-#endif
+//#endif
 
 #include "TextFile.hpp"
-
+#include "PathList.hpp"
 #include "Exception.hpp"
 
 #include <sstream>
 #include <fstream>
 
+namespace Core
+{
 
-namespace Core {
-
-void TextFile::write(std::string text, std::string fileName) {
+void TextFile::write(std::string text, std::string fileName)
+{
 	std::ofstream mFile;
 	mFile.open(fileName.c_str());
-	if (mFile.is_open()) {
+	if (mFile.is_open())
+	{
 		mFile << text;
 		mFile.close();
 		//return true;
-	} else
+	}
+	else
 		throw Exception(std::string("I can't write to") + fileName);
 }
 
-void TextFile::clear(std::string fileName) {
+void TextFile::clear(std::string fileName)
+{
 	//не работает
 }
 
-TextFile::TextFile() {
-	if (!this->fileName.empty())
-		this->fileName.clear();
+TextFile::TextFile() :
+		fileName(""), fullPath(""), fileCopy()
+{
 }
 
 TextFile::TextFile(std::string fileName) :
-		fileCopy() {
-	attachFile(fileName);
+		fileName(fileName), fullPath(""), fileCopy()
+{
 }
 
-TextFile::~TextFile() {
-	return;
+TextFile::~TextFile()
+{
 }
 
-void TextFile::attachFile(std::string fileName) {
-	this->fileName = fileName;
-	std::fstream m_stream;
-	m_stream.open(fileName.c_str());
-	m_stream.close();
+void TextFile::setName(std::string fileName)
+{
+	std::string fullPath = std::string("");
+	if (PathList::getSingletonPtr()->getPath(fileName, fullPath))
+	{
+		this->fileName = fileName;
+		std::fstream m_stream;
+		m_stream.open(fileName.c_str());
+		m_stream.close();
+	}
+	else
+	{
+
+	}
 }
 
-void TextFile::write(std::string text) {
+void TextFile::write(std::string text)
+{
 	write(text, this->fileName);
 	return;
 }
 
-void TextFile::copyByStrokes(std::string fileName) {
+void TextFile::copyByStrokes(std::string fileName)
+{
 	std::string line;
 	std::ifstream m_file(fileName.c_str());
-	if (m_file.is_open()) {
-		while (getline(m_file, line)) {
+	if (m_file.is_open())
+	{
+		while (getline(m_file, line))
+		{
 			this->fileCopy.push_back(line);
 		}
 		m_file.close();
 		line.clear();
-	} else
+	}
+	else
 		throw Exception("I can't open file" + fileName);
 }
 
-void TextFile::copyByWords(std::string fileName) {
-	std::string line;
-	std::ifstream m_file(fileName.c_str());
-	if (m_file.is_open()) {
-		while (getline(m_file, line)) {
-			std::istringstream ist(line);
-			std::string tmp;
-			while (ist >> tmp) {
-				fileCopy.push_back(tmp);
-			}
-		}
-		m_file.close();
-		line.clear();
-	}
+//void TextFile::copyByWords(std::string fileName) {
+//	std::string line;
+//	std::ifstream m_file(fileName.c_str());
+//	if (m_file.is_open()) {
+//		while (getline(m_file, line)) {
+//			std::istringstream ist(line);
+//			std::string tmp;
+//			while (ist >> tmp) {
+//				fileCopy.push_back(tmp);
+//			}
+//		}
+//		m_file.close();
+//		line.clear();
+//	}
+//
+//	else
+//		throw Exception("I Can't open file" + fileName);
+//}
+//
+//void TextFile::copyByWords() {
+//	copyByWords(this->fileName);
+//	return;
+//}
 
-	else
-		throw Exception("I Can't open file" + fileName);
-}
-
-void TextFile::copyByWords() {
-	copyByWords(this->fileName);
-	return;
-}
-
-void TextFile::clear() {
+void TextFile::clear()
+{
 	clear(this->fileName);
 }
 
-void TextFile::print() {
+void TextFile::print()
+{
 	std::vector<std::string>::const_iterator it = fileCopy.begin();
 	for (; it != fileCopy.end(); it++)
 		std::cout << *(it) << " ";
 }
 
-template<class T> std::string atos(T real) {
+template<class T> std::string atos(T real)
+{
 	std::ostringstream strs;
 	strs << real;
 	std::string str = strs.str();

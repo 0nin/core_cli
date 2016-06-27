@@ -13,11 +13,6 @@ extern std::string atos(T _t);
 
 class TextFile
 {
-protected:
-	std::string fileName;
-	std::vector<std::string> fileCopy;
-//	friend class Library;
-
 public:
 	explicit TextFile();
 
@@ -32,19 +27,26 @@ public:
 
 	virtual void clear();
 
-	static void write(std::string text, std::string fileName);
+	static void write(std::string text, std::string name);
 
-	static void clear(std::string fileName);
+	static void clear(std::string name);
 
 	void copyByStrokes();
 
-	void copyByStrokes(std::string fileName);
+	void copyByStrokes(std::string name);
 
-	void copyByWords();
+//	void copyByWords();
 
-	void copyByWords(std::string fileName);
+//	void copyByWords(std::string fileName);
 
-	virtual void attachFile(std::string fileName);
+	virtual void setName(std::string name);
+
+protected:
+	std::string fileName;
+	std::string fullPath;
+	std::string mode;
+	std::vector<std::string> fileCopy;
+
 };
 // class File;
 } /* namespace Core */
