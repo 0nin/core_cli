@@ -5,6 +5,8 @@
 #include "Console.hpp"
 #include "Exception.hpp"
 
+//#include "gnuplot-iostream.h"
+
 namespace Core
 {
 

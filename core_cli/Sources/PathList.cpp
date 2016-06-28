@@ -7,7 +7,7 @@ namespace Core
 
 static PathList singletonPathList;
 
-PathList::PathList()
+PathList::PathList(void)
 {
 	const char *env = getenv("PATH");
 
@@ -21,7 +21,7 @@ PathList::PathList()
 	}
 }
 
-PathList::~PathList()
+PathList::~PathList(void)
 {
 	clearPaths();
 }
@@ -83,7 +83,7 @@ bool PathList::getPath(const std::string &file, std::string &path)
 //	throw Exception("File with name" + file + "doesn't exist");
 //}
 
-PathList* PathList::getSingletonPtr()
+PathList* PathList::getSingletonPtr(void)
 {
 	return &singletonPathList;
 }
@@ -93,7 +93,7 @@ PathList* PathList::getSingletonPtr()
 //	return singletonPathList;
 //}
 
-void PathList::print()
+void PathList::print(void)
 {
 	for (auto it = pathList.begin(); it != pathList.end(); it++)
 	{

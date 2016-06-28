@@ -9,24 +9,24 @@ namespace Core
 class PathList
 {
 public:
-	explicit PathList();
+	PathList(void);
 
-	virtual ~PathList();
+	virtual ~PathList(void);
 
 public:
 	virtual void addPath(const std::string &path);
 
-	virtual void clearPaths();
+	virtual void clearPaths(void);
 
 //	virtual bool getFilePath(const std::string &fileName, std::string &fullPath);
 
 	virtual bool getPath(const std::string &fileName, std::string &fullPath);
 
-	static PathList* getSingletonPtr();
+	static PathList* getSingletonPtr(void);
 
-//	static PathList getSingleton();
+//	static PathList getSingleton(void);
 
-	virtual void print();
+	virtual void print(void);
 
 protected:
 //	std::string path;
