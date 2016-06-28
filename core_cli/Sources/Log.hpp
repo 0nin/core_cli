@@ -13,13 +13,13 @@
 
 namespace Core {
 
-class Log : public Core::TextFile {
+class Log : public TextFile {
 public:
-	Log();
-	virtual ~Log();
+	Log(const std::string &name);
+	virtual ~Log(void);
 
-	static Log getSingleton();
-	static Log* getSingletonPtr();
+//	static Log getSingleton();
+	static Log* getSingletonPtr(void);
 };
 
 } /* namespace Core */

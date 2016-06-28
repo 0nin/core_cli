@@ -24,7 +24,7 @@ public:
 
 	static PathList* getSingletonPtr();
 
-	static PathList getSingleton();
+//	static PathList getSingleton();
 
 	virtual void print();
 

@@ -10,7 +10,7 @@ namespace Core
 /**
  *
  */
-class Library: public Table, public TextFile
+class Library: public Table
 {
 protected:
 
@@ -24,28 +24,30 @@ protected:
 
 	std::string currentType;
 
-public:
-	explicit Library();
+	Core::TextFile scriptCopy;
 
-	virtual ~Library();
+public:
+	Library(void);
+
+	virtual ~Library(void);
 
 	virtual void loadConfigFile(std::string fileName);
 
 	virtual void configStroke(std::string stroke);
 
-	virtual void clear();
+	virtual void clear(void);
 
 	virtual void addParam(std::string x, std::string y);
 
 	std::string getParam(std::string param);
 
-	static Library getSingleton();
+//	static Library getSingleton(void);
 
-	static Library* getSingletonPtr();
+	static Library* getSingletonPtr(void);
 
-	virtual void printAllPaths();
+	virtual void printAllPaths(void);
 
-	virtual void printAll();
+	virtual void printAll(void);
 };
 // class Decoder
 

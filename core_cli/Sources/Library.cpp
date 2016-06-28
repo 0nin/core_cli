@@ -50,7 +50,8 @@ bool stob(std::string str)
 		ERRCONVERT
 }
 
-Library::Library()
+Library::Library() :
+		scriptCopy(std::string(""))
 {
 	currentString = 1;
 }
@@ -59,10 +60,10 @@ Library::~Library()
 {
 }
 
-Library Library::getSingleton()
-{
-	return singletonManager;
-}
+//Library Library::getSingleton()
+//{
+//	return singletonManager;
+//}
 
 Library* Library::getSingletonPtr()
 {
@@ -78,13 +79,13 @@ void Library::loadConfigFile(std::string fileName)
 {
 	currentFileName = fileName;
 	//scriptCopy.clear();
-//	scriptCopy.copyByStrokes(fileName);
-	copyByStrokes(fileName);
+	scriptCopy.copyByStrokes(fileName);
+//	copyByStrokes(fileName);
 //	auto it = scriptCopy.fileCopy.begin(),
 //			end = scriptCopy.fileCopy.end();
 //	for (; it != end; ++it) {
 //		configStroke(*(it));
-	auto it = this->fileCopy.begin(), end = this->fileCopy.end();
+	auto it = scriptCopy.fileCopy.begin(), end = scriptCopy.fileCopy.end();
 	for (; it != end; ++it)
 	{
 		configStroke(*(it));
@@ -124,7 +125,7 @@ void Library::configStroke(std::string stroke)
 void Library::clear()
 {
 //	scriptCopy.clear();
-	this->fileCopy.clear();
+//	this->fileCopy.clear();
 	table.clear();
 }
 

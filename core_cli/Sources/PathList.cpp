@@ -88,10 +88,10 @@ PathList* PathList::getSingletonPtr()
 	return &singletonPathList;
 }
 
-PathList PathList::getSingleton()
-{
-	return singletonPathList;
-}
+//PathList PathList::getSingleton()
+//{
+//	return singletonPathList;
+//}
 
 void PathList::print()
 {

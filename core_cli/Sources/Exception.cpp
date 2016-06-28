@@ -1,6 +1,7 @@
 #include "Exception.hpp"
 
 #include "TextFile.hpp"
+#include "Log.hpp"
 
 #if defined __WIN32__ || _WIN32
 #define WIN32_LEAN_AND_MEAN
@@ -25,23 +26,31 @@ namespace Core
 void Exception::die(std::string msg, std::string t_errorlog)
 {
 	std::string str = "Exception:: " + msg + " " + ";\n";
-	std::cerr << str;
+	std::cerr << str << std::endl;
 	TextFile::write(str, t_errorlog);
 	eBox(msg, "Core::Exception");
-	exit(1);
+//	exit(1);
 }
 
-void Exception::error(std::string msg, std::string t_errorlog)
+void Exception::writeToLog(std::string msg, std::string t_errorlog)
 {
 	std::string str = "Exception:: " + msg + " " + ";\n";
-	std::cerr << str;
+	std::cerr << str << std::endl;
 	TextFile::write(str, t_errorlog);
-	eBox(msg, "Core::Exception");
 }
 
-Exception::Exception(const std::string &dsc)
+//void Exception::error(std::string msg, std::string t_errorlog)
+//{
+//	std::string str = "Exception:: " + msg + " " + ";\n";
+//	std::cerr << str;
+//	TextFile::write(str, t_errorlog);
+//	eBox(msg, "Core::Exception");
+//}
+
+Exception::Exception(const std::string &dsc) :
+		description(dsc), code(0) //there is codes for exceptions for now
 {
-	description = dsc;
+	this->type = ExceptionTypeCommom;
 }
 
 Exception::~Exception(void)
@@ -57,7 +66,7 @@ std::string Exception::getDescription(void)
 ExceptionNoFile::ExceptionNoFile(const std::string &dsc) :
 		Exception(dsc)
 {
-
+	this->type = ExceptionTypeNoFile;
 }
 ExceptionNoFile::~ExceptionNoFile(void)
 {
@@ -67,13 +76,21 @@ ExceptionNoFile::~ExceptionNoFile(void)
 ExceptionNotImplemented::ExceptionNotImplemented(const std::string &dsc) :
 		Exception(dsc)
 {
-	// TODO Auto-generated constructor stub
-
+	this->type = ExceptionTypeNotImplemented;
 }
 
 ExceptionNotImplemented::~ExceptionNotImplemented(void)
 {
-	// TODO Auto-generated destructor stub
+}
+
+ExceptionTableMiss::ExceptionTableMiss(const std::string &dsc) :
+		Exception(dsc)
+{
+	this->type = ExceptionTypeTableMiss;
+}
+
+ExceptionTableMiss::~ExceptionTableMiss()
+{
 }
 
 } /* namespace Core */

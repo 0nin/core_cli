@@ -2,39 +2,42 @@
 #define _Exception_h_
 
 #include "Common.hpp"
-#include "TextFile.hpp"
+//#include "TextFile.hpp"
 
 namespace Core
 {
 
 //class TextFile;
 
+enum ExceptionType
+{
+	ExceptionTypeCommom,
+	ExceptionTypeNoFile,
+	ExceptionTypeNotImplemented,
+	ExceptionTypeTableMiss,
+	ExcpetionTypeOther
 
-class Exception: public std::exception, Core::TextFile
+};
+
+class Exception: public std::exception
 {
 public:
 	explicit Exception(const std::string &description);
 	virtual ~Exception();
 
 public:
-	enum ExceptionType
-	{
-		ExceptionCommom,
-		ExceptionNoFile,
-		ExceptionNotImplemented,
-		ExcpetionOther
-
-	};
 
 	static void die(std::string description, std::string fileName);
 
-	static void error(std::string description, std::string fileName);
+	static void writeToLog(std::string description, std::string fileName);
+//	static void error(std::string description, std::string fileName);
 
 	std::string getDescription();
 
 protected:
 	std::string description;
 	size_t code;
+	ExceptionType type;
 };
 // class Exception
 
@@ -52,6 +55,13 @@ public:
 	virtual ~ExceptionNotImplemented();
 };
 
-}
+class ExceptionTableMiss: public Exception
+{
+public:
+	explicit ExceptionTableMiss(const std::string &description);
+	virtual ~ExceptionTableMiss();
+};
+
+} /* namespace Core */
 #endif // #ifndef _Exception_h_
 

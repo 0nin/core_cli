@@ -67,7 +67,7 @@ using namespace CppReadline;
 #define errorNULL throw Exception( "null pointer");
 
 Application::Application(std::string path, std::string configFile) :
-		Console(">> "), Uncopy()
+		Console(">> ")
 {
 	_exit = false;
 	this->path = path;

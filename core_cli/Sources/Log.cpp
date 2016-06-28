@@ -10,24 +10,22 @@
 namespace Core
 {
 
-static Log singletonLog;
+static Log singletonLog = std::string("core_log.txt");
 
-Log::Log()
+Log::Log(const std::string &name) :
+		TextFile(name)
 {
-	// TODO Auto-generated constructor stub
-
 }
 
-Log::~Log()
+Log::~Log(void)
 {
-	// TODO Auto-generated destructor stub
 }
 
-Log getSingleton()
+Log getSingleton(void)
 {
 	return singletonLog;
 }
-Log* getSingletonPtr()
+Log* getSingletonPtr(void)
 {
 	return &singletonLog;
 }

@@ -11,7 +11,7 @@ namespace Core
 /**
  * 
  */
-class Application: public Engine, public CppReadline::Console, public Uncopy
+class Application: public Engine, public CppReadline::Console
 {
 protected:
 	bool _exit;

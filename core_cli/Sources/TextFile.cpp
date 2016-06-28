@@ -33,10 +33,10 @@ void TextFile::clear(std::string fileName)
 	//не работает
 }
 
-TextFile::TextFile() :
-		fileName(""), fullPath(""), fileCopy()
-{
-}
+//TextFile::TextFile() :
+//		fileName(""), fullPath(""), fileCopy()
+//{
+//}
 
 TextFile::TextFile(std::string fileName) :
 		fileName(fileName), fullPath(""), fileCopy()
@@ -67,6 +67,23 @@ void TextFile::write(std::string text)
 {
 	write(text, this->fileName);
 	return;
+}
+
+void TextFile::copyByStrokes()
+{
+	std::string line;
+	std::ifstream m_file(this->fileName.c_str());
+	if (m_file.is_open())
+	{
+		while (getline(m_file, line))
+		{
+			this->fileCopy.push_back(line);
+		}
+		m_file.close();
+		line.clear();
+	}
+	else
+		throw Exception("I can't open file" + this->fileName);
 }
 
 void TextFile::copyByStrokes(std::string fileName)
@@ -117,8 +134,8 @@ void TextFile::clear()
 
 void TextFile::print()
 {
-	std::vector<std::string>::const_iterator it = fileCopy.begin();
-	for (; it != fileCopy.end(); it++)
+//	std::vector<std::string>::const_iterator it = fileCopy.begin();
+	for (auto it = fileCopy.begin(); it != fileCopy.end(); it++)
 		std::cout << *(it) << " ";
 }
 

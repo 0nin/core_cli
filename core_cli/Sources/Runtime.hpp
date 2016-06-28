@@ -20,7 +20,7 @@
 namespace Core
 {
 
-class Runtime: public Log
+class Runtime
 {
 public:
 	explicit Runtime();
