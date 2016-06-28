@@ -14,9 +14,7 @@ extern std::string atos(T _t);
 class TextFile
 {
 public:
-//	explicit TextFile();
-
-	explicit TextFile(std::string fileName);
+	TextFile(std::string fileName);
 
 	virtual ~TextFile();
 

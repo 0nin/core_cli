@@ -66,9 +66,9 @@ Runtime* Runtime::getSingletonPtr()
 	return &instance;
 }
 
-Runtime Runtime::getSingleton()
-{
-	return instance;
-}
+//Runtime Runtime::getSingleton()
+//{
+//	return instance;
+//}
 
 } /* namespace Core */

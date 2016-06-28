@@ -16,19 +16,21 @@ namespace Core
 class Engine
 {
 public:
-	explicit Engine();
-	virtual ~Engine();
+	explicit Engine(void);
+	virtual ~Engine(void);
 
 //protected:
-	virtual void init() = 0;
+	virtual void init(void) = 0;
 
-	virtual void loop() = 0;
+	virtual void loop(void) = 0;
 
-	virtual void kill() = 0;
+	virtual void kill(void) = 0;
 
-	virtual void quit() = 0;
+	virtual void quit(void) = 0;
 
-	void go();
+	void clear(void);
+
+	void go(void);
 };
 
 } /* namespace Core */

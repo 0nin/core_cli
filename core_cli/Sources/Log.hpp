@@ -13,7 +13,7 @@
 
 namespace Core {
 
-class Log : public TextFile {
+class Log: public TextFile {
 public:
 	Log(const std::string &name);
 	virtual ~Log(void);

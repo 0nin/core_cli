@@ -10,15 +10,20 @@
 namespace Core
 {
 
-CfgTable::CfgTable()
-{
-	// TODO Auto-generated constructor stub
+static CfgTable singletonCfgTable;
 
+CfgTable::CfgTable(void)
+{
 }
 
-CfgTable::~CfgTable()
+CfgTable::~CfgTable(void)
 {
-	// TODO Auto-generated destructor stub
 }
+
+CfgTable* CfgTable::getSingletonPtr(void)
+{
+	return &singletonCfgTable;
+}
+
 
 } /* namespace Core */

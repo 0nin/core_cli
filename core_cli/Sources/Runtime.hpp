@@ -23,10 +23,10 @@ namespace Core
 class Runtime
 {
 public:
-	explicit Runtime();
-	virtual ~Runtime();
+	Runtime(void);
+	virtual ~Runtime(void);
 
-	static inline std::chrono::steady_clock::time_point now();
+	static inline std::chrono::steady_clock::time_point now(void);
 //	static inline void stop (std::string);
 //	static inline double getMs (std::string);
 
@@ -34,10 +34,10 @@ public:
 	virtual void start(std::string);
 	virtual void stop(std::string);
 
-	virtual void print();
+	virtual void print(void);
 
-	static Runtime* getSingletonPtr();
-	static Runtime getSingleton();
+	static Runtime* getSingletonPtr(void);
+//	static Runtime getSingleton(void);
 
 protected:
 //	std::map <std::string, std::chrono::steady_clock::time_point> list;

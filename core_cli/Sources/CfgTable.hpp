@@ -17,8 +17,11 @@ namespace Core
 class CfgTable
 {
 public:
-	explicit CfgTable();
-	virtual ~CfgTable();
+	CfgTable(void);
+	virtual ~CfgTable(void);
+
+public:
+	static CfgTable* getSingletonPtr(void);
 };
 
 } /* namespace Core */

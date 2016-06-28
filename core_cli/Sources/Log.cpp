@@ -21,11 +21,12 @@ Log::~Log(void)
 {
 }
 
-Log getSingleton(void)
-{
-	return singletonLog;
-}
-Log* getSingletonPtr(void)
+//Log getSingleton(void)
+//{
+//	return singletonLog;
+//}
+
+Log* Log::getSingletonPtr(void)
 {
 	return &singletonLog;
 }

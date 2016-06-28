@@ -7,26 +7,35 @@
 
 #include "Engine.hpp"
 
+#include "Runtime.hpp"
+#include "CfgTable.hpp"
+#include "PathList.hpp"
+#include "Log.hpp"
+
 namespace Core
 {
 
-Engine::Engine()
+Engine::Engine(void)
 {
-	// TODO Auto-generated constructor stub
-
 }
 
-Engine::~Engine()
+Engine::~Engine(void)
 {
-	// TODO Auto-generated destructor stub
 }
 
-void Engine::go()
+void Engine::clear(void)
+{
+	delete Log::getSingletonPtr();
+	delete PathList::getSingletonPtr();
+	delete Runtime::getSingletonPtr();
+	delete CfgTable::getSingletonPtr();
+}
+
+void Engine::go(void)
 {
 	init();
 	loop();
 	kill();
-
 }
 
 } /* namespace Core */
