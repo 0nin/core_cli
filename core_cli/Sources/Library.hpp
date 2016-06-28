@@ -12,25 +12,12 @@ namespace Core
  */
 class Library: public Table
 {
-protected:
-
-	unsigned currentString;
-
-	std::string currentFileName;
-
-	std::string currentClaster;
-
-	std::string currentSpace;
-
-	std::string currentType;
-
-	Core::TextFile scriptCopy;
-
 public:
 	Library(void);
 
 	virtual ~Library(void);
 
+public:
 	virtual void loadConfigFile(std::string fileName);
 
 	virtual void configStroke(std::string stroke);
@@ -48,6 +35,19 @@ public:
 	virtual void printAllPaths(void);
 
 	virtual void printAll(void);
+
+protected:
+	size_t currentString;
+
+	std::string currentFileName;
+
+	std::string currentClaster;
+
+	std::string currentSpace;
+
+	std::string currentType;
+
+	Core::TextFile scriptCopy;
 };
 // class Decoder
 

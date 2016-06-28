@@ -9,17 +9,27 @@
 #define SOURCE_LOG_H_
 
 #include "Common.hpp"
-#include "TextFile.hpp"
 
-namespace Core {
+namespace Core
+{
 
-class Log: public TextFile {
+class Log
+{
 public:
 	Log(const std::string &name);
 	virtual ~Log(void);
 
+	void print();
+
+	virtual void write(std::string &text);
+
+	static void write(std::string &text, std::string &name);
+
 //	static Log getSingleton();
 	static Log* getSingletonPtr(void);
+
+private:
+	std::string fileName;
 };
 
 } /* namespace Core */

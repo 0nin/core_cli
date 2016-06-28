@@ -14,7 +14,15 @@
 namespace Core
 {
 
-void TextFile::write(std::string text, std::string fileName)
+template<class T> std::string atos(T real)
+{
+	std::ostringstream strs;
+	strs << real;
+	std::string str = strs.str();
+	return str;
+}
+
+void TextFile::write(std::string &text, std::string &fileName)
 {
 	std::ofstream mFile;
 	mFile.open(fileName.c_str());
@@ -28,7 +36,7 @@ void TextFile::write(std::string text, std::string fileName)
 		throw Exception(std::string("I can't write to") + fileName);
 }
 
-void TextFile::clear(std::string fileName)
+void TextFile::clear(std::string &fileName)
 {
 	//не работает
 }
@@ -38,7 +46,7 @@ void TextFile::clear(std::string fileName)
 //{
 //}
 
-TextFile::TextFile(std::string fileName) :
+TextFile::TextFile(const std::string &fileName) :
 		fileName(fileName), fullPath(""), fileCopy()
 {
 }
@@ -47,7 +55,7 @@ TextFile::~TextFile()
 {
 }
 
-void TextFile::setName(std::string fileName)
+void TextFile::setName(std::string &fileName)
 {
 	std::string fullPath = std::string("");
 	if (PathList::getSingletonPtr()->getPath(fileName, fullPath))
@@ -63,7 +71,7 @@ void TextFile::setName(std::string fileName)
 	}
 }
 
-void TextFile::write(std::string text)
+void TextFile::write(std::string &text)
 {
 	write(text, this->fileName);
 	return;
@@ -86,7 +94,7 @@ void TextFile::copyByStrokes()
 		throw Exception("I can't open file" + this->fileName);
 }
 
-void TextFile::copyByStrokes(std::string fileName)
+void TextFile::copyByStrokes(std::string &fileName)
 {
 	std::string line;
 	std::ifstream m_file(fileName.c_str());
@@ -136,15 +144,8 @@ void TextFile::print()
 {
 //	std::vector<std::string>::const_iterator it = fileCopy.begin();
 	for (auto it = fileCopy.begin(); it != fileCopy.end(); it++)
-		std::cout << *(it) << " ";
+		std::cout << *(it) << " " <<std::endl;
 }
 
-template<class T> std::string atos(T real)
-{
-	std::ostringstream strs;
-	strs << real;
-	std::string str = strs.str();
-	return str;
-}
 
 } /* namespace Core */

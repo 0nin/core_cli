@@ -35,6 +35,7 @@ void Engine::go(void)
 {
 	init();
 	loop();
+	clear();
 	kill();
 }
 

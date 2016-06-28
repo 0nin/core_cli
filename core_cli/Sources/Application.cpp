@@ -123,7 +123,7 @@ void Application::quit()
 void Application::loop()
 {
 	std::string in, in_prev;
-	Runtime* tt = Runtime::getSingletonPtr();
+//	Runtime* tt = Runtime::getSingletonPtr();
 
 	int retCode;
 	do

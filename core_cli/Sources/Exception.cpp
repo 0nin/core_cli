@@ -29,7 +29,6 @@ void Exception::die(std::string msg, std::string t_errorlog)
 	std::cerr << str << std::endl;
 	TextFile::write(str, t_errorlog);
 	eBox(msg, "Core::Exception");
-//	exit(1);
 }
 
 void Exception::writeToLog(std::string msg, std::string t_errorlog)

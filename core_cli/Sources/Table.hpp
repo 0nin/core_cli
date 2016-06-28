@@ -9,7 +9,6 @@
 #define TABLE_HPP_
 
 #include "Common.hpp"
-#include "Uncopy.hpp"
 
 namespace Core
 {

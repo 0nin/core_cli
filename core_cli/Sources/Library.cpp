@@ -51,9 +51,9 @@ bool stob(std::string str)
 }
 
 Library::Library() :
-		scriptCopy(std::string(""))
+		scriptCopy("")//,
+//		currentString(0)
 {
-	currentString = 1;
 }
 
 Library::~Library()

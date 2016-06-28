@@ -12,21 +12,18 @@ namespace Core
 
 static Runtime instance;
 
-Runtime::Runtime()
+Runtime::Runtime(void)
 {
-	// TODO Auto-generated constructor stub
-
 }
 
-Runtime::~Runtime()
+Runtime::~Runtime(void)
 {
-	// TODO Auto-generated destructor stub
 }
 
-inline std::chrono::steady_clock::time_point Runtime::now()
-{
-	return std::chrono::steady_clock::now();
-}
+//inline std::chrono::steady_clock::time_point Runtime::now()
+//{
+//	return std::chrono::steady_clock::now();
+//}
 
 void Runtime::add(std::string name)
 {

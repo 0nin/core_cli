@@ -15,7 +15,6 @@
 #include "Common.hpp"
 #include "Interval.hpp"
 #include "Log.hpp"
-#include "Uncopy.hpp"
 
 namespace Core
 {
@@ -24,14 +23,17 @@ class Runtime
 {
 public:
 	Runtime(void);
+
 	virtual ~Runtime(void);
 
-	static inline std::chrono::steady_clock::time_point now(void);
+//	static inline std::chrono::steady_clock::time_point now(void);
 //	static inline void stop (std::string);
 //	static inline double getMs (std::string);
 
 	virtual void add(std::string);
+
 	virtual void start(std::string);
+
 	virtual void stop(std::string);
 
 	virtual void print(void);
