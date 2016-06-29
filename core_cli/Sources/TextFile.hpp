@@ -16,7 +16,7 @@ class TextFile
 public:
 	friend class Library;
 
-	TextFile(const std::string &fileName);
+	explicit TextFile(const std::string &fileName);
 
 	virtual ~TextFile(void);
 
@@ -32,19 +32,25 @@ public:
 
 	static void clear(const std::string &name);
 
-	void copyByStrokes(void);
+	virtual void copy(void);
 
-	void copyByStrokes(const std::string & name);
+//	virtual void copyByStrokes(const std::string & name);
 
 //	void copyByWords(void);
 
 //	void copyByWords(const std::string fileName);
 
-	virtual void setName(const std::string &name);
+	virtual void setFile(const std::string &name);
 
 private:
+	TextFile(const TextFile&) = delete;
+	TextFile(TextFile&&) = delete;
+	TextFile& operator =(TextFile const&) = delete;
+	TextFile& operator =(TextFile&&) = delete;
+
+
 	std::string fileName;
-	std::string fullPath;
+//	std::string fullPath;
 	std::string mode;
 	std::vector<std::string> fileCopy;
 

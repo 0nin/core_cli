@@ -51,8 +51,8 @@ bool stob(std::string str)
 }
 
 Library::Library() :
-		scriptCopy("")//,
-//		currentString(0)
+		scriptCopy(""),
+		currentString(0)
 {
 }
 
@@ -79,7 +79,9 @@ void Library::loadConfigFile(std::string fileName)
 {
 	currentFileName = fileName;
 	//scriptCopy.clear();
-	scriptCopy.copyByStrokes(fileName);
+//	scriptCopy.copyByStrokes(fileName);
+	scriptCopy.setFile(fileName);
+	scriptCopy.copy();
 //	copyByStrokes(fileName);
 //	auto it = scriptCopy.fileCopy.begin(),
 //			end = scriptCopy.fileCopy.end();

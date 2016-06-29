@@ -45,7 +45,7 @@ void TextFile::clear(const std::string &fileName)
 //}
 
 TextFile::TextFile(const std::string &fileName) :
-		fileName(fileName), fullPath(""), fileCopy()
+		fileName(fileName), fileCopy()
 {
 }
 
@@ -58,7 +58,7 @@ void TextFile::operator<<(const std::string &str)
 	write(str);
 }
 
-void TextFile::setName(const std::string &fileName)
+void TextFile::setFile(const std::string &fileName)
 {
 	std::string fullPath;
 	if (PathList::getSingletonPtr()->getPath(fileName, fullPath))
@@ -80,7 +80,7 @@ void TextFile::write(const std::string &text)
 	return;
 }
 
-void TextFile::copyByStrokes(void)
+void TextFile::copy(void)
 {
 	std::string line;
 	std::ifstream m_file(this->fileName.c_str());
@@ -101,25 +101,25 @@ void TextFile::copyByStrokes(void)
 //		throw Exception("I can't open file" + this->fileName);
 }
 
-void TextFile::copyByStrokes(const std::string &fileName)
-{
-	std::string line;
-	std::ifstream m_file(fileName.c_str());
-	if (m_file.is_open())
-	{
-		while (getline(m_file, line))
-		{
-			this->fileCopy.push_back(line);
-		}
-		m_file.close();
-		line.clear();
-	}
-	else
-	{
-		std::cerr << "I can't open file" << fileName << std::endl;
-	}
-//		throw Exception("I can't open file" + fileName);
-}
+//void TextFile::copyByStrokes(const std::string &fileName)
+//{
+//	std::string line;
+//	std::ifstream m_file(fileName.c_str());
+//	if (m_file.is_open())
+//	{
+//		while (getline(m_file, line))
+//		{
+//			this->fileCopy.push_back(line);
+//		}
+//		m_file.close();
+//		line.clear();
+//	}
+//	else
+//	{
+//		std::cerr << "I can't open file" << fileName << std::endl;
+//	}
+////		throw Exception("I can't open file" + fileName);
+//}
 
 //void TextFile::copyByWords(std::string fileName) {
 //	std::string line;
