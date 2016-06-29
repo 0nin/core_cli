@@ -9,39 +9,40 @@ namespace Core
 //class Library;
 
 //template<class T>
-//extern std::string atos(T _t);
+//extern const std::string atos(T _t);
 
 class TextFile
 {
 public:
+	friend class Library;
+
 	TextFile(const std::string &fileName);
 
 	virtual ~TextFile(void);
 
-	friend class Library;
+	void operator<<(const std::string &str);
 
-public:
 	void print(void);
 
-	virtual void write(std::string & text);
+	virtual void write(const std::string &text);
 
 	virtual void clear(void);
 
-	static void write(std::string & text, std::string & name);
+	static void write(const std::string &text, const std::string &name);
 
-	static void clear(std::string & name);
+	static void clear(const std::string &name);
 
 	void copyByStrokes(void);
 
-	void copyByStrokes(std::string & name);
+	void copyByStrokes(const std::string & name);
 
 //	void copyByWords(void);
 
-//	void copyByWords(std::string fileName);
+//	void copyByWords(const std::string fileName);
 
-	virtual void setName(std::string &name);
+	virtual void setName(const std::string &name);
 
-protected:
+private:
 	std::string fileName;
 	std::string fullPath;
 	std::string mode;

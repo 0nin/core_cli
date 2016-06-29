@@ -15,7 +15,8 @@
 namespace Core
 {
 
-static Log singletonLog = std::string("core_log.txt");
+//static Log singletonLog = std::string("core_log.txt");
+static Log *singletonLog = new Log("core_log.txt");
 
 template<class T> std::string atos(T real)
 {
@@ -32,9 +33,18 @@ Log::Log(const std::string &name)
 Log::~Log(void)
 {
 }
+//
+//template<class T>
+//Log::operator<< (T t)
+//{
+//
+//}
+void Log::operator<<(const std::string &str)
+{
+	write(str);
+}
 
-
-void Log::write(std::string &text, std::string &fileName)
+void Log::write(const std::string &text, const std::string &fileName)
 {
 	std::ofstream mFile;
 	mFile.open(fileName.c_str());
@@ -47,7 +57,7 @@ void Log::write(std::string &text, std::string &fileName)
 		throw Exception(std::string("I can't write to") + fileName);
 }
 
-void Log::write(std::string &text)
+void Log::write(const std::string &text)
 {
 	write(text, this->fileName);
 	return;
@@ -55,7 +65,8 @@ void Log::write(std::string &text)
 
 Log* Log::getSingletonPtr(void)
 {
-	return &singletonLog;
+//	return &singletonLog;
+	return singletonLog;
 }
 
 } /* namespace Core */

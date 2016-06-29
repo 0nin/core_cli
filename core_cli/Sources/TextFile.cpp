@@ -17,7 +17,7 @@ template<class T> std::string atos(T real)
 	return str;
 }
 
-void TextFile::write(std::string &text, std::string &fileName)
+void TextFile::write(const std::string &text, const std::string &fileName)
 {
 	std::ofstream mFile;
 	mFile.open(fileName.c_str());
@@ -28,14 +28,13 @@ void TextFile::write(std::string &text, std::string &fileName)
 	}
 	else
 	{
-
 		std::cerr << "I can't write to" + fileName << std::endl;
 	}
 //	else
 //		throw Exception(std::string("I can't write to") + fileName);
 }
 
-void TextFile::clear(std::string &fileName)
+void TextFile::clear(const std::string &fileName)
 {
 	//не работает
 }
@@ -50,13 +49,18 @@ TextFile::TextFile(const std::string &fileName) :
 {
 }
 
-TextFile::~TextFile()
+TextFile::~TextFile(void)
 {
 }
 
-void TextFile::setName(std::string &fileName)
+void TextFile::operator<<(const std::string &str)
 {
-	std::string fullPath = std::string("");
+	write(str);
+}
+
+void TextFile::setName(const std::string &fileName)
+{
+	std::string fullPath;
 	if (PathList::getSingletonPtr()->getPath(fileName, fullPath))
 	{
 		this->fileName = fileName;
@@ -70,13 +74,13 @@ void TextFile::setName(std::string &fileName)
 	}
 }
 
-void TextFile::write(std::string &text)
+void TextFile::write(const std::string &text)
 {
 	write(text, this->fileName);
 	return;
 }
 
-void TextFile::copyByStrokes()
+void TextFile::copyByStrokes(void)
 {
 	std::string line;
 	std::ifstream m_file(this->fileName.c_str());
@@ -90,10 +94,14 @@ void TextFile::copyByStrokes()
 		line.clear();
 	}
 	else
-		throw Exception("I can't open file" + this->fileName);
+	{
+		std::cerr << "I can't open to" + fileName << std::endl;
+	}
+//	else
+//		throw Exception("I can't open file" + this->fileName);
 }
 
-void TextFile::copyByStrokes(std::string &fileName)
+void TextFile::copyByStrokes(const std::string &fileName)
 {
 	std::string line;
 	std::ifstream m_file(fileName.c_str());
@@ -137,17 +145,16 @@ void TextFile::copyByStrokes(std::string &fileName)
 //	return;
 //}
 
-void TextFile::clear()
+void TextFile::clear(void)
 {
 	clear(this->fileName);
 }
 
-void TextFile::print()
+void TextFile::print(void)
 {
 //	std::vector<std::string>::const_iterator it = fileCopy.begin();
 	for (auto it = fileCopy.begin(); it != fileCopy.end(); it++)
-		std::cout << *(it) << " " <<std::endl;
+		std::cout << *(it) << " " << std::endl;
 }
-
 
 } /* namespace Core */

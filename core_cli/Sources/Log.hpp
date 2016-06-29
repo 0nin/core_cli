@@ -16,23 +16,28 @@ namespace Core
 class Log
 {
 public:
-	Log(const std::string &name);
+	explicit Log(std::string const &name);
 
 	virtual ~Log(void);
 
-public:
-	void print();
+//	template <class T> operator<< (T t);
+	void operator<<(std::string const &str);
 
-	virtual void write(std::string &text);
+	virtual void write(std::string const &text);
 
-	static void write(std::string &text, std::string &name);
+	static void write(std::string const &text, std::string const &name);
 
 //	static Log getSingleton();
 	static Log* getSingletonPtr(void);
 
-
-
 private:
+	Log(const Log&) = delete;
+	Log(Log&&) = delete;
+	Log& operator =(Log const&) = delete;
+	Log& operator =(Log&&) = delete;
+
+	void print();
+
 	std::string fileName;
 };
 
