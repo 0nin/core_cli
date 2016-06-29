@@ -23,6 +23,7 @@ class Exception: public std::exception
 {
 public:
 	explicit Exception(const std::string &description);
+	explicit Exception(const std::string &description, Core::ExceptionType type);
 	virtual ~Exception();
 
 public:

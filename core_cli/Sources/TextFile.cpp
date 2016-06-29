@@ -1,12 +1,7 @@
-//#if defined _WIN32 || __WIN32__
-//#pragma warning (disable : 4996)
-//#else
-//
-//#endif
-
 #include "TextFile.hpp"
 #include "PathList.hpp"
 #include "Exception.hpp"
+#include "Log.hpp"
 
 #include <sstream>
 #include <fstream>
@@ -30,10 +25,14 @@ void TextFile::write(std::string &text, std::string &fileName)
 	{
 		mFile << text;
 		mFile.close();
-		//return true;
 	}
 	else
-		throw Exception(std::string("I can't write to") + fileName);
+	{
+
+		std::cerr << "I can't write to" + fileName << std::endl;
+	}
+//	else
+//		throw Exception(std::string("I can't write to") + fileName);
 }
 
 void TextFile::clear(std::string &fileName)
@@ -108,7 +107,10 @@ void TextFile::copyByStrokes(std::string &fileName)
 		line.clear();
 	}
 	else
-		throw Exception("I can't open file" + fileName);
+	{
+		std::cerr << "I can't open file" << fileName << std::endl;
+	}
+//		throw Exception("I can't open file" + fileName);
 }
 
 //void TextFile::copyByWords(std::string fileName) {

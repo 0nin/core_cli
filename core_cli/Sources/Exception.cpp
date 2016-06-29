@@ -52,6 +52,12 @@ Exception::Exception(const std::string &dsc) :
 	this->type = ExceptionTypeCommom;
 }
 
+Exception::Exception(const std::string &dsc, ExceptionType type) :
+		description(dsc), code(0) //there is codes for exceptions for now
+{
+	this->type = type;
+}
+
 Exception::~Exception(void)
 {
 }

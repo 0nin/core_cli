@@ -17,8 +17,10 @@ class Log
 {
 public:
 	Log(const std::string &name);
+
 	virtual ~Log(void);
 
+public:
 	void print();
 
 	virtual void write(std::string &text);
@@ -27,6 +29,8 @@ public:
 
 //	static Log getSingleton();
 	static Log* getSingletonPtr(void);
+
+
 
 private:
 	std::string fileName;

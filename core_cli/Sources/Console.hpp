@@ -109,10 +109,10 @@ public:
 	 */
 	int readLine();
 private:
-//	Console(const Console&) = delete;
-//	Console(Console&&) = delete;
-//	Console& operator =(Console const&) = delete;
-//	Console& operator =(Console&&) = delete;
+	Console(const Console&) = delete;
+	Console(Console&&) = delete;
+	Console& operator =(Console const&) = delete;
+	Console& operator =(Console&&) = delete;
 
 	struct Impl;
 	using PImpl = ::std::unique_ptr<Impl>;
