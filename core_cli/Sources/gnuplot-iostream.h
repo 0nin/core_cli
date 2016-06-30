@@ -59,6 +59,7 @@ THE SOFTWARE.
 
 // C system includes
 #include <cstdio>
+//#include <stdio.h>
 #ifdef GNUPLOT_ENABLE_PTY
 #	include <termios.h>
 #	include <unistd.h>
@@ -138,7 +139,9 @@ THE SOFTWARE.
 #	define GNUPLOT_POPEN  popen
 #	define GNUPLOT_FILENO fileno
 #endif
-
+//#	define GNUPLOT_PCLOSE pclose
+//#	define GNUPLOT_POPEN  popen
+//#	define GNUPLOT_FILENO fileno
 #ifdef _WIN32
 #	define GNUPLOT_ISNAN _isnan
 #else

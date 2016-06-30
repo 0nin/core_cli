@@ -1,10 +1,12 @@
+#include "gnuplot-iostream.h"
+
 #include "Global.hpp"
 
 #include "Application.hpp"
 #include "Console.hpp"
 #include "Exception.hpp"
 
-#include "gnuplot-iostream.h"
+
 
 namespace cr = CppReadline;
 using ret = cr::Console::ReturnCode;
