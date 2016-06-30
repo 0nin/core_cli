@@ -147,10 +147,11 @@
 								<option id="gnu.cpp.compiler.option.optimization.level.1000790125" name="Optimization Level" superClass="gnu.cpp.compiler.option.optimization.level" useByScannerDiscovery="false" value="gnu.cpp.compiler.optimization.level.none" valueType="enumerated"/>
 								<option id="gnu.cpp.compiler.option.debugging.level.1593960415" name="Debug Level" superClass="gnu.cpp.compiler.option.debugging.level" useByScannerDiscovery="false" value="gnu.cpp.compiler.debugging.level.max" valueType="enumerated"/>
 								<option id="gnu.cpp.compiler.option.other.other.64767491" name="Other flags" superClass="gnu.cpp.compiler.option.other.other" useByScannerDiscovery="false" value="-c -fmessage-length=0" valueType="string"/>
-								<option id="gnu.cpp.compiler.option.dialect.std.43791965" name="Language standard" superClass="gnu.cpp.compiler.option.dialect.std" value="gnu.cpp.compiler.dialect.c++11" valueType="enumerated"/>
+								<option id="gnu.cpp.compiler.option.dialect.std.43791965" name="Language standard" superClass="gnu.cpp.compiler.option.dialect.std" value="gnu.cpp.compiler.dialect.default" valueType="enumerated"/>
 								<option id="gnu.cpp.compiler.option.other.verbose.2144739437" name="Verbose (-v)" superClass="gnu.cpp.compiler.option.other.verbose" value="false" valueType="boolean"/>
 								<option id="gnu.cpp.compiler.option.debugging.other.59757648" name="Other debugging flags" superClass="gnu.cpp.compiler.option.debugging.other" value="" valueType="string"/>
 								<option id="gnu.cpp.compiler.option.include.paths.2110309205" name="Include paths (-I)" superClass="gnu.cpp.compiler.option.include.paths" valueType="includePath"/>
+								<option id="gnu.cpp.compiler.option.dialect.flags.1514398244" name="Other dialect flags" superClass="gnu.cpp.compiler.option.dialect.flags" value="-std=gnu++11" valueType="string"/>
 								<inputType id="cdt.managedbuild.tool.gnu.cpp.compiler.input.166772775" superClass="cdt.managedbuild.tool.gnu.cpp.compiler.input"/>
 							</tool>
 							<tool id="cdt.managedbuild.tool.gnu.c.compiler.mingw.base.2098726783" name="GCC C Compiler" superClass="cdt.managedbuild.tool.gnu.c.compiler.mingw.base">
@@ -169,7 +170,9 @@
 									<listOptionValue builtIn="false" srcPrefixMapping="" srcRootPath="" value="boost_iostreams-mgw49-mt-d-1_61"/>
 								</option>
 								<option id="gnu.cpp.link.option.shared.1086709602" name="Shared (-shared)" superClass="gnu.cpp.link.option.shared" value="false" valueType="boolean"/>
-								<option id="gnu.cpp.link.option.paths.2002885764" name="Library search path (-L)" superClass="gnu.cpp.link.option.paths" valueType="libPaths"/>
+								<option id="gnu.cpp.link.option.paths.2002885764" name="Library search path (-L)" superClass="gnu.cpp.link.option.paths" valueType="libPaths">
+									<listOptionValue builtIn="false" value="&quot;C:\MinGW\boost_1_61_0\stage\lib&quot;"/>
+								</option>
 								<inputType id="cdt.managedbuild.tool.gnu.cpp.linker.input.1899949150" superClass="cdt.managedbuild.tool.gnu.cpp.linker.input">
 									<additionalInput kind="additionalinputdependency" paths="$(USER_OBJS)"/>
 									<additionalInput kind="additionalinput" paths="$(LIBS)"/>
@@ -208,12 +211,13 @@
 							</tool>
 							<tool id="cdt.managedbuild.tool.gnu.archiver.mingw.base.483908038" name="GCC Archiver" superClass="cdt.managedbuild.tool.gnu.archiver.mingw.base"/>
 							<tool id="cdt.managedbuild.tool.gnu.cpp.compiler.mingw.base.1206930269" name="GCC C++ Compiler" superClass="cdt.managedbuild.tool.gnu.cpp.compiler.mingw.base">
-								<option id="gnu.cpp.compiler.option.optimization.level.1914359083" name="Optimization Level" superClass="gnu.cpp.compiler.option.optimization.level" value="gnu.cpp.compiler.optimization.level.none" valueType="enumerated"/>
+								<option id="gnu.cpp.compiler.option.optimization.level.1914359083" name="Optimization Level" superClass="gnu.cpp.compiler.option.optimization.level" value="gnu.cpp.compiler.optimization.level.most" valueType="enumerated"/>
 								<option id="gnu.cpp.compiler.option.debugging.level.1694164829" name="Debug Level" superClass="gnu.cpp.compiler.option.debugging.level" value="gnu.cpp.compiler.debugging.level.none" valueType="enumerated"/>
 								<option id="gnu.cpp.compiler.option.other.other.22911760" name="Other flags" superClass="gnu.cpp.compiler.option.other.other" value="-c -fmessage-length=0" valueType="string"/>
-								<option id="gnu.cpp.compiler.option.dialect.std.1620005591" name="Language standard" superClass="gnu.cpp.compiler.option.dialect.std" value="gnu.cpp.compiler.dialect.c++11" valueType="enumerated"/>
+								<option id="gnu.cpp.compiler.option.dialect.std.1620005591" name="Language standard" superClass="gnu.cpp.compiler.option.dialect.std" value="gnu.cpp.compiler.dialect.default" valueType="enumerated"/>
 								<option id="gnu.cpp.compiler.option.preprocessor.def.1118359198" name="Defined symbols (-D)" superClass="gnu.cpp.compiler.option.preprocessor.def"/>
 								<option id="gnu.cpp.compiler.option.include.paths.1355036763" name="Include paths (-I)" superClass="gnu.cpp.compiler.option.include.paths" valueType="includePath"/>
+								<option id="gnu.cpp.compiler.option.dialect.flags.827236402" name="Other dialect flags" superClass="gnu.cpp.compiler.option.dialect.flags" value="-std=gnu++11" valueType="string"/>
 								<inputType id="cdt.managedbuild.tool.gnu.cpp.compiler.input.1240018651" superClass="cdt.managedbuild.tool.gnu.cpp.compiler.input"/>
 							</tool>
 							<tool id="cdt.managedbuild.tool.gnu.c.compiler.mingw.base.1282219525" name="GCC C Compiler" superClass="cdt.managedbuild.tool.gnu.c.compiler.mingw.base">
