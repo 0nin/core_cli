@@ -68,7 +68,7 @@ int main(int argc, char *args[])
 		app->go();
 	} catch (Core::Exception& e)
 	{
-		Core::Exception::die(e.getDescription(), std::string("error.log"));
+		Core::Exception::die(e.getDescription(), "error.log");
 		return 1;
 	}
 	return 0;

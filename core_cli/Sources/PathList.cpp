@@ -5,7 +5,8 @@
 namespace Core
 {
 
-static PathList singletonPathList;
+//static PathList singletonPathList;
+static PathList* singletonPathList= new PathList();
 
 PathList::PathList(void)
 {
@@ -45,7 +46,7 @@ bool PathList::getPath(const std::string &file, std::string &path)
 	std::string pathString;
 	FILE *fp;
 
-	for (auto it = pathList.begin(); it != pathList.end(); it++)
+	for (auto it = pathList.begin(); it != pathList.end(); ++it)
 	{
 		pathString = *it + file;
 		fp = fopen(pathString.c_str(), "rb");
@@ -54,7 +55,8 @@ bool PathList::getPath(const std::string &file, std::string &path)
 			fclose(fp);
 			path = pathString;
 			sucess = true;
-			it = pathList.end();
+			break;
+//			it = pathList.end();
 //			pathString.clear();
 //			return;
 		}
@@ -85,7 +87,7 @@ bool PathList::getPath(const std::string &file, std::string &path)
 
 PathList* PathList::getSingletonPtr(void)
 {
-	return &singletonPathList;
+	return singletonPathList;
 }
 
 //PathList PathList::getSingleton()

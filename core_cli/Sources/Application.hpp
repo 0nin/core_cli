@@ -10,7 +10,7 @@ namespace Core
 /**
  * 
  */
-class Application: public Engine, public CppReadline::Console
+class Application: public CppReadline::Console
 {
 protected:
 	bool _exit;
@@ -20,22 +20,24 @@ public:
 	/**
 	 *
 	 */
-//    explicit Application ();
+//    explicit Application (void);
 	explicit Application(std::string path, std::string configFile);
 
-	virtual ~Application();
+	virtual ~Application(void);
 
-	void init();
+	void init(void);
 
-	void loop();
+	void loop(void);
 
-//    void go ();
+    void go (void);
 //
 	void handle(std::string msg);
 //
-	void kill();
+	void kill(void);
 
-	virtual void quit();
+	void clear(void);
+
+	virtual void quit(void);
 };
 // class Application
 

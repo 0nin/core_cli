@@ -203,6 +203,23 @@ void Application::kill()
 	//empty
 }
 
+void Application::clear(void)
+{
+//	delete Log::getSingletonPtr();
+//	delete PathList::getSingletonPtr();
+//	delete Runtime::getSingletonPtr();
+//	delete CfgTable::getSingletonPtr();
+}
+
+void Application::go(void)
+{
+	init();
+	loop();
+	clear();
+	kill();
+}
+
+
 //void Application::go() {
 //	init();
 //	loop();

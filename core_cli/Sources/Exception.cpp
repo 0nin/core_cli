@@ -25,7 +25,7 @@ namespace Core
 
 void Exception::die(std::string msg, std::string t_errorlog)
 {
-	std::string str = "Exception:: " + msg + " " + ";\n";
+	std::string str = "Exception:: " + msg + " ";
 	std::cerr << str << std::endl;
 	TextFile::write(str, t_errorlog);
 	eBox(msg, "Core::Exception");
@@ -33,7 +33,7 @@ void Exception::die(std::string msg, std::string t_errorlog)
 
 void Exception::writeToLog(std::string msg, std::string t_errorlog)
 {
-	std::string str = "Exception:: " + msg + " " + ";\n";
+	std::string str = "Exception:: " + msg + " ";
 	std::cerr << str << std::endl;
 	TextFile::write(str, t_errorlog);
 }
@@ -69,9 +69,10 @@ std::string Exception::getDescription(void)
 }
 
 ExceptionNoFile::ExceptionNoFile(const std::string &dsc) :
-		Exception(dsc)
+		Exception("")
 {
 	this->type = ExceptionTypeNoFile;
+	this->description = std::string("ExceptionNoFile:: ") + "Can't find file:: " + dsc;
 }
 ExceptionNoFile::~ExceptionNoFile(void)
 {

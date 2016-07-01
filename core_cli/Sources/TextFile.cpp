@@ -61,6 +61,11 @@ void TextFile::operator<<(const std::string &str)
 void TextFile::setFile(const std::string &fileName)
 {
 	std::string fullPath;
+//	this->fileName = fileName;
+//	std::fstream m_stream;
+//	m_stream.open(fileName.c_str());
+//	m_stream.close();
+
 	if (PathList::getSingletonPtr()->getPath(fileName, fullPath))
 	{
 		this->fileName = fileName;
@@ -70,7 +75,8 @@ void TextFile::setFile(const std::string &fileName)
 	}
 	else
 	{
-
+//		std::cerr << "Can't find file:: " << fileName;
+		throw ExceptionNoFile(fileName);
 	}
 }
 
