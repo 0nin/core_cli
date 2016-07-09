@@ -2,7 +2,6 @@
 #define _Application_h_
 
 #include "Common.hpp"
-#include "Engine.hpp"
 #include "Console.hpp"
 
 #if defined __WIN32__ || _WIN32 && defined _MSC_VER
