@@ -21,16 +21,16 @@ static Library singletonManager;
 //static const std::string errorUnknownVariable = "Unknown variable";
 static const std::string errorConvert = "Can't convert to: ";
 
-#define ERREND throw Exception( errorEnding+currentFileName+";\n");
-#define ERRTYPE throw Exception( errorType+"file: "+currentFileName+"; string:"+atos(currentString)+";\n");
-#define ERRFLAG throw Exception( errorFlag+atos(currentString)+"file: "+currentFileName+";\n");
-#define ERROPERATION throw Exception( errorTypeOperation+";\n");
-#define ERRPARAM throw Exception( errorUnknownVariable+"\n;");
-#define ERRHEAD throw Exception( errorHead+currentFileName+";\n");
+//#define ERREND throw Exception( errorEnding+currentFileName+";\n");
+//#define ERRTYPE throw Exception( errorType+"file: "+currentFileName+"; string:"+atos(currentString)+";\n");
+//#define ERRFLAG throw Exception( errorFlag+atos(currentString)+"file: "+currentFileName+";\n");
+//#define ERROPERATION throw Exception( errorTypeOperation+";\n");
+//#define ERRPARAM throw Exception( errorUnknownVariable+"\n;");
+//#define ERRHEAD throw Exception( errorHead+currentFileName+";\n");
 #define ERRCONVERT throw Exception(errorConvert+str);
-#define IN std::cin>>
-#define OUT std::cout<<
-#define IGNORE ;
+//#define IN std::cin>>
+//#define OUT std::cout<<
+//#define IGNORE ;
 
 template<class T> std::string atos(T real)
 {
