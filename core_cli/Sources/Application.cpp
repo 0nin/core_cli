@@ -143,12 +143,12 @@ Application::Application(std::string path, std::string configFile) :
 	this->config = configFile;
 }
 
-Application::~Application()
+Application::~Application(void)
 {
 	// empty
 }
 
-void Application::init()
+void Application::init(void)
 {
 	Library::getSingletonPtr()->loadConfigFile("config.conf");
 	// We create a console. The '>' character is used as the prompt.
@@ -184,12 +184,12 @@ void Application::init()
 	// Otherwise we can modify the code to catch Console error code
 }
 
-void Application::quit()
+void Application::quit(void)
 {
 	this->_exit = true;
 }
 
-void Application::loop()
+void Application::loop(void)
 {
 	std::string in, in_prev;
 //	Runtime* tt = Runtime::getSingletonPtr();
@@ -265,7 +265,7 @@ void Application::handle(std::string msg)
 	}
 }
 
-void Application::kill()
+void Application::kill(void)
 {
 	//empty
 }
