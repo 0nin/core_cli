@@ -86,3 +86,39 @@
 //#ifdef __cplusplus
 //}
 //#endif
+
+//	while (_exit != true) {
+//		printf("> ");
+//		std::cin >> in;
+////		tt->stop(in_prev);
+////		tt->start(in);
+//		in_prev = in;
+//		if (in == "exit") {
+//			quit();
+//		} else if (in == "add") {
+//			std::string x, y;
+//			std::cin >> x;
+//			std::cin >> y;
+//			if (!x.empty() && !y.empty()) {
+//				Library::getSingletonPtr()->addParam(x, y);
+//			}
+//		} else if (in == "show") {
+//			Library::getSingletonPtr()->printAll();
+//		} else if (in == "get") {
+//			std::string x;
+//			std::cin >> x;
+//			std::cout << Library::getSingletonPtr()->getParam(x) << std::endl;
+//		} else if (in == "start") {
+//			std::string x;
+//			std::cin >> x;
+//			tt->start(x);
+//		} else if (in == "stop") {
+//			std::string x;
+//			std::cin >> x;
+//			tt->stop(x);
+//		} else if (in == "time") {
+//			tt->print();
+//		} else {
+//			std::cout << "LOL:" << std::endl;
+//		}
+	//handle(in)
