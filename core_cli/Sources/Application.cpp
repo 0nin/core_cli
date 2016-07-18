@@ -133,7 +133,6 @@ void Application::init(void)
 	registerCommand("plot", plot);
 
 	executeCommand("help");
-//    c.executeFile("exampleScript");
 }
 
 void Application::quit(void)
@@ -183,15 +182,10 @@ void Application::handle(std::string msg)
 
 void Application::kill(void)
 {
-	//empty
 }
 
 void Application::clear(void)
 {
-//	delete Log::getSingletonPtr();
-//	delete PathList::getSingletonPtr();
-//	delete Runtime::getSingletonPtr();
-//	delete CfgTable::getSingletonPtr();
 }
 
 void Application::go(void)
