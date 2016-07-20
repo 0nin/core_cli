@@ -5,7 +5,8 @@
 #include "Console.hpp"
 #include "Exception.hpp"
 
-#include "gnuplot-iostream.h"
+//#include "gnuplot-iostream.h"
+#include "Gnuplot.hpp"
 
 namespace cr = CppReadline;
 using ret = cr::Console::ReturnCode;
@@ -35,8 +36,8 @@ unsigned info(const std::vector<std::string> &)
 
 unsigned plot(const std::vector<std::string> &)
 {
-	Gnuplot gp;
-
+//	Gnuplot gp;
+//
 //	std::vector<std::pair<double, double> > xy_pts_A;
 //	for (double x = -2; x < 2; x += 0.01)
 //	{
@@ -58,11 +59,22 @@ unsigned plot(const std::vector<std::string> &)
 //	// and won't be deleted (this is useful when creating a script).
 //	gp << "plot" << gp.file1d(xy_pts_A) << "with lines title 'cubic',"
 //			<< gp.file1d(xy_pts_B) << "with points title 'circle'" << std::endl;
+//
+//	gp << "set key left box\n";
+//	gp << "set autoscale\n";
+//	gp << "set samples 800\n";
+//	gp << "plot [-30:20] sin(x*20)*atan(x)\n";
+//
+//	gp.clearTmpfiles();
 
-	gp << "set key left box\n";
-	gp << "set autoscale\n";
-	gp << "set samples 800\n";
-	gp << "plot [-30:20] sin(x*20)*atan(x)\n";
+    Gnuplot plot;
+
+    plot("plot sin(x)");
+//    std::cin.get();
+
+    plot("plot cos(x)");
+//    std::cin.get();
+
 
 	return ret::Ok;
 }
