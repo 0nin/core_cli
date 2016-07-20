@@ -124,11 +124,12 @@ namespace Core
 #define errorNULL throw Exception( "null pointer");
 
 Application::Application(std::string path, std::string configFile) :
-		Console(">> ")
+		cs(">> ")
 {
 	_exit = false;
 	this->path = path;
 	this->config = configFile;
+
 }
 
 Application::~Application(void)
@@ -140,11 +141,11 @@ void Application::init(void)
 {
 	Library::getSingletonPtr()->loadConfigFile("config.conf");
 
-	registerCommand("info", info);
-	registerCommand("calc", calc);
-	registerCommand("plot", plot);
+	cs.registerCommand("info", info);
+	cs.registerCommand("calc", calc);
+	cs.registerCommand("plot", plot);
 
-	executeCommand("help");
+	cs.executeCommand("help");
 }
 
 void Application::quit(void)
@@ -160,12 +161,12 @@ void Application::loop(void)
 	int retCode;
 	do
 	{
-		retCode = readLine();
+		retCode = cs.readLine();
 		// We can also change the prompt based on last return value:
 		if (retCode == ret::Ok)
-			setGreeting(">> ");
+			cs.setGreeting(">> ");
 		else
-			setGreeting(">> ");
+			cs.setGreeting(">> ");
 
 		if (retCode == 1)
 		{

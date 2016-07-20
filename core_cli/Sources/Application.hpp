@@ -17,12 +17,8 @@ namespace Core
 /**
  * 
  */
-class Application: public CppReadline::Console
+class Application
 {
-protected:
-	bool _exit;
-	std::string config;
-	std::string path;
 public:
 	/**
 	 *
@@ -45,6 +41,13 @@ public:
 	void clear(void);
 
 	virtual void quit(void);
+
+protected:
+	CppReadline::Console cs;
+	bool _exit;
+	std::string config;
+	std::string path;
+
 };
 // class Application
 
