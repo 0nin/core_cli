@@ -61,4 +61,11 @@ void Gnuplot::operator()(const string & command)
     fflush(gnuplotpipe); //без fflush ничего рисоваться не будет
 };
 
+//templat
+//void Gnuplot::operator()(const string & command)
+//{
+//    fprintf(gnuplotpipe,"%s\n",command.c_str());
+//    fflush(gnuplotpipe); //без fflush ничего рисоваться не будет
+//};
+
 #endif /* GNUPLOT_HPP_ */

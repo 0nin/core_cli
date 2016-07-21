@@ -5,8 +5,11 @@
 #include "Console.hpp"
 #include "Exception.hpp"
 
-//#include "gnuplot-iostream.h"
 #include "Gnuplot.hpp"
+
+#include <sstream>
+#include <fstream>
+#include <cmath>
 
 namespace cr = CppReadline;
 using ret = cr::Console::ReturnCode;
@@ -67,14 +70,40 @@ unsigned plot(const std::vector<std::string> &)
 //
 //	gp.clearTmpfiles();
 
-    Gnuplot plot;
+	Gnuplot plot;
 
-    plot("plot sin(x)");
-//    std::cin.get();
+//	plot("set key left box");
+//	plot("set autoscale\n");
+//	plot("set samples 800");
+//	plot("plot [-30:20] sin(x*20)*atan(x)");
 
-    plot("plot cos(x)");
-//    std::cin.get();
+//    plot("plot '-' using 1:2 with lines\n");
+	std::stringstream str;
+	for (float i = -2 * 3.14; i < 2 * 3.14; i += 0.01)
+	{
+		str << i;
+		str << ",\t";
+		str << std::sin(i);
+		str << ",\t";
+		str << 2 * std::sin(i) * std::cos(i);
+		str << "\n";
+	}
 
+	std::ofstream file;
+	file.open("plot.dat");
+	if (file.is_open())
+	{
+		file << str.str();
+		file.close();
+	}
+
+	plot("plot 'plot.dat' using 1:2 with lines");
+	plot("replot 'plot.dat' using 1:3 with lines");
+
+//	plot(str.str());
+//	plot("e");
+
+	str.clear();
 
 	return ret::Ok;
 }
@@ -146,6 +175,7 @@ void Application::init(void)
 	cs.registerCommand("plot", plot);
 
 	cs.executeCommand("help");
+	cs.executeCommand("plot");
 }
 
 void Application::quit(void)
