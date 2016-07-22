@@ -72,8 +72,8 @@ unsigned plot(const std::vector<std::string> &)
 
 	Gnuplot plot;
 
-//	plot("set key left box");
-//	plot("set autoscale\n");
+	plot("set key left box");
+	plot("set autoscale");
 //	plot("set samples 800");
 //	plot("plot [-30:20] sin(x*20)*atan(x)");
 
@@ -82,9 +82,9 @@ unsigned plot(const std::vector<std::string> &)
 	for (float i = -2 * 3.14; i < 2 * 3.14; i += 0.01)
 	{
 		str << i;
-		str << ",\t";
+		str << ", ";
 		str << std::sin(i);
-		str << ",\t";
+		str << ", ";
 		str << 2 * std::sin(i) * std::cos(i);
 		str << "\n";
 	}
@@ -175,7 +175,11 @@ void Application::init(void)
 	cs.registerCommand("plot", plot);
 
 	cs.executeCommand("help");
+
+#ifdef DEBUG
 	cs.executeCommand("plot");
+	quit();
+#endif
 }
 
 void Application::quit(void)
@@ -188,27 +192,32 @@ void Application::loop(void)
 	std::string in, in_prev;
 //	Runtime* tt = Runtime::getSingletonPtr();
 
-	int retCode;
-	do
+	if (_exit != true)
 	{
-		retCode = cs.readLine();
-		// We can also change the prompt based on last return value:
-		if (retCode == ret::Ok)
-			cs.setGreeting(">> ");
-		else
-			cs.setGreeting(">> ");
-
-		if (retCode == 1)
+		int retCode;
+		do
 		{
-			std::cout << "Received error code 1\n";
-		}
-		else if (retCode == 2)
-		{
-			std::cout << "Received error code 2\n";
-		}
-	} while (retCode != ret::Quit);
+			retCode = cs.readLine();
+			// We can also change the prompt based on last return value:
+			if (retCode == ret::Ok)
+				cs.setGreeting(">> ");
+			else
+				cs.setGreeting(">> ");
 
-	quit();
+			if (retCode == 1)
+			{
+				std::cout << "Received error code 1\n";
+			}
+			else if (retCode == 2)
+			{
+				std::cout << "Received error code 2\n";
+			}
+		} while (retCode != ret::Quit);
+	}
+	else {
+//		quit();
+	}
+
 }
 
 void Application::handle(std::string msg)
