@@ -14,16 +14,10 @@
 
 namespace Core
 {
-/**
- * 
- */
+
 class Application
 {
 public:
-	/**
-	 *
-	 */
-//    explicit Application (void);
 	explicit Application(std::string path, std::string configFile);
 
 	virtual ~Application(void);
@@ -32,10 +26,10 @@ public:
 
 	void loop(void);
 
-    void go (void);
-//
+	void go(void);
+
 	void handle(std::string msg);
-//
+
 	void kill(void);
 
 	void clear(void);
@@ -43,11 +37,14 @@ public:
 	virtual void quit(void);
 
 protected:
-	CppReadline::Console cs;
-	bool _exit;
-	std::string config;
-	std::string path;
 
+	CppReadline::Console cs;
+
+	bool _exit;
+
+	std::string config;
+
+	std::string path;
 };
 // class Application
 

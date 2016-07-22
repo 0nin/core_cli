@@ -20,8 +20,6 @@ public:
 	CfgTable(void);
 	virtual ~CfgTable(void);
 
-//public:
-
 public:
 	static CfgTable* getSingletonPtr(void);
 };

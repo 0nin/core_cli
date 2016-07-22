@@ -72,18 +72,19 @@ unsigned plot(const std::vector<std::string> &)
 
 	Gnuplot plot;
 
-	plot("set key left box");
-	plot("set autoscale");
+//	plot("set key left box");
+//	plot("set autoscale");
 //	plot("set samples 800");
 //	plot("plot [-30:20] sin(x*20)*atan(x)");
 
 //    plot("plot '-' using 1:2 with lines\n");
 	std::stringstream str;
-	for (float i = -2 * 3.14; i < 2 * 3.14; i += 0.01)
+	for (float i = -3.14f/2.0f; i < 3.14f/2.0f; i += 0.01)
 	{
 		str << i;
 		str << ", ";
-		str << std::sin(i);
+//		str << std::sin(i)/std::cos(i);
+		str << std::abs(std::sin(i));
 		str << ", ";
 		str << 2 * std::sin(i) * std::cos(i);
 		str << "\n";
@@ -214,7 +215,8 @@ void Application::loop(void)
 			}
 		} while (retCode != ret::Quit);
 	}
-	else {
+	else
+	{
 //		quit();
 	}
 
