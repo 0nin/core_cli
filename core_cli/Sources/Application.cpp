@@ -41,9 +41,12 @@ unsigned plot(const std::vector<std::string> &input)
 {
 	Gnuplot plot;
 
-	plot("set key left box");
-	plot("set autoscale");
+//	plot("set key left box");
+//	plot("set autoscale");
 	plot("set samples 800");
+	plot("set style line 1 lt 2 lw 2 pt 3 ps 0.5");
+	plot("show style line");
+
 //	plot("plot [-30:20] sin(x*20)*atan(x)");
 
 //    plot("plot '-' using 1:2 with lines\n");
@@ -55,11 +58,6 @@ unsigned plot(const std::vector<std::string> &input)
 		std::cout << "Empty stroke" << std::endl;
 		return 1;
 	}
-//	else if (input.size() > 3)
-//	{
-//		std::cout << "Too much parameters" << std::endl;
-//		return 1;
-//	}
 
 //	std::stringstream str;
 //	for (float i = -3.14f / 2.0f; i < 3.14f / 2.0f; i += 0.01)
@@ -84,7 +82,7 @@ unsigned plot(const std::vector<std::string> &input)
 //	plot("replot 'plot.dat' using 1:3 with lines");
 //
 //	str.clear();
-//	std::string ans = std::string("plot") + input.at(1) + input.at(2);
+
 	std::string ans;
 	for (std::vector<std::string>::const_iterator it = input.begin();
 			it != input.end(); ++it)
