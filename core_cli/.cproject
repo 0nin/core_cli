@@ -39,9 +39,7 @@
 							<tool id="cdt.managedbuild.tool.gnu.cpp.linker.exe.debug.849069488" name="GCC C++ Linker" superClass="cdt.managedbuild.tool.gnu.cpp.linker.exe.debug">
 								<option id="gnu.cpp.link.option.libs.1043435617" name="Libraries (-l)" superClass="gnu.cpp.link.option.libs" valueType="libs">
 									<listOptionValue builtIn="false" srcPrefixMapping="" srcRootPath="" value="readline"/>
-									<listOptionValue builtIn="false" srcPrefixMapping="" srcRootPath="" value="boost_system"/>
-									<listOptionValue builtIn="false" srcPrefixMapping="" srcRootPath="" value="boost_filesystem"/>
-									<listOptionValue builtIn="false" srcPrefixMapping="" srcRootPath="" value="boost_iostreams"/>
+									<listOptionValue builtIn="false" srcPrefixMapping="" srcRootPath="" value="history"/>
 								</option>
 								<inputType id="cdt.managedbuild.tool.gnu.cpp.linker.input.539052516" superClass="cdt.managedbuild.tool.gnu.cpp.linker.input">
 									<additionalInput kind="additionalinputdependency" paths="$(USER_OBJS)"/>
@@ -96,9 +94,7 @@
 							<tool id="cdt.managedbuild.tool.gnu.cpp.linker.exe.release.1004173502" name="GCC C++ Linker" superClass="cdt.managedbuild.tool.gnu.cpp.linker.exe.release">
 								<option id="gnu.cpp.link.option.libs.263303024" name="Libraries (-l)" superClass="gnu.cpp.link.option.libs" valueType="libs">
 									<listOptionValue builtIn="false" srcPrefixMapping="" srcRootPath="" value="readline"/>
-									<listOptionValue builtIn="false" srcPrefixMapping="" srcRootPath="" value="boost_system"/>
-									<listOptionValue builtIn="false" srcPrefixMapping="" srcRootPath="" value="boost_filesystem"/>
-									<listOptionValue builtIn="false" srcPrefixMapping="" srcRootPath="" value="boost_iostreams"/>
+									<listOptionValue builtIn="false" srcPrefixMapping="" srcRootPath="" value="history"/>
 								</option>
 								<inputType id="cdt.managedbuild.tool.gnu.cpp.linker.input.1858951518" superClass="cdt.managedbuild.tool.gnu.cpp.linker.input">
 									<additionalInput kind="additionalinputdependency" paths="$(USER_OBJS)"/>
@@ -167,9 +163,7 @@
 							<tool id="cdt.managedbuild.tool.gnu.cpp.linker.mingw.base.262307049" name="MinGW C++ Linker" superClass="cdt.managedbuild.tool.gnu.cpp.linker.mingw.base">
 								<option id="gnu.cpp.link.option.libs.1950433846" name="Libraries (-l)" superClass="gnu.cpp.link.option.libs" valueType="libs">
 									<listOptionValue builtIn="false" srcPrefixMapping="" srcRootPath="" value="readline"/>
-									<listOptionValue builtIn="false" srcPrefixMapping="" srcRootPath="" value="boost_system-mgw49-mt-d-1_61"/>
-									<listOptionValue builtIn="false" srcPrefixMapping="" srcRootPath="" value="boost_filesystem-mgw49-mt-d-1_61"/>
-									<listOptionValue builtIn="false" srcPrefixMapping="" srcRootPath="" value="boost_iostreams-mgw49-mt-d-1_61"/>
+									<listOptionValue builtIn="false" srcPrefixMapping="" srcRootPath="" value="history"/>
 								</option>
 								<option id="gnu.cpp.link.option.shared.1086709602" name="Shared (-shared)" superClass="gnu.cpp.link.option.shared" value="false" valueType="boolean"/>
 								<option id="gnu.cpp.link.option.paths.2002885764" name="Library search path (-L)" superClass="gnu.cpp.link.option.paths" valueType="libPaths">
@@ -237,6 +231,7 @@
 									<listOptionValue builtIn="false" srcPrefixMapping="" srcRootPath="" value="boost_system-mgw49-mt-1_61"/>
 									<listOptionValue builtIn="false" srcPrefixMapping="" srcRootPath="" value="boost_iostreams-mgw49-mt-1_61"/>
 									<listOptionValue builtIn="false" srcPrefixMapping="" srcRootPath="" value="boost_filesystem-mgw49-mt-1_61"/>
+									<listOptionValue builtIn="false" srcPrefixMapping="" srcRootPath="" value="history"/>
 								</option>
 								<option id="gnu.cpp.link.option.paths.1952065417" name="Library search path (-L)" superClass="gnu.cpp.link.option.paths" valueType="libPaths">
 									<listOptionValue builtIn="false" value="&quot;C:\MinGW\boost_1_61_0\stage\lib&quot;"/>
