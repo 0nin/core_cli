@@ -37,74 +37,56 @@ unsigned info(const std::vector<std::string> &)
 	return ret::Ok;
 }
 
-unsigned plot(const std::vector<std::string> &)
+unsigned plot(const std::vector<std::string> &input)
 {
-//	Gnuplot gp;
-//
-//	std::vector<std::pair<double, double> > xy_pts_A;
-//	for (double x = -2; x < 2; x += 0.01)
-//	{
-//		double y = x * x * x;
-//		xy_pts_A.push_back(std::make_pair(x, y));
-//	}
-//
-//	std::vector<std::pair<double, double> > xy_pts_B;
-//	for (double alpha = 0; alpha < 1; alpha += 1.0 / 24.0)
-//	{
-//		double theta = alpha * 2.0 * 3.14159;
-//		xy_pts_B.push_back(std::make_pair(cos(theta), sin(theta)));
-//	}
-//
-//	gp << "set xrange [-2:2]\nset yrange [-2:2]\n";
-//	// Data will be sent via a temporary file.  These are erased when you call
-//	// gp.clearTmpfiles() or when gp goes out of scope.  If you pass a filename
-//	// (e.g. "gp.file1d(pts, 'mydata.dat')"), then the named file will be created
-//	// and won't be deleted (this is useful when creating a script).
-//	gp << "plot" << gp.file1d(xy_pts_A) << "with lines title 'cubic',"
-//			<< gp.file1d(xy_pts_B) << "with points title 'circle'" << std::endl;
-//
-//	gp << "set key left box\n";
-//	gp << "set autoscale\n";
-//	gp << "set samples 800\n";
-//	gp << "plot [-30:20] sin(x*20)*atan(x)\n";
-//
-//	gp.clearTmpfiles();
-
 	Gnuplot plot;
 
-//	plot("set key left box");
-//	plot("set autoscale");
-//	plot("set samples 800");
+	plot("set key left box");
+	plot("set autoscale");
+	plot("set samples 800");
 //	plot("plot [-30:20] sin(x*20)*atan(x)");
 
 //    plot("plot '-' using 1:2 with lines\n");
-	std::stringstream str;
-	for (float i = -3.14f/2.0f; i < 3.14f/2.0f; i += 0.01)
+	//	plot(str.str());
+	//	plot("e");
+
+	if (input.size() < 2)
 	{
-		str << i;
-		str << ", ";
-//		str << std::sin(i)/std::cos(i);
-		str << std::abs(std::sin(i));
-		str << ", ";
-		str << 2 * std::sin(i) * std::cos(i);
-		str << "\n";
+		std::cout << "Empty stroke" << std::endl;
+		return 1;
+	}
+	else if (input.size() > 3)
+	{
+		std::cout << "Too much parameters" << std::endl;
+		return 1;
+
 	}
 
-	std::ofstream file;
-	file.open("plot.dat");
-	if (file.is_open())
-	{
-		file << str.str();
-		file.close();
-	}
-
-	plot("plot 'plot.dat' using 1:2 with lines");
-	plot("replot 'plot.dat' using 1:3 with lines");
-
-//	plot(str.str());
-//	plot("e");
-
-	str.clear();
+//	std::stringstream str;
+//	for (float i = -3.14f / 2.0f; i < 3.14f / 2.0f; i += 0.01)
+//	{
+//		str << i;
+//		str << ", ";
+//		str << std::abs(std::sin(i));
+//		str << ", ";
+//		str << 2 * std::sin(i) * std::cos(i);
+//		str << "\n";
+//	}
+//
+//	std::ofstream file;
+//	file.open("plot.dat");
+//	if (file.is_open())
+//	{
+//		file << str.str();
+//		file.close();
+//	}
+//
+//	plot("plot 'plot.dat' using 1:2 with lines");
+//	plot("replot 'plot.dat' using 1:3 with lines");
+//
+//	str.clear();
+	std::string ans = std::string("plot") + input.at(1) + input.at(2);
+	plot(ans);
 
 	return ret::Ok;
 }
@@ -178,8 +160,8 @@ void Application::init(void)
 	cs.executeCommand("help");
 
 #ifdef DEBUG
-	cs.executeCommand("plot");
-	quit();
+//	cs.executeCommand("plot");
+//	quit();
 #endif
 }
 
