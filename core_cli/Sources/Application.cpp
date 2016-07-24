@@ -4,7 +4,6 @@
 #include "Runtime.hpp"
 #include "Console.hpp"
 #include "Exception.hpp"
-
 #include "Gnuplot.hpp"
 
 #include <sstream>
