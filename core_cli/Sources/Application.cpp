@@ -42,9 +42,9 @@ unsigned plot(const std::vector<std::string> &input)
 
 //	plot("set key left box");
 //	plot("set autoscale");
-	plot("set samples 800");
-	plot("set style line 1 lt 2 lw 2 pt 3 ps 0.5");
-	plot("show style line");
+//	plot("set samples 800");
+//	plot("set style line 1 lt 2 lw 2 pt 3 ps 0.5");
+//	plot("show style line");
 
 //	plot("plot [-30:20] sin(x*20)*atan(x)");
 
@@ -52,43 +52,43 @@ unsigned plot(const std::vector<std::string> &input)
 	//	plot(str.str());
 	//	plot("e");
 
-	if (input.size() < 2)
+//	if (input.size() < 2)
+//	{
+//		std::cout << "Empty stroke" << std::endl;
+//		return 1;
+//	}
+
+	std::stringstream str;
+	for (float i = -3.14f / 2.0f; i < 3.14f / 2.0f; i += 0.01)
 	{
-		std::cout << "Empty stroke" << std::endl;
-		return 1;
+		str << i;
+		str << ", ";
+		str << std::abs(std::sin(i));
+		str << ", ";
+		str << 2 * std::sin(i) * std::cos(i);
+		str << "\n";
 	}
 
-//	std::stringstream str;
-//	for (float i = -3.14f / 2.0f; i < 3.14f / 2.0f; i += 0.01)
-//	{
-//		str << i;
-//		str << ", ";
-//		str << std::abs(std::sin(i));
-//		str << ", ";
-//		str << 2 * std::sin(i) * std::cos(i);
-//		str << "\n";
-//	}
-//
-//	std::ofstream file;
-//	file.open("plot.dat");
-//	if (file.is_open())
-//	{
-//		file << str.str();
-//		file.close();
-//	}
-//
-//	plot("plot 'plot.dat' using 1:2 with lines");
-//	plot("replot 'plot.dat' using 1:3 with lines");
-//
-//	str.clear();
-
-	std::string ans;
-	for (std::vector<std::string>::const_iterator it = input.begin();
-			it != input.end(); ++it)
+	std::ofstream file;
+	file.open("plot.dat");
+	if (file.is_open())
 	{
-		ans += *it + " ";
+		file << str.str();
+		file.close();
 	}
-	plot(ans);
+
+	plot("plot 'plot.dat' using 1:2 with lines");
+	plot("replot 'plot.dat' using 1:3 with lines");
+
+	str.clear();
+
+//	std::string ans;
+//	for (std::vector<std::string>::const_iterator it = input.begin();
+//			it != input.end(); ++it)
+//	{
+//		ans += *it + " ";
+//	}
+//	plot(ans);
 
 	return ret::Ok;
 }
