@@ -77,8 +77,8 @@ unsigned plot(const std::vector<std::string> &input)
 		file.close();
 	}
 
-	plot("plot 'plot.dat' using 1:2 with lines");
-	plot("replot 'plot.dat' using 1:3 with lines");
+	plot << "plot 'plot.dat' using 1:2 with lines";
+	plot << "replot 'plot.dat' using 1:3 with lines";
 
 	str.clear();
 

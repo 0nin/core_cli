@@ -19,15 +19,18 @@
 #define GNUPLOT_NAME "gnuplot -persist"
 #endif
 
-using std::string;
-using std::cerr;
+//using std::string;
+//using std::cerr;
 
 class Gnuplot
 {
 public:
 	Gnuplot();
+	Gnuplot (const std::string &plot);
 	~Gnuplot();
-	void operator ()(const string & command); // отправить команду gnuplot
+//	void operator() (const std::string & command);
+	void operator<< (const std::string & a);
+	template<class T> void operator<< (std::pair<T, T> point);
 
 protected:
 	FILE *gnuplotpipe;
@@ -43,7 +46,7 @@ Gnuplot::Gnuplot()
 
 	if (!gnuplotpipe)
 	{
-		cerr << ("Gnuplot not found !");
+		std::cerr << ("Gnuplot not found !");
 	}
 }
 Gnuplot::~Gnuplot()
@@ -56,18 +59,25 @@ Gnuplot::~Gnuplot()
 	pclose(gnuplotpipe);
 #endif
 }
-void Gnuplot::operator()(const string & command)
+//void Gnuplot::operator()(const std::string & command)
+//{
+//	fprintf(gnuplotpipe, "%s\n", command.c_str());
+//	fflush(gnuplotpipe); // flush needed to start render
+//}
+
+void Gnuplot::operator<<(const std::string & command)
 {
 	fprintf(gnuplotpipe, "%s\n", command.c_str());
-	fflush(gnuplotpipe); //без fflush ничего рисоваться не будет
+	fflush(gnuplotpipe); // flush needed to start render
 }
-;
 
-//templat
-//void Gnuplot::operator()(const string & command)
-//{
-//    fprintf(gnuplotpipe,"%s\n",command.c_str());
-//    fflush(gnuplotpipe); //без fflush ничего рисоваться не будет
-//};
+template<class T> void Gnuplot::operator<<(std::pair<T, T> point)
+{
+//	fprintf(gnuplotpipe, "%s\n", command.c_str());
+//	fflush(gnuplotpipe); // flush needed to start render+
+
+}
+
+
 
 #endif /* GNUPLOT_HPP_ */
