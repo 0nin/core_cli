@@ -40,24 +40,6 @@ unsigned plot(const std::vector<std::string> &input)
 {
 	Gnuplot plot;
 
-//	plot("set key left box");
-//	plot("set autoscale");
-//	plot("set samples 800");
-//	plot("set style line 1 lt 2 lw 2 pt 3 ps 0.5");
-//	plot("show style line");
-
-//	plot("plot [-30:20] sin(x*20)*atan(x)");
-
-//    plot("plot '-' using 1:2 with lines\n");
-	//	plot(str.str());
-	//	plot("e");
-
-//	if (input.size() < 2)
-//	{
-//		std::cout << "Empty stroke" << std::endl;
-//		return 1;
-//	}
-
 	std::stringstream str;
 	for (float i = -3.14f / 2.0f; i < 3.14f / 2.0f; i += 0.01)
 	{
@@ -76,19 +58,30 @@ unsigned plot(const std::vector<std::string> &input)
 		file << str.str();
 		file.close();
 	}
-
-	plot << "plot 'plot.dat' using 1:2 with lines";
-	plot << "replot 'plot.dat' using 1:3 with lines";
-
 	str.clear();
 
-//	std::string ans;
-//	for (std::vector<std::string>::const_iterator it = input.begin();
-//			it != input.end(); ++it)
+	plot << "set term dumb";
+	plot << "set grid";
+
+	plot << "plot 'plot.dat' using 1:2 with points";
+	plot << "replot 'plot.dat' using 2:3 with points";
+
+//	str.clear();
+
+//	plot << "plot '-' using 1:2 with lines, '-' using 1:3 with lines\n";
+//	for (float i = -3.14f / 2.0f; i < 3.14f / 2.0f; i += 0.01)
 //	{
-//		ans += *it + " ";
+//		str << i;
+//		str << ", ";
+//		str << std::abs(std::sin(i));
+//		str << ", ";
+//		str << 2 * std::sin(i) * std::cos(i);
+//		str << "\n";
+//		plot << str.str();
+//		str.clear();
 //	}
-//	plot(ans);
+//
+//	plot << "e";
 
 	return ret::Ok;
 }
@@ -162,7 +155,7 @@ void Application::init(void)
 	cs.executeCommand("help");
 
 #ifdef DEBUG
-//	cs.executeCommand("plot");
+	cs.executeCommand("plot");
 //	quit();
 #endif
 }
