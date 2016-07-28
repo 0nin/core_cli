@@ -5,6 +5,7 @@
 #include "Console.hpp"
 #include "Exception.hpp"
 #include "Gnuplot.hpp"
+#include "PathList.hpp"
 
 #include <sstream>
 #include <fstream>
@@ -38,7 +39,7 @@ unsigned info(const std::vector<std::string> &)
 
 bool isDigit(char ch)
 {
-	const char digits[] = "0123456789. ";
+	const char digits[] = "0123456789.\t\n ";
 	size_t N = sizeof(digits) / sizeof(char);
 
 	for (size_t i = 0; i < N; i++)
@@ -52,7 +53,8 @@ bool isDigit(char ch)
 bool fixLine(std::string &str)
 {
 	bool result = true;
-	if (str[0] == '#') return true;
+	if (str[0] == '#')
+		return true;
 
 	for (auto it = str.begin(); it != str.end(); ++it)
 	{
@@ -61,7 +63,8 @@ bool fixLine(std::string &str)
 		if (isDigit(*it))
 			continue;
 		else
-			return false;
+//			return false;
+			*it = ' ';
 	}
 
 	return result;
@@ -80,7 +83,9 @@ unsigned csv2dat(const std::vector<std::string> &input)
 	}
 
 	std::string line;
-	std::ifstream csvFile(input[1]);
+	std::string path;
+	Core::PathList::getSingletonPtr()->getPath(input[1], path);
+	std::ifstream csvFile(path);
 	std::vector<std::string> copy;
 
 	if (csvFile.is_open())
@@ -104,7 +109,7 @@ unsigned csv2dat(const std::vector<std::string> &input)
 	}
 
 	std::ofstream file;
-	file.open("plot.dat");
+	file.open(input[1] + ".dat");
 	if (file.is_open())
 	{
 		for (auto it = copy.begin(); it != copy.end(); ++it)
@@ -135,6 +140,7 @@ unsigned plot(const std::vector<std::string> &input)
 	}
 
 	std::ofstream file;
+//	{
 	file.open("plot.dat");
 	if (file.is_open())
 	{
@@ -142,13 +148,20 @@ unsigned plot(const std::vector<std::string> &input)
 		file.close();
 	}
 	tmp.clear();
+//	}
+
+	std::string path;
+	if (!Core::PathList::getSingletonPtr()->getPath("plot.csv", path)){
+//		std::cerr << ""
+		return 1;
+	}
 
 	plot << "set grid";
 
-	plot << "plot 'plot.csv' using 1:2 with points";
-	plot << "replot 'plot.csv' using 1:3 with points";
-	plot << "replot 'plot.csv' using 1:4 with points";
-	plot << "replot 'plot.csv' using 1:5 with points";
+	plot << "plot '" + path + "' using 1:2 with points";
+	plot << "replot '" + path + "' using 1:3 with points";
+	plot << "replot '" + path + "' using 1:4 with points";
+	plot << "replot '" + path + "' using 1:5 with points";
 //	plot << "replot 'plot.csv' using 1:3 with points";
 
 	return ret::Ok;

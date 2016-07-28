@@ -14,9 +14,9 @@
 
 #ifdef WIN32
 //    #define GNUPLOT_NAME "pgnuplot -persist"
-#define GNUPLOT_NAME "gnuplot -persist"
+#define GNUPLOT_NAME "gnuplot"
 #else
-#define GNUPLOT_NAME "gnuplot -persist"
+#define GNUPLOT_NAME "gnuplot"
 #endif
 
 //using std::string;
