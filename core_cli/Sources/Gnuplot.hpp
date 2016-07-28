@@ -30,6 +30,7 @@ public:
 	~Gnuplot();
 //	void operator() (const std::string & command);
 	void operator<< (const std::string & a);
+	void render (void);
 	template<class T> void operator<< (std::pair<T, T> point);
 
 protected:
@@ -68,6 +69,11 @@ Gnuplot::~Gnuplot()
 void Gnuplot::operator<<(const std::string & command)
 {
 	fprintf(gnuplotpipe, "%s\n", command.c_str());
+	fflush(gnuplotpipe); // flush needed to start render
+}
+
+void Gnuplot::render(void)
+{
 	fflush(gnuplotpipe); // flush needed to start render
 }
 

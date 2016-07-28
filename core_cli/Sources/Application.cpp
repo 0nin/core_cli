@@ -40,48 +40,33 @@ unsigned plot(const std::vector<std::string> &input)
 {
 	Gnuplot plot;
 
-	std::stringstream str;
+	std::stringstream tmp;
 	for (float i = -3.14f / 2.0f; i < 3.14f / 2.0f; i += 0.01)
 	{
-		str << i;
-		str << ", ";
-		str << std::abs(std::sin(i));
-		str << ", ";
-		str << 2 * std::sin(i) * std::cos(i);
-		str << "\n";
+		tmp << i;
+		tmp << ", ";
+		tmp << std::abs(std::sin(i));
+		tmp << ", ";
+		tmp << 2 * std::sin(i) * std::cos(i);
+		tmp << "\n";
 	}
 
 	std::ofstream file;
 	file.open("plot.dat");
 	if (file.is_open())
 	{
-		file << str.str();
+		file << tmp.str();
 		file.close();
 	}
-	str.clear();
+	tmp.clear();
 
-	plot << "set term dumb";
 	plot << "set grid";
 
-	plot << "plot 'plot.dat' using 1:2 with points";
-	plot << "replot 'plot.dat' using 2:3 with points";
-
-//	str.clear();
-
-//	plot << "plot '-' using 1:2 with lines, '-' using 1:3 with lines\n";
-//	for (float i = -3.14f / 2.0f; i < 3.14f / 2.0f; i += 0.01)
-//	{
-//		str << i;
-//		str << ", ";
-//		str << std::abs(std::sin(i));
-//		str << ", ";
-//		str << 2 * std::sin(i) * std::cos(i);
-//		str << "\n";
-//		plot << str.str();
-//		str.clear();
-//	}
-//
-//	plot << "e";
+	plot << "plot 'plot.csv' using 1:2 with points";
+	plot << "replot 'plot.csv' using 1:3 with points";
+	plot << "replot 'plot.csv' using 1:4 with points";
+	plot << "replot 'plot.csv' using 1:5 with points";
+//	plot << "replot 'plot.csv' using 1:3 with points";
 
 	return ret::Ok;
 }
