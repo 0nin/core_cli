@@ -70,6 +70,32 @@ bool fixLine(std::string &str)
 	return result;
 }
 
+bool copy (const std::string &file, std::vector<std::string> &copy)
+{
+	bool result = true;
+	std::string line;
+	std::string path;
+	Core::PathList::getSingletonPtr()->getPath(file, path);
+	std::ifstream csvFile(path);
+//	std::vector<std::string> copy;
+
+	if (csvFile.is_open())
+	{
+		while (getline(csvFile, line))
+		{
+			copy.push_back(line);
+		}
+		csvFile.close();
+		line.clear();
+	}
+	else
+	{
+		std::cerr << "I can't open to " + file << std::endl;
+	}
+
+	return result;
+}
+
 unsigned csv2dat(const std::vector<std::string> &input)
 {
 	if (input.size() != 2)
@@ -124,6 +150,22 @@ unsigned csv2dat(const std::vector<std::string> &input)
 	return ret::Ok;
 }
 
+
+
+void diff (const std::vector<std::pair<double, double>> &data, std::vector<std::pair<double, double>> diff)
+{
+	for (auto it = data.begin(); it != data.end()-1; ++it)
+	{
+		double x = it->first;
+		double y = it->second;
+		double x1 = (it+1)->first;
+		double y1 = (it+1)->second;
+
+		diff.push_back(std::make_pair(x,(y1-y)/(x1-x)));
+	}
+}
+
+
 unsigned plot(const std::vector<std::string> &input)
 {
 	Gnuplot plot;
@@ -151,7 +193,7 @@ unsigned plot(const std::vector<std::string> &input)
 //	}
 
 	std::string path;
-	if (!Core::PathList::getSingletonPtr()->getPath("plot.csv", path)){
+	if (!Core::PathList::getSingletonPtr()->getPath("normalized.dat", path)){
 //		std::cerr << ""
 		return 1;
 	}
