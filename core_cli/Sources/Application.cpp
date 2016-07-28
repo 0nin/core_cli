@@ -36,6 +36,89 @@ unsigned info(const std::vector<std::string> &)
 	return ret::Ok;
 }
 
+bool isDigit(char ch)
+{
+	const char digits[] = "0123456789. ";
+	size_t N = sizeof(digits) / sizeof(char);
+
+	for (size_t i = 0; i < N; i++)
+	{
+		if (ch == digits[i])
+			return true;
+	}
+	return false;
+}
+
+bool fixLine(std::string &str)
+{
+	bool result = true;
+	if (str[0] == '#') return true;
+
+	for (auto it = str.begin(); it != str.end(); ++it)
+	{
+		if (*it == ',')
+			*it = ' ';
+		if (isDigit(*it))
+			continue;
+		else
+			return false;
+	}
+
+	return result;
+}
+
+unsigned csv2dat(const std::vector<std::string> &input)
+{
+	if (input.size() != 2)
+	{
+		// The first element of the input array is always the name of the
+		// command as registered in the console.
+		std::cout << "Usage: " << input[0] << " name of file.csv\n";
+		// We can return an arbitrary error code, which we can catch later
+		// as Console will return it.
+		return 1;
+	}
+
+	std::string line;
+	std::ifstream csvFile(input[1]);
+	std::vector<std::string> copy;
+
+	if (csvFile.is_open())
+	{
+		while (getline(csvFile, line))
+		{
+			copy.push_back(line);
+		}
+		csvFile.close();
+		line.clear();
+	}
+	else
+	{
+		std::cerr << "I can't open to" + input[1] << std::endl;
+	}
+
+	for (auto it = copy.begin(); it != copy.end(); ++it)
+	{
+		if (!fixLine(*it))
+			return 1;
+	}
+
+	std::ofstream file;
+	file.open("plot.dat");
+	if (file.is_open())
+	{
+		for (auto it = copy.begin(); it != copy.end(); ++it)
+		{
+			file << *it << std::endl;
+		}
+		file.close();
+	}
+
+	copy.clear();
+
+	return ret::Ok;
+}
+
 unsigned plot(const std::vector<std::string> &input)
 {
 	Gnuplot plot;
@@ -116,7 +199,7 @@ namespace Core
 #define errorNULL throw Exception( "null pointer");
 
 Application::Application(std::string path, std::string configFile) :
-		cs(">> ")
+		cs("(core)")
 {
 	_exit = false;
 	this->path = path;
@@ -126,7 +209,7 @@ Application::Application(std::string path, std::string configFile) :
 
 Application::~Application(void)
 {
-	// empty
+// empty
 }
 
 void Application::init(void)
@@ -136,11 +219,12 @@ void Application::init(void)
 	cs.registerCommand("info", info);
 	cs.registerCommand("calc", calc);
 	cs.registerCommand("plot", plot);
+	cs.registerCommand("csv2dat", csv2dat);
 
 	cs.executeCommand("help");
 
 #ifdef DEBUG
-	cs.executeCommand("plot");
+//	cs.executeCommand("plot");
 //	quit();
 #endif
 }
