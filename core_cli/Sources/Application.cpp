@@ -10,6 +10,8 @@
 #include <sstream>
 #include <fstream>
 #include <cmath>
+#include <algorithm>
+#include <iterator>
 
 namespace cr = CppReadline;
 using ret = cr::Console::ReturnCode;
@@ -52,8 +54,8 @@ bool isDigit(char ch)
 
 bool fixLine(std::string &str)
 {
-	bool result = true;
 	if (str[0] == '#')
+//		return ret::Ok;
 		return true;
 
 	for (auto it = str.begin(); it != str.end(); ++it)
@@ -63,21 +65,19 @@ bool fixLine(std::string &str)
 		if (isDigit(*it))
 			continue;
 		else
-//			return false;
 			*it = ' ';
 	}
 
-	return result;
+//	return ret::Ok;
+	return true;
 }
 
-bool copy (const std::string &file, std::vector<std::string> &copy)
+unsigned copy(const std::string &file, std::vector<std::string> &copy)
 {
-	bool result = true;
 	std::string line;
 	std::string path;
 	Core::PathList::getSingletonPtr()->getPath(file, path);
 	std::ifstream csvFile(path);
-//	std::vector<std::string> copy;
 
 	if (csvFile.is_open())
 	{
@@ -91,12 +91,124 @@ bool copy (const std::string &file, std::vector<std::string> &copy)
 	else
 	{
 		std::cerr << "I can't open to " + file << std::endl;
+		return 1;
 	}
 
-	return result;
+	return ret::Ok;
 }
 
-unsigned csv2dat(const std::vector<std::string> &input)
+unsigned copy(const std::string &file,
+		std::vector<std::pair<double, double>> &copy, size_t colX, size_t colY)
+{
+	std::string line;
+	std::string path;
+	Core::PathList::getSingletonPtr()->getPath(file, path);
+	std::ifstream datFile(path);
+	std::stringstream tmp;
+	double x, y;
+	bool xI = false, yI = false;
+
+	if (datFile.is_open())
+	{
+		while (getline(datFile, line))
+		{
+			xI = false;
+			yI = false;
+			if (line[0] == '#')
+				continue;
+			fixLine(line);
+			std::istringstream iss(line);
+			size_t count = 0;
+			while (iss)
+			{
+				std::string word;
+				iss >> word;
+
+				count++;
+				if (count == colX)
+				{
+					x = std::stod(word);
+					xI = true;
+				}
+				else if (count == colY)
+				{
+					y = std::stod(word);
+					yI = true;
+				}
+				else
+				{
+					//do nothing
+				}
+			}
+			if (xI && yI)
+				copy.push_back(std::make_pair(x, y));
+		}
+		line.clear();
+	}
+	else
+	{
+		std::cerr << "I can't open to " + file << std::endl;
+		return 1;
+	}
+
+#ifdef DEBUG
+	std::cout << "__X__" << "  " << "__Y__" << std::endl;
+	for (auto it = copy.begin(); it != copy.end(); ++it)
+	{
+		std::cout << it->first << "  " << it->second << std::endl;
+	}
+#endif
+
+	datFile.close();
+	return ret::Ok;
+
+}
+
+bool csv2dat(const std::string &file, const std::string &out)
+{
+	std::string line;
+	std::string path;
+	Core::PathList::getSingletonPtr()->getPath(file, path);
+	std::ifstream csvFile(path);
+	std::vector<std::string> copy;
+
+	if (csvFile.is_open())
+	{
+		while (getline(csvFile, line))
+		{
+			copy.push_back(line);
+		}
+		csvFile.close();
+		line.clear();
+	}
+	else
+	{
+		std::cerr << "I can't open to" + file << std::endl;
+	}
+
+	for (auto it = copy.begin(); it != copy.end(); ++it)
+	{
+		if (!fixLine(*it))
+			return 1;
+	}
+
+	std::ofstream write;
+	write.open(out);
+	if (write.is_open())
+	{
+		for (auto it = copy.begin(); it != copy.end(); ++it)
+		{
+			write << *it << std::endl;
+		}
+		write.close();
+	}
+
+	copy.clear();
+
+	return true;
+}
+
+unsigned conv(const std::vector<std::string> &input)
 {
 	if (input.size() != 2)
 	{
@@ -150,21 +262,107 @@ unsigned csv2dat(const std::vector<std::string> &input)
 	return ret::Ok;
 }
 
+//template<class T>
+//void diff(const std::vector<std::pair<T, T>> &data,
+//		std::vector<std::pair<T, T>> diff)
+//{
+//	for (auto it = data.begin(); it != data.end() - 1; ++it)
+//	{
+//		T x = it->first;
+//		T y = it->second;
+//		T x1 = (it + 1)->first;
+//		T y1 = (it + 1)->second;
+//
+//		diff.push_back(std::make_pair(x, (y1 - y) / (x1 - x)));
+//	}
+//}
 
-
-void diff (const std::vector<std::pair<double, double>> &data, std::vector<std::pair<double, double>> diff)
+void diff(const std::vector<std::pair<double, double>> &data,
+		std::vector<std::pair<double, double>> &diff)
 {
-	for (auto it = data.begin(); it != data.end()-1; ++it)
+	for (auto it = data.begin(); it != data.end() - 1; ++it)
 	{
 		double x = it->first;
 		double y = it->second;
-		double x1 = (it+1)->first;
-		double y1 = (it+1)->second;
+		double x1 = (it + 1)->first;
+		double y1 = (it + 1)->second;
 
-		diff.push_back(std::make_pair(x,(y1-y)/(x1-x)));
+		diff.push_back(std::make_pair(x, (y1 - y) / (x1 - x)));
 	}
+
+//#ifdef DEBUG
+//	std::cout << "__X__" << "  " << "__DATA__" << std::endl;
+//	for (auto it = data.begin(); it != data.end(); ++it)
+//	{
+//		std::cout << it->first << "  " << it->second << std::endl;
+//	}
+//#endif
+
+
+//#ifdef DEBUG
+//	std::cout << "__X__" << "  " << "__DIFF__" << std::endl;
+//	for (auto it = diff.begin(); it != diff.end(); ++it)
+//	{
+//		std::cout << it->first << "  " << it->second << std::endl;
+//	}
+//#endif
+
 }
 
+unsigned rt(const std::vector<std::string> &)
+{
+	const std::string file = "plot.dat";
+	csv2dat("plot.csv", "plot.dat");
+
+	std::vector<std::pair<double, double>> data;
+	std::vector<std::pair<double, double>> dd;
+	copy("plot.dat", data, 1, 2);
+	diff(data, dd);
+
+	std::ofstream write;
+	write.open("diff2.dat");
+	if (write.is_open())
+	{
+		for (auto it = dd.begin(); it != dd.end(); ++it)
+		{
+			write << it->first << "  " << it->second << std::endl;
+		}
+		write.close();
+	}
+
+	data.clear();
+	dd.clear();
+
+	copy("plot.dat", data, 1, 5);
+	diff(data, dd);
+
+//	std::ofstream write;
+	write.open("diff5.dat");
+	if (write.is_open())
+	{
+		for (auto it = dd.begin(); it != dd.end(); ++it)
+		{
+			write << it->first << "  " << it->second << std::endl;
+		}
+		write.close();
+	}
+
+	data.clear();
+	dd.clear();
+
+
+
+//#ifdef DEBUG
+//	std::cout << "__X__" << "  " << "__DIFF__" << std::endl;
+//	for (auto it = dd.begin(); it != dd.end(); ++it)
+//	{
+//		std::cout << it->first << "  " << it->second << std::endl;
+//	}
+//#endif
+
+
+	return ret::Ok;
+}
 
 unsigned plot(const std::vector<std::string> &input)
 {
@@ -193,7 +391,8 @@ unsigned plot(const std::vector<std::string> &input)
 //	}
 
 	std::string path;
-	if (!Core::PathList::getSingletonPtr()->getPath("normalized.dat", path)){
+	if (!Core::PathList::getSingletonPtr()->getPath("normalized.dat", path))
+	{
 //		std::cerr << ""
 		return 1;
 	}
@@ -274,13 +473,15 @@ void Application::init(void)
 	cs.registerCommand("info", info);
 	cs.registerCommand("calc", calc);
 	cs.registerCommand("plot", plot);
-	cs.registerCommand("csv2dat", csv2dat);
+	cs.registerCommand("conv", conv);
+	cs.registerCommand("diff", rt);
 
 	cs.executeCommand("help");
 
 #ifdef DEBUG
 //	cs.executeCommand("plot");
-//	quit();
+	cs.executeCommand("diff");
+	quit();
 #endif
 }
 
