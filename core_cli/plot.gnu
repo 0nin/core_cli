@@ -24,3 +24,5 @@ replot 'plot.dat' using 1:4 title 'DUT 3'
 set term wxt 3
 plot 'diff5.dat' using 1:2
 replot 'plot.dat' using 1:5 title 'DUT 4'
+
+# pause -1

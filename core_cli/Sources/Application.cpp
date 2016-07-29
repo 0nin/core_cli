@@ -213,13 +213,13 @@ bool vec2dat(const std::list<std::vector<std::pair<T, T>>>&dataList, const std::
 		if (it->size() > maxSize) maxSize = it->size();
 	}
 
-//	size_t currStr = 0;
 	for (size_t i = 0; i < maxSize; i++) {
 		for (auto it = dataList.begin(); it != dataList.end(); ++it) {
 			if (it->size() >= i) tmp << it->at(i).first << "  " << it->at(i).second << "  ";
 		}
 		tmp << std::endl;
 		file += tmp.str();
+		tmp.str( std::string() );
 		tmp.clear();
 	}
 
