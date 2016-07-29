@@ -6,6 +6,7 @@
 #include "Exception.hpp"
 #include "Gnuplot.hpp"
 #include "PathList.hpp"
+#include "Global.h"
 
 #include <sstream>
 #include <fstream>
@@ -134,9 +135,9 @@ unsigned copy(const std::string &file,
 	}
 
 //#ifdef DEBUG
-//	std::cout << "__X__" << "  " << "__Y__" << std::endl;
+//	std::cout << "__X__" << " " << "__Y__" << std::endl;
 //	for (auto it = copy.begin(); it != copy.end(); ++it) {
-//		std::cout << it->first << "  " << it->second << std::endl;
+//		std::cout << it->first << " " << it->second << std::endl;
 //	}
 //#endif
 
@@ -186,16 +187,16 @@ bool vec2dat(const std::vector<std::pair<T, T>> &data, const std::string &out) {
 	write.open(out);
 	if (write.is_open()) {
 		for (auto it = data.begin(); it != data.end(); ++it) {
-			write << it->first << "  " << it->second << std::endl;
+			write << it->first << " " << it->second << std::endl;
 		}
 		write.close();
 	} else
 		return false;
 
 #ifdef DEBUG
-	std::cout << "__X__" << "  " << "__DATA__" << std::endl;
+	std::cout << "__X__" << " " << "__DATA__" << std::endl;
 	for (auto it = data.begin(); it != data.end(); ++it) {
-		std::cout << it->first << "  " << it->second << std::endl;
+		std::cout << it->first << " " << it->second << std::endl;
 	}
 #endif
 
@@ -215,7 +216,7 @@ bool vec2dat(const std::list<std::vector<std::pair<T, T>>>&dataList, const std::
 
 	for (size_t i = 0; i < maxSize; i++) {
 		for (auto it = dataList.begin(); it != dataList.end(); ++it) {
-			if (it->size() >= i) tmp << it->at(i).first << "  " << it->at(i).second << "  ";
+			if (it->size() > i) tmp << it->at(i).first << " " << it->at(i).second << " ";
 		}
 		tmp << std::endl;
 		file += tmp.str();
@@ -232,9 +233,9 @@ bool vec2dat(const std::list<std::vector<std::pair<T, T>>>&dataList, const std::
 	file.clear();
 
 //#ifdef DEBUG
-//	std::cout << "__X__" << "  " << "__DATA__" << std::endl;
+//	std::cout << "__X__" << " " << "__DATA__" << std::endl;
 //	for (auto it = data.begin(); it != data.end(); ++it) {
-//		std::cout << it->first << "  " << it->second << std::endl;
+//		std::cout << it->first << " " << it->second << std::endl;
 //	}
 //#endif
 	return true;
@@ -299,16 +300,16 @@ void diff(const std::vector<std::pair<T, T>> &data,
 	}
 
 //#ifdef DEBUG
-//	std::cout << "__X__" << "  " << "__DATA__" << std::endl;
+//	std::cout << "__X__" << " " << "__DATA__" << std::endl;
 //	for (auto it = data.begin(); it != data.end(); ++it) {
-//		std::cout << it->first << "  " << it->second << std::endl;
+//		std::cout << it->first << " " << it->second << std::endl;
 //	}
 //#endif
 //
 //#ifdef DEBUG
-//	std::cout << "__X__" << "  " << "__DIFF__" << std::endl;
+//	std::cout << "__X__" << " " << "__DIFF__" << std::endl;
 //	for (auto it = diff.begin(); it != diff.end(); ++it) {
-//		std::cout << it->first << "  " << it->second << std::endl;
+//		std::cout << it->first << " " << it->second << std::endl;
 //	}
 //#endif
 }
@@ -318,40 +319,45 @@ unsigned rt(const std::vector<std::string> &) {
 	csv2dat("plot.csv", "plot.dat");
 	std::ofstream write;
 
-	std::vector<std::pair<double, double>> data, data1, data2, data3, data4;
+	std::vector<std::pair<double, double>> data;
+	std::vector<std::pair<double, double>> d1;
 	std::vector<std::pair<double, double>> d2;
-	std::vector<std::pair<double, double>> d3;
-
-	copy("plot.dat", data1, 1, 2);
-	diff(data1, d2);
-	diff(d2, d3);
-	vec2dat(d2, "diff2.dat");
-
-	copy("plot.dat", data2, 1, 3);
-	diff(data2, d2);
-	vec2dat(d2, "diff3.dat");
-
-	copy("plot.dat", data3, 1, 4);
-	diff(data3, d2);
-	vec2dat(d2, "diff4.dat");
-
-	copy("plot.dat", data4, 1, 5);
-	diff(data4, d2);
-	vec2dat(d2, "diff5.dat");
 
 	std::list<std::vector<std::pair<double, double>>>datList;
-	datList.push_back(data1);
-	datList.push_back(data2);
-	datList.push_back(data3);
-	datList.push_back(data4);
 
-	vec2dat(datList, "plot2.dat");
+	copy("plot.dat", data, 1, 2);
+	diff(data, d1);
+	diff(d1, d2);
+	datList.push_back(data);
+	datList.push_back(d1);
+//	datList.push_back(d2);
+
+	copy("plot.dat", data, 1, 3);
+	diff(data, d1);
+	diff(d1, d2);
+	datList.push_back(data);
+	datList.push_back(d1);
+
+
+	copy("plot.dat", data, 1, 4);
+	diff(data, d1);
+	diff(d1, d2);
+	datList.push_back(data);
+	datList.push_back(d1);
+
+	copy("plot.dat", data, 1, 5);
+	diff(data, d1);
+	diff(d1, d2);
+	datList.push_back(data);
+	datList.push_back(d1);
+
+	vec2dat(datList, "cable.dat");
 
 //#ifdef DEBUG
-//	std::cout << "__X__" << "  " << "__DIFF__" << std::endl;
+//	std::cout << "__X__" << " " << "__DIFF__" << std::endl;
 //	for (auto it = dd.begin(); it != dd.end(); ++it)
 //	{
-//		std::cout << it->first << "  " << it->second << std::endl;
+//		std::cout << it->first << " " << it->second << std::endl;
 //	}
 //#endif
 
