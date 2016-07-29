@@ -1,7 +1,7 @@
 #ifndef _Application_h_
 #define _Application_h_
 
-#include "Common.hpp"
+#include "Common.h"
 #include "Console.hpp"
 
 #if defined __WIN32__ || _WIN32 && defined _MSC_VER
@@ -10,13 +10,11 @@
 #define PLATFORM UNIX
 #endif
 
-#include "Common.hpp"
+#include "Common.h"
 
-namespace Core
-{
+namespace Core {
 
-class Application
-{
+class Application {
 public:
 	explicit Application(std::string path, std::string configFile);
 

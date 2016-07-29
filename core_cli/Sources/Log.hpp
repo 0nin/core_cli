@@ -8,13 +8,11 @@
 #ifndef SOURCE_LOG_H_
 #define SOURCE_LOG_H_
 
-#include "Common.hpp"
+#include "Common.h"
 
-namespace Core
-{
+namespace Core {
 
-class Log
-{
+class Log {
 public:
 	explicit Log(std::string const &name);
 

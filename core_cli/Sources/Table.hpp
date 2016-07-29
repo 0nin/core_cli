@@ -8,13 +8,11 @@
 #ifndef TABLE_HPP_
 #define TABLE_HPP_
 
-#include "Common.hpp"
+#include "Common.h"
 
-namespace Core
-{
+namespace Core {
 
-class Table
-{
+class Table {
 public:
 	explicit Table();
 	virtual ~Table();

@@ -5,9 +5,6 @@
  *      Author: avs
  */
 
-
-
-
 //
 //int main(int argc, char* args[]) {
 //    // We create a console. The '>' character is used as the prompt.
@@ -61,7 +58,6 @@
 //
 //    return 0;
 //}
-
 //#ifdef __cplusplus
 //extern "C" {
 //#endif
@@ -86,7 +82,6 @@
 //#ifdef __cplusplus
 //}
 //#endif
-
 //	while (_exit != true) {
 //		printf("> ");
 //		std::cin >> in;
@@ -121,8 +116,7 @@
 //		} else {
 //			std::cout << "LOL:" << std::endl;
 //		}
-	//handle(in)
-
+//handle(in)
 //unsigned plot(const std::vector<std::string> &)
 //{
 //	Gnuplot gp;
@@ -155,7 +149,5 @@
 //	gp << "plot [-30:20] sin(x*20)*atan(x)\n";
 //
 //	gp.clearTmpfiles();
-
 //	return ret::Ok;
 //}
-

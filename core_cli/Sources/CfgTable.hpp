@@ -8,14 +8,12 @@
 #ifndef CFGTABLE_HPP_
 #define CFGTABLE_HPP_
 
-#include "Common.hpp"
+#include "Common.h"
 #include "Table.hpp"
 
-namespace Core
-{
+namespace Core {
 
-class CfgTable
-{
+class CfgTable {
 public:
 	CfgTable(void);
 	virtual ~CfgTable(void);

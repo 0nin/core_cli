@@ -12,15 +12,13 @@
 #include <chrono>
 #include <map>
 
-#include "Common.hpp"
+#include "Common.h"
 #include "Interval.hpp"
 #include "Log.hpp"
 
-namespace Core
-{
+namespace Core {
 
-class Runtime
-{
+class Runtime {
 public:
 	Runtime(void);
 

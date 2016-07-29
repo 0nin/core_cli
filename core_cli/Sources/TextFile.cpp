@@ -6,36 +6,29 @@
 #include <sstream>
 #include <fstream>
 
-namespace Core
-{
+namespace Core {
 
-template<class T> std::string atos(T real)
-{
+template<class T> std::string atos(T real) {
 	std::ostringstream strs;
 	strs << real;
 	std::string str = strs.str();
 	return str;
 }
 
-void TextFile::write(const std::string &text, const std::string &fileName)
-{
+void TextFile::write(const std::string &text, const std::string &fileName) {
 	std::ofstream mFile;
 	mFile.open(fileName.c_str());
-	if (mFile.is_open())
-	{
+	if (mFile.is_open()) {
 		mFile << text;
 		mFile.close();
-	}
-	else
-	{
+	} else {
 		std::cerr << "I can't write to" + fileName << std::endl;
 	}
 //	else
 //		throw Exception(std::string("I can't write to") + fileName);
 }
 
-void TextFile::clear(const std::string &fileName)
-{
+void TextFile::clear(const std::string &fileName) {
 	//не работает
 }
 
@@ -45,62 +38,49 @@ void TextFile::clear(const std::string &fileName)
 //}
 
 TextFile::TextFile(const std::string &fileName) :
-		fileName(fileName), fileCopy()
-{
+		fileName(fileName), fileCopy() {
 }
 
-TextFile::~TextFile(void)
-{
+TextFile::~TextFile(void) {
 }
 
-void TextFile::operator<<(const std::string &str)
-{
+void TextFile::operator<<(const std::string &str) {
 	write(str);
 }
 
-void TextFile::setFile(const std::string &fileName)
-{
+void TextFile::setFile(const std::string &fileName) {
 	std::string fullPath;
 //	this->fileName = fileName;
 //	std::fstream m_stream;
 //	m_stream.open(fileName.c_str());
 //	m_stream.close();
 
-	if (PathList::getSingletonPtr()->getPath(fileName, fullPath))
-	{
+	if (PathList::getSingletonPtr()->getPath(fileName, fullPath)) {
 		this->fileName = fileName;
 		std::fstream m_stream;
 		m_stream.open(fileName.c_str());
 		m_stream.close();
-	}
-	else
-	{
+	} else {
 //		std::cerr << "Can't find file:: " << fileName;
 		throw ExceptionNoFile(fileName);
 	}
 }
 
-void TextFile::write(const std::string &text)
-{
+void TextFile::write(const std::string &text) {
 	write(text, this->fileName);
 	return;
 }
 
-void TextFile::copy(void)
-{
+void TextFile::copy(void) {
 	std::string line;
 	std::ifstream m_file(this->fileName.c_str());
-	if (m_file.is_open())
-	{
-		while (getline(m_file, line))
-		{
+	if (m_file.is_open()) {
+		while (getline(m_file, line)) {
 			this->fileCopy.push_back(line);
 		}
 		m_file.close();
 		line.clear();
-	}
-	else
-	{
+	} else {
 		std::cerr << "I can't open to" + fileName << std::endl;
 	}
 //	else
@@ -151,13 +131,11 @@ void TextFile::copy(void)
 //	return;
 //}
 
-void TextFile::clear(void)
-{
+void TextFile::clear(void) {
 	clear(this->fileName);
 }
 
-void TextFile::print(void)
-{
+void TextFile::print(void) {
 //	std::vector<std::string>::const_iterator it = fileCopy.begin();
 	for (auto it = fileCopy.begin(); it != fileCopy.end(); it++)
 		std::cout << *(it) << " " << std::endl;

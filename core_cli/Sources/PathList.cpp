@@ -2,56 +2,46 @@
 
 #include "Exception.hpp"
 
-namespace Core
-{
+namespace Core {
 
 //static PathList singletonPathList;
-static PathList* singletonPathList= new PathList();
+static PathList* singletonPathList = new PathList();
 
-PathList::PathList(void)
-{
+PathList::PathList(void) {
 	const char *env = getenv("PATH");
 
 	//search local paths first, in-case someone has the SDK installed while hacking another copy
 	pathList.push_back("./");  // present directory
 	pathList.push_back("../"); // back one
 	pathList.push_back("../../"); // back two
-	if (env)
-	{
+	if (env) {
 		pathList.push_back(std::string(env) + "/"); // Path lacks a terminating slash
 	}
 }
 
-PathList::~PathList(void)
-{
+PathList::~PathList(void) {
 	clearPaths();
 }
 
-void PathList::addPath(const std::string &path)
-{
+void PathList::addPath(const std::string &path) {
 	pathList.push_back(path);
 }
 
-void PathList::clearPaths()
-{
-	if (!pathList.empty())
-	{
+void PathList::clearPaths() {
+	if (!pathList.empty()) {
 		pathList.clear();
 	}
 }
 
-bool PathList::getPath(const std::string &file, std::string &path)
-{
+bool PathList::getPath(const std::string &file, std::string &path) {
 	bool sucess = false;
 	std::string pathString;
 	FILE *fp;
 
-	for (auto it = pathList.begin(); it != pathList.end(); ++it)
-	{
+	for (auto it = pathList.begin(); it != pathList.end(); ++it) {
 		pathString = *it + file;
 		fp = fopen(pathString.c_str(), "rb");
-		if (fp)
-		{
+		if (fp) {
 			fclose(fp);
 			path = pathString;
 			sucess = true;
@@ -85,8 +75,7 @@ bool PathList::getPath(const std::string &file, std::string &path)
 //	throw Exception("File with name" + file + "doesn't exist");
 //}
 
-PathList* PathList::getSingletonPtr(void)
-{
+PathList* PathList::getSingletonPtr(void) {
 	return singletonPathList;
 }
 
@@ -95,10 +84,8 @@ PathList* PathList::getSingletonPtr(void)
 //	return singletonPathList;
 //}
 
-void PathList::print(void)
-{
-	for (auto it = pathList.begin(); it != pathList.end(); it++)
-	{
+void PathList::print(void) {
+	for (auto it = pathList.begin(); it != pathList.end(); it++) {
 		std::cout << *(it) << std::endl;
 	}
 }

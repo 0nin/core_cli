@@ -1,13 +1,11 @@
 #ifndef _PathList_h_
 #define _PathList_h_
 
-#include "Common.hpp"
+#include "Common.h"
 
-namespace Core
-{
+namespace Core {
 
-class PathList
-{
+class PathList {
 public:
 	PathList(void);
 

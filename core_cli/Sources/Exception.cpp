@@ -6,8 +6,7 @@
 #if defined __WIN32__ || _WIN32
 #define WIN32_LEAN_AND_MEAN
 #include <Windows.h>
-extern void eBox( const std::string &message, const std::string &caption)
-{
+extern void eBox(const std::string &message, const std::string &caption) {
 	MessageBox(NULL, message.c_str(), caption.c_str(), MB_ICONERROR);
 	return;
 }
@@ -20,19 +19,16 @@ extern void eBox(const std::string &message, const std::string &caption)
 
 #include "Exception.hpp"
 
-namespace Core
-{
+namespace Core {
 
-void Exception::die(std::string msg, std::string t_errorlog)
-{
+void Exception::die(std::string msg, std::string t_errorlog) {
 	std::string str = "Exception:: " + msg + " ";
 	std::cerr << str << std::endl;
 	TextFile::write(str, t_errorlog);
 	eBox(msg, "Core::Exception");
 }
 
-void Exception::writeToLog(std::string msg, std::string t_errorlog)
-{
+void Exception::writeToLog(std::string msg, std::string t_errorlog) {
 	std::string str = "Exception:: " + msg + " ";
 	std::cerr << str << std::endl;
 	TextFile::write(str, t_errorlog);
@@ -58,45 +54,38 @@ Exception::Exception(const std::string &dsc, ExceptionType type) :
 	this->type = type;
 }
 
-Exception::~Exception(void)
-{
+Exception::~Exception(void) {
 }
 
-std::string Exception::getDescription(void)
-{
+std::string Exception::getDescription(void) {
 	return description;
 
 }
 
 ExceptionNoFile::ExceptionNoFile(const std::string &dsc) :
-		Exception("")
-{
+		Exception("") {
 	this->type = ExceptionTypeNoFile;
-	this->description = std::string("ExceptionNoFile:: ") + "Can't find file:: " + dsc;
+	this->description = std::string("ExceptionNoFile:: ") + "Can't find file:: "
+			+ dsc;
 }
-ExceptionNoFile::~ExceptionNoFile(void)
-{
+ExceptionNoFile::~ExceptionNoFile(void) {
 
 }
 
 ExceptionNotImplemented::ExceptionNotImplemented(const std::string &dsc) :
-		Exception(dsc)
-{
+		Exception(dsc) {
 	this->type = ExceptionTypeNotImplemented;
 }
 
-ExceptionNotImplemented::~ExceptionNotImplemented(void)
-{
+ExceptionNotImplemented::~ExceptionNotImplemented(void) {
 }
 
 ExceptionTableMiss::ExceptionTableMiss(const std::string &dsc) :
-		Exception(dsc)
-{
+		Exception(dsc) {
 	this->type = ExceptionTypeTableMiss;
 }
 
-ExceptionTableMiss::~ExceptionTableMiss()
-{
+ExceptionTableMiss::~ExceptionTableMiss() {
 }
 
 } /* namespace Core */

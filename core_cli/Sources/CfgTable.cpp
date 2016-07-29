@@ -7,23 +7,18 @@
 
 #include "CfgTable.hpp"
 
-namespace Core
-{
+namespace Core {
 
 static CfgTable singletonCfgTable;
 
-CfgTable::CfgTable(void)
-{
+CfgTable::CfgTable(void) {
 }
 
-CfgTable::~CfgTable(void)
-{
+CfgTable::~CfgTable(void) {
 }
 
-CfgTable* CfgTable::getSingletonPtr(void)
-{
+CfgTable* CfgTable::getSingletonPtr(void) {
 	return &singletonCfgTable;
 }
-
 
 } /* namespace Core */

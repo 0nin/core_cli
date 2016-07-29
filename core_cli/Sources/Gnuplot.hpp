@@ -22,36 +22,32 @@
 //using std::string;
 //using std::cerr;
 
-class Gnuplot
-{
+class Gnuplot {
 public:
 	Gnuplot();
-	Gnuplot (const std::string &plot);
+	Gnuplot(const std::string &plot);
 	~Gnuplot();
 //	void operator() (const std::string & command);
-	void operator<< (const std::string & a);
-	void render (void);
-	template<class T> void operator<< (std::pair<T, T> point);
+	void operator<<(const std::string & a);
+	void render(void);
+	template<class T> void operator<<(std::pair<T, T> point);
 
 protected:
 	FILE *gnuplotpipe;
 };
 
-Gnuplot::Gnuplot()
-{
+Gnuplot::Gnuplot() {
 #ifdef WIN32
 	gnuplotpipe = _popen(GNUPLOT_NAME, "w");
 #else
 	gnuplotpipe = popen(GNUPLOT_NAME, "w");
 #endif
 
-	if (!gnuplotpipe)
-	{
+	if (!gnuplotpipe) {
 		std::cerr << ("Gnuplot not found !");
 	}
 }
-Gnuplot::~Gnuplot()
-{
+Gnuplot::~Gnuplot() {
 	fprintf(gnuplotpipe, "exit\n");
 
 #ifdef WIN32
@@ -66,24 +62,19 @@ Gnuplot::~Gnuplot()
 //	fflush(gnuplotpipe); // flush needed to start render
 //}
 
-void Gnuplot::operator<<(const std::string & command)
-{
+void Gnuplot::operator<<(const std::string & command) {
 	fprintf(gnuplotpipe, "%s\n", command.c_str());
 	fflush(gnuplotpipe); // flush needed to start render
 }
 
-void Gnuplot::render(void)
-{
+void Gnuplot::render(void) {
 	fflush(gnuplotpipe); // flush needed to start render
 }
 
-template<class T> void Gnuplot::operator<<(std::pair<T, T> point)
-{
+template<class T> void Gnuplot::operator<<(std::pair<T, T> point) {
 //	fprintf(gnuplotpipe, "%s\n", command.c_str());
 //	fflush(gnuplotpipe); // flush needed to start render+
 
 }
-
-
 
 #endif /* GNUPLOT_HPP_ */

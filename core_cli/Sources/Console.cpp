@@ -12,18 +12,15 @@
 #include <readline/readline.h>
 #include <readline/history.h>
 
-namespace CppReadline
-{
-namespace
-{
+namespace CppReadline {
+namespace {
 
 Console* currentConsole = nullptr;
 HISTORY_STATE* emptyHistory = history_get_history_state();
 
 } /* namespace  */
 
-struct Console::Impl
-{
+struct Console::Impl {
 	using RegisteredCommands = std::unordered_map<std::string,Console::CommandFunction>;
 
 	::std::string greeting_;
@@ -33,12 +30,9 @@ struct Console::Impl
 	HISTORY_STATE* history_ = nullptr;
 
 	Impl(::std::string const& greeting) :
-			greeting_
-			{ greeting }
-	{
+			greeting_ { greeting } {
 	}
-	~Impl()
-	{
+	~Impl() {
 		free(history_);
 	}
 
@@ -51,10 +45,7 @@ struct Console::Impl
 // Here we set default commands, they do nothing since we quit with them
 // Quitting behaviour is hardcoded in readLine()
 Console::Console(std::string const& greeting) :
-		pimpl_
-		{ new Impl
-		{ greeting } }
-{
+		pimpl_ { new Impl { greeting } } {
 	// Init readline basics
 	rl_attempted_completion_function = &Console::getCommandCompletions;
 
@@ -90,13 +81,11 @@ Console::Console(std::string const& greeting) :
 
 Console::~Console() = default;
 
-void Console::registerCommand(const std::string & s, CommandFunction f)
-{
+void Console::registerCommand(const std::string & s, CommandFunction f) {
 	pimpl_->commands_[s] = f;
 }
 
-std::vector<std::string> Console::getRegisteredCommands() const
-{
+std::vector<std::string> Console::getRegisteredCommands() const {
 	std::vector<std::string> allCommands;
 	for (auto & pair : pimpl_->commands_)
 		allCommands.push_back(pair.first);
@@ -104,14 +93,12 @@ std::vector<std::string> Console::getRegisteredCommands() const
 	return allCommands;
 }
 
-void Console::saveState()
-{
+void Console::saveState() {
 	free(pimpl_->history_);
 	pimpl_->history_ = history_get_history_state();
 }
 
-void Console::reserveConsole()
-{
+void Console::reserveConsole() {
 	if (currentConsole == this)
 		return;
 
@@ -129,18 +116,15 @@ void Console::reserveConsole()
 	currentConsole = this;
 }
 
-void Console::setGreeting(const std::string & greeting)
-{
+void Console::setGreeting(const std::string & greeting) {
 	pimpl_->greeting_ = greeting;
 }
 
-std::string Console::getGreeting() const
-{
+std::string Console::getGreeting() const {
 	return pimpl_->greeting_;
 }
 
-int Console::executeCommand(const std::string & command)
-{
+int Console::executeCommand(const std::string & command) {
 	// Convert input to vector
 	std::vector<std::string> inputs;
 	{
@@ -154,8 +138,7 @@ int Console::executeCommand(const std::string & command)
 		return ReturnCode::Ok;
 
 	Impl::RegisteredCommands::iterator it;
-	if ((it = pimpl_->commands_.find(inputs[0])) != end(pimpl_->commands_))
-	{
+	if ((it = pimpl_->commands_.find(inputs[0])) != end(pimpl_->commands_)) {
 		return static_cast<int>((it->second)(inputs));
 	}
 
@@ -163,19 +146,16 @@ int Console::executeCommand(const std::string & command)
 	return ReturnCode::Error;
 }
 
-int Console::executeFile(const std::string & filename)
-{
+int Console::executeFile(const std::string & filename) {
 	std::ifstream input(filename);
-	if (!input)
-	{
+	if (!input) {
 		std::cout << "Could not find the specified file to execute.\n";
 		return ReturnCode::Error;
 	}
 	std::string command;
 	int counter = 0, result;
 
-	while (std::getline(input, command))
-	{
+	while (std::getline(input, command)) {
 		if (command[0] == '#')
 			continue; // Ignore comments
 		// Report what the Console is executing.
@@ -190,13 +170,11 @@ int Console::executeFile(const std::string & filename)
 	return ReturnCode::Ok;
 }
 
-int Console::readLine()
-{
+int Console::readLine() {
 	reserveConsole();
 
 	char * buffer = readline(pimpl_->greeting_.c_str());
-	if (!buffer)
-	{
+	if (!buffer) {
 		std::cout << '\n'; // EOF doesn't put last endline so we put that so that it looks uniform.
 		return ReturnCode::Quit;
 	}
@@ -211,8 +189,7 @@ int Console::readLine()
 	return executeCommand(line);
 }
 
-char ** Console::getCommandCompletions(const char * text, int start, int)
-{
+char ** Console::getCommandCompletions(const char * text, int start, int) {
 	char ** completionList = nullptr;
 
 	if (start == 0)
@@ -221,8 +198,7 @@ char ** Console::getCommandCompletions(const char * text, int start, int)
 	return completionList;
 }
 
-char * Console::commandIterator(const char * text, int state)
-{
+char * Console::commandIterator(const char * text, int state) {
 	static Impl::RegisteredCommands::iterator it;
 	if (!currentConsole)
 		return nullptr;
@@ -231,12 +207,10 @@ char * Console::commandIterator(const char * text, int state)
 	if (state == 0)
 		it = begin(commands);
 
-	while (it != end(commands))
-	{
+	while (it != end(commands)) {
 		auto & command = it->first;
 		++it;
-		if (command.find(text) != std::string::npos)
-		{
+		if (command.find(text) != std::string::npos) {
 			char * completion = new char[command.size()];
 			strcpy(completion, command.c_str());
 			return completion;

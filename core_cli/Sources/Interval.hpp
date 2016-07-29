@@ -11,7 +11,7 @@
 #include <string>
 #include <chrono>
 
-#include "Common.hpp"
+#include "Common.h"
 
 namespace Core {
 
@@ -25,7 +25,7 @@ public:
 
 	virtual ~Interval();
 
-	virtual void start ();
+	virtual void start();
 
 	virtual void stop();
 

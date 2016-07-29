@@ -1,18 +1,16 @@
 #ifndef _File_h_
 #define _File_h_
 
-#include "Common.hpp"
+#include "Common.h"
 
-namespace Core
-{
+namespace Core {
 
 //class Library;
 
 //template<class T>
 //extern const std::string atos(T _t);
 
-class TextFile
-{
+class TextFile {
 public:
 	friend class Library;
 
@@ -47,7 +45,6 @@ private:
 	TextFile(TextFile&&) = delete;
 	TextFile& operator =(TextFile const&) = delete;
 	TextFile& operator =(TextFile&&) = delete;
-
 
 	std::string fileName;
 //	std::string fullPath;

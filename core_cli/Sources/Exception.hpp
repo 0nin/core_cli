@@ -1,16 +1,14 @@
 #ifndef _Exception_h_
 #define _Exception_h_
 
-#include "Common.hpp"
+#include "Common.h"
 //#include "TextFile.hpp"
 
-namespace Core
-{
+namespace Core {
 
 //class TextFile;
 
-enum ExceptionType
-{
+enum ExceptionType {
 	ExceptionTypeCommom,
 	ExceptionTypeNoFile,
 	ExceptionTypeNotImplemented,
@@ -19,11 +17,11 @@ enum ExceptionType
 
 };
 
-class Exception: public std::exception
-{
+class Exception: public std::exception {
 public:
 	explicit Exception(const std::string &description);
-	explicit Exception(const std::string &description, Core::ExceptionType type);
+	explicit Exception(const std::string &description,
+			Core::ExceptionType type);
 	virtual ~Exception();
 
 public:
@@ -42,22 +40,19 @@ protected:
 };
 // class Exception
 
-class ExceptionNoFile: public Exception
-{
+class ExceptionNoFile: public Exception {
 public:
 	explicit ExceptionNoFile(const std::string &description);
 	virtual ~ExceptionNoFile();
 };
 
-class ExceptionNotImplemented: public Exception
-{
+class ExceptionNotImplemented: public Exception {
 public:
 	explicit ExceptionNotImplemented(const std::string &description);
 	virtual ~ExceptionNotImplemented();
 };
 
-class ExceptionTableMiss: public Exception
-{
+class ExceptionTableMiss: public Exception {
 public:
 	explicit ExceptionTableMiss(const std::string &description);
 	virtual ~ExceptionTableMiss();

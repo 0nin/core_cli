@@ -1,17 +1,15 @@
 #ifndef _Script_h_
 #define _Script_h_
 
-#include "Common.hpp"
+#include "Common.h"
 #include "Table.hpp"
 #include "TextFile.hpp"
 
-namespace Core
-{
+namespace Core {
 /**
  *
  */
-class Library: public Table
-{
+class Library: public Table {
 public:
 	Library(void);
 
