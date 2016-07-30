@@ -22,6 +22,8 @@
 //using std::string;
 //using std::cerr;
 
+namespace Core {
+
 class Gnuplot {
 public:
 	Gnuplot();
@@ -56,11 +58,7 @@ Gnuplot::~Gnuplot() {
 	pclose(gnuplotpipe);
 #endif
 }
-//void Gnuplot::operator()(const std::string & command)
-//{
-//	fprintf(gnuplotpipe, "%s\n", command.c_str());
-//	fflush(gnuplotpipe); // flush needed to start render
-//}
+
 
 void Gnuplot::operator<<(const std::string & command) {
 	fprintf(gnuplotpipe, "%s\n", command.c_str());
@@ -74,7 +72,6 @@ void Gnuplot::render(void) {
 template<class T> void Gnuplot::operator<<(std::pair<T, T> point) {
 //	fprintf(gnuplotpipe, "%s\n", command.c_str());
 //	fflush(gnuplotpipe); // flush needed to start render+
-
 }
-
+}
 #endif /* GNUPLOT_HPP_ */

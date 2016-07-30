@@ -10,6 +10,8 @@
 
 #include "Common.h"
 
+#include <map>
+
 namespace Core {
 
 class Table {
