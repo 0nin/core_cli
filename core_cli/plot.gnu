@@ -2,23 +2,23 @@
 
 set grid
 
-set term x11 0
-plot 'diff2.dat' using 1:2
-replot 'plot.dat' using 1:2 title 'DUT 1'
+set term wxt 0
+plot 'cable.dat' using 3:4
+replot 'cable.dat' using 1:2 title 'DUT 1' with lines
 
 
-set term x11 1
-plot 'diff3.dat' using 1:2
-replot 'plot.dat' using 1:3 title 'DUT 2'
+set term wxt 1
+plot 'cable.dat' using 7:8
+replot 'cable.dat' using 5:6 title 'DUT 2' with lines
 
 
-set term x11 2
-plot 'diff4.dat' using 1:2
-replot 'plot.dat' using 1:4 title 'DUT 3'
+set term wxt 2
+plot 'cable.dat' using 11:12
+replot 'cable.dat' using 9:10 title 'DUT 3' with lines
 
 
-set term x11 3
-plot 'diff5.dat' using 1:2
-replot 'plot.dat' using 1:5 title 'DUT 4'
+set term wxt 3
+plot 'cable.dat' using 15:16
+replot 'cable.dat' using 13:14 title 'DUT 4' with lines
 
 # pause -1
