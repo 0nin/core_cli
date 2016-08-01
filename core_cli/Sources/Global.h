@@ -24,7 +24,9 @@ bool csv2datOut(const std::string &file, const std::string &out);
 template<class T>
 bool vec2dat(const std::vector<std::pair<T, T>> &data, const std::string &out);
 template<class T>
-bool vec2dat(const std::list<std::vector<std::pair<T, T>>>&dataList, const std::string &out);
+bool vec2dat(const std::list<std::vector<std::pair<T, T>>>&dataList, const std::string &out, const std::string &header);
+template<class T>
+bool list2dat(const std::list<std::vector<T>>&dataList, const std::string &out, const std::string &header);
 template<class T>
 void diff(const std::vector<std::pair<T, T>> &data,
 		std::vector<std::pair<T, T>> &diff);

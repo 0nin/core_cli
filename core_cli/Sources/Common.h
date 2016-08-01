@@ -10,8 +10,11 @@
 
 #include <string>
 #include <vector>
+#include <list>
 #include <iostream>
 #include <stdlib.h>
+
+#undef DEBUG
 
 #ifdef DEBUG
 #define ENABLE_RUNTIME

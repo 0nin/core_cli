@@ -10,7 +10,6 @@
 #define PLATFORM UNIX
 #endif
 
-#include "Common.h"
 
 namespace Core {
 

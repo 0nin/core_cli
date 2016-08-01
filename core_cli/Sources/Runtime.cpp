@@ -17,19 +17,15 @@ Runtime::Runtime(void) {
 Runtime::~Runtime(void) {
 }
 
-//inline std::chrono::steady_clock::time_point Runtime::now()
-//{
-//	return std::chrono::steady_clock::now();
-//}
 
-void Runtime::add(std::string name) {
+void Runtime::add(const std::string &name) {
 	Interval* tau = new Interval(name);
 //	tau->begin = begin;
 	this->table.insert(std::make_pair(std::string("tt_") + name, *(tau)));
 	delete tau;
 }
 
-void Runtime::start(std::string name) {
+void Runtime::start(const std::string &name) {
 	auto begin = std::chrono::steady_clock::now();
 	Interval* tau = new Interval(name);
 	tau->begin = begin;
@@ -37,7 +33,7 @@ void Runtime::start(std::string name) {
 	delete tau;
 }
 
-void Runtime::stop(std::string name) {
+void Runtime::stop(const std::string &name) {
 	auto end = std::chrono::steady_clock::now();
 //	list[name]->stop();// = end;
 	table.at(std::string("tt_") + name).end = end;
