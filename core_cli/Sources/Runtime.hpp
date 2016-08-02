@@ -62,7 +62,6 @@ protected:
 class Runtime {
 public:
 	Runtime(void);
-
 	virtual ~Runtime(void);
 
 //	static inline std::chrono::steady_clock::time_point now(void);
@@ -70,13 +69,9 @@ public:
 //	static inline double getMs (std::string);
 
 	virtual void add(const std::string &point);
-
 	virtual void start(const std::string &name);
-
 	virtual void stop(const std::string &name);
-
 	virtual void print(void);
-
 	static Runtime* getSingletonPtr(void);
 
 protected:

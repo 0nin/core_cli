@@ -21,7 +21,6 @@
 #include <cmath>
 #include <algorithm>
 #include <iterator>
-
 //#include <gnuplot-iostream.h>
 
 namespace cr = CppReadline;
@@ -620,12 +619,27 @@ unsigned plot(const std::vector<std::string> &input) {
 		return 1;
 	}
 
+	path = std::string("V:\\") + "cableCheck2211.dat";
+	gp << "set term wxt 0";
 	gp << "set grid";
 
 	gp << "plot '" + path + "' using 1:2 with linespoints pt 7 ps 0.5";
 	gp << "replot '" + path + "' using 1:3 with linespoints pt 7 ps 0.5";
 	gp << "replot '" + path + "' using 1:4 with linespoints pt 7 ps 0.5";
 	gp << "replot '" + path + "' using 1:5 with linespoints pt 7 ps 0.5";
+
+	path = std::string("V:\\") + "cableCheck1122.dat";
+
+	gp << "set term wxt 1";
+	gp << "set grid";
+
+	gp << "plot '" + path + "' using 1:2 with linespoints pt 7 ps 0.5";
+	gp << "replot '" + path + "' using 1:3 with linespoints pt 7 ps 0.5";
+	gp << "replot '" + path + "' using 1:4 with linespoints pt 7 ps 0.5";
+	gp << "replot '" + path + "' using 1:5 with linespoints pt 7 ps 0.5";
+
+	gp << "end";
+
 
 	return ret::Ok;
 }

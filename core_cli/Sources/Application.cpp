@@ -14,7 +14,7 @@ namespace Core {
 namespace cr = CppReadline;
 using ret = cr::Console::ReturnCode;
 
-Application::Application(std::string path, std::string configFile) :
+Application::Application(const std::string &path, const std::string &configFile) :
 		cs("(core)") {
 	_exit = false;
 	this->path = path;
@@ -37,8 +37,8 @@ void Application::init(void) {
 	cs.executeCommand("help");
 
 #ifdef DEBUG
-//	cs.executeCommand("plot");
-	cs.executeCommand("diff");
+	cs.executeCommand("plot");
+//	cs.executeCommand("diff");
 	quit();
 #endif
 }
@@ -73,7 +73,7 @@ void Application::loop(void) {
 
 }
 
-void Application::handle(std::string msg) {
+void Application::handle(const std::string &msg) {
 	if (msg == "exit") {
 		quit();
 	} else if (msg.empty() || msg != "exit") {

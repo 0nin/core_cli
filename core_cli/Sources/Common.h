@@ -14,7 +14,7 @@
 #include <iostream>
 #include <stdlib.h>
 
-#undef DEBUG
+//#undef DEBUG
 
 #ifdef DEBUG
 #define ENABLE_RUNTIME

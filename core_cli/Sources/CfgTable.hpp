@@ -17,8 +17,6 @@ class CfgTable {
 public:
 	CfgTable(void);
 	virtual ~CfgTable(void);
-
-public:
 	static CfgTable* getSingletonPtr(void);
 };
 
