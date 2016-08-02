@@ -307,7 +307,7 @@ bool vec2dat(const std::vector<std::pair<T, T>> &data, const std::string &out,
 template<class T>
 bool vec2dat(const std::list<std::vector<std::pair<T, T>>>&dataList,
 const std::string &out,
-const std::string &header="") {
+const std::string &header) {
 	std::stringstream tmp;
 	std::string file;
 	std::ofstream write;
@@ -386,7 +386,7 @@ const std::string &header="") {
 
 template<class T>
 bool list2dat(const std::list<std::vector<T>>&dataList, const std::string &out,
-		const std::string &header = "") {
+		const std::string &header) {
 	std::stringstream tmp;
 	std::string file;
 	std::ofstream write;
@@ -595,38 +595,37 @@ void plotList(const std::string &name,
 unsigned plot(const std::vector<std::string> &input) {
 	Core::Gnuplot gp;
 
-	std::stringstream tmp;
-	for (float i = -3.14f / 2.0f; i < 3.14f / 2.0f; i += 0.01) {
-		tmp << i;
-		tmp << ", ";
-		tmp << std::abs(std::sin(i));
-		tmp << ", ";
-		tmp << 2 * std::sin(i) * std::cos(i);
-		tmp << "\n";
-	}
-
-	std::ofstream file;
-//	{
-	file.open("plot.dat");
-	if (file.is_open()) {
-		file << tmp.str();
-		file.close();
-	}
-	tmp.clear();
+//	std::stringstream tmp;
+//	for (float i = -3.14f / 2.0f; i < 3.14f / 2.0f; i += 0.01) {
+//		tmp << i;
+//		tmp << ", ";
+//		tmp << std::abs(std::sin(i));
+//		tmp << ", ";
+//		tmp << 2 * std::sin(i) * std::cos(i);
+//		tmp << "\n";
 //	}
+//
+//	std::ofstream file;
+//	file.open("plot.dat");
+//	if (file.is_open()) {
+//		file << tmp.str();
+//		file.close();
+//	}
+//	tmp.clear();
+
 
 	std::string path;
-	if (!Core::PathList::getSingletonPtr()->getPath("normalized.dat", path)) {
+	if (!Core::PathList::getSingletonPtr()->getPath("cableCheck.dat", path)) {
 //		std::cerr << ""
 		return 1;
 	}
 
 	gp << "set grid";
 
-	gp << "plot '" + path + "' using 1:2 with points";
-	gp << "replot '" + path + "' using 1:3 with points";
-	gp << "replot '" + path + "' using 1:4 with points";
-	gp << "replot '" + path + "' using 1:5 with points";
+	gp << "plot '" + path + "' using 1:2 with linespoints pt 7 ps 0.5";
+	gp << "replot '" + path + "' using 1:3 with linespoints pt 7 ps 0.5";
+	gp << "replot '" + path + "' using 1:4 with linespoints pt 7 ps 0.5";
+	gp << "replot '" + path + "' using 1:5 with linespoints pt 7 ps 0.5";
 
 	return ret::Ok;
 }
