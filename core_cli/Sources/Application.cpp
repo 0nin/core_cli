@@ -1,16 +1,27 @@
 #include "Application.hpp"
 
-#include "Global.h"
 #include "Library.hpp"
 #include "Runtime.hpp"
 #include "Console.hpp"
 #include "Exception.hpp"
 #include "PathList.hpp"
+#include "Gnuplot.hpp"
+#include "Cmd.h"
+
+#include <sstream>
+#include <fstream>
+#include <cmath>
+#include <algorithm>
+#include <iterator>
+
+#include "Global.h"
 
 #define GREET "(core)"
 
 
 namespace Core {
+
+
 namespace cr = CppReadline;
 using ret = cr::Console::ReturnCode;
 
@@ -28,11 +39,11 @@ Application::~Application(void) {
 void Application::init(void) {
 	Library::getSingletonPtr()->loadConfigFile("config.conf");
 
-	cs.registerCommand("info", info);
-	cs.registerCommand("calc", calc);
-	cs.registerCommand("plot", plot);
-	cs.registerCommand("csv2dat", csv2dat);
-	cs.registerCommand("diff", rt);
+	cs.registerCommand("info", infoCmd);
+	cs.registerCommand("calc", calcCmd);
+	cs.registerCommand("plot", plotCmd);
+	cs.registerCommand("csv2dat", csv2datCmd);
+//	cs.registerCommand("diff", rtCmd);
 
 	cs.executeCommand("help");
 

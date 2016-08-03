@@ -8,12 +8,12 @@
 
 namespace Core {
 
-template<class T> std::string atos(T real) {
-	std::ostringstream strs;
-	strs << real;
-	std::string str = strs.str();
-	return str;
-}
+//template<class T> std::string atos(T real) {
+//	std::ostringstream strs;
+//	strs << real;
+//	std::string str = strs.str();
+//	return str;
+//}
 
 void TextFile::write(const std::string &text, const std::string &fileName) {
 	std::ofstream mFile;

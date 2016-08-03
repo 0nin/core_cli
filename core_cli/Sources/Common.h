@@ -16,6 +16,14 @@
 
 //#undef DEBUG
 
+#define DEBUG_IO
+
+#ifndef _WIN32
+#define TMPDIR "./"
+#else
+#define TMPDIR "/tmp"
+#endif
+
 #ifdef DEBUG
 #define ENABLE_RUNTIME
 #define ENABLE_LOG2FILE
