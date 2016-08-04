@@ -46,13 +46,6 @@ extern unsigned calcCmd(const std::vector<std::string> & input);
 extern unsigned csv2datCmd(const std::vector<std::string> &input);
 extern unsigned infoCmd(const std::vector<std::string> &);
 
-// Readline commands
-extern unsigned rtCmd(const std::vector<std::string> &);
-extern unsigned plotCmd(const std::vector<std::string> &input);
-extern unsigned calcCmd(const std::vector<std::string> & input);
-extern unsigned csv2datCmd(const std::vector<std::string> &input);
-extern unsigned infoCmd(const std::vector<std::string> &);
-
 //}
 
 #endif /* GLOBAL_H_ */
