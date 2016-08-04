@@ -411,12 +411,25 @@ const std::string &header="") {
 	return true;
 }
 
+<<<<<<< HEAD
 // Readline commands
-
+=======
 unsigned rtCmd(const std::vector<std::string> &) {
 	csv2dat("cable.csv", "cable.dat");
 	std::ofstream write;
+>>>>>>> branch 'master' of https://github.com/0nin/core_cli.git
 
+<<<<<<< HEAD
+unsigned rtCmd(const std::vector<std::string> &) {
+	csv2dat("cable.csv", "cable.dat");
+	std::ofstream write;
+=======
+	std::vector<std::pair<double, double>> data;
+	std::vector<std::pair<double, double>> diff1;
+	std::list<std::vector<std::pair<double, double>>>datList;
+>>>>>>> branch 'master' of https://github.com/0nin/core_cli.git
+
+<<<<<<< HEAD
 	std::vector<std::pair<double, double>> data;
 	std::vector<std::pair<double, double>> diff1;
 	std::list<std::vector<std::pair<double, double>>>datList;
@@ -483,6 +496,70 @@ void plotList(const std::string &name,
 
 //  return ret::Ok;
 }
+=======
+	copyData("cable.dat", data, 1, 2);
+	flux(data, diff1);
+	datList.push_back(data);
+	datList.push_back(diff1);
+
+	copyData("cable.dat", data, 1, 3);
+	flux(data, diff1);
+	datList.push_back(data);
+	datList.push_back(diff1);
+
+	copyData("cable.dat", data, 1, 4);
+	flux(data, diff1);
+	datList.push_back(data);
+	datList.push_back(diff1);
+
+	copyData("cable.dat", data, 1, 5);
+	flux(data, diff1);
+	datList.push_back(data);
+	datList.push_back(diff1);
+
+	list2dat(datList, "cable.dat", "");
+
+	return ret::Ok;
+}
+
+//template<class T>
+//void plotList(const std::string &name,
+//		const std::list<std::vector<std::pair<T, T>>>&dataList) {
+//	FILE* gnuplotpipe = popen(GNUPLOT_NAME, "w");
+//	if (!gnuplotpipe) {
+//		std::cerr << ("Gnuplot not found !");
+//	}
+//	std::stringstream tmp;
+//	std::string fileName = name+".dat";
+//	std::string path;
+//	path = "/tmp/" + fileName;
+////  path = fileName;
+//	list2dat(dataList, path);
+//
+////  gp << "set grid";
+//	fprintf (gnuplotpipe, "set grid \n");
+////  fprintf (gnuplotpipe, "%s \n", tmp.str ().c_str ());
+//
+////	ML_FOR_ACTIVE_DIES(die) {
+//	for (size_t die = 1; die != 4; ++die) {
+//		if (die == 1) {
+//			tmp << "plot " << " '" << path << "' " << "using 1:" << (die + 1) << " with linespoints pt 7 ps 0.5\n";
+//		}
+//		else {
+//			tmp << "replot " << " '" << path << "' " << "using 1:" << (die + 1) << " with linespoints pt 7 ps 0.5\n";
+//		}
+//
+//		fprintf (gnuplotpipe, "%s \n", tmp.str ().c_str ());
+//	}
+//
+//	fflush (gnuplotpipe); // flush needed to start render
+//	pclose (gnuplotpipe);
+//	tmp.str( std::string() );
+//	tmp.clear();
+//
+////  return ret::Ok;
+//}
+>>>>>>> branch 'master' of https://github.com/0nin/core_cli.git
 
 unsigned plotCmd(const std::vector<std::string> &input) {
 	Gnuplot gp;
