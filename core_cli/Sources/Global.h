@@ -35,6 +35,16 @@ extern bool list2dat(const std::list<std::vector<std::pair<T, T>>>&dataList, con
 template<class T>
 void flux(const std::vector<std::pair<T, T>> &data,
 		std::vector<std::pair<T, T>> &diff);
+template<class T>
+extern void plotList(const std::string &name,
+		const std::list<std::vector<std::pair<T, T>>>&dataList);
+
+// Readline commands
+extern unsigned rtCmd(const std::vector<std::string> &);
+extern unsigned plotCmd(const std::vector<std::string> &input);
+extern unsigned calcCmd(const std::vector<std::string> & input);
+extern unsigned csv2datCmd(const std::vector<std::string> &input);
+extern unsigned infoCmd(const std::vector<std::string> &);
 
 //}
 
