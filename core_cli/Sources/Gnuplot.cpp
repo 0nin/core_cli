@@ -10,7 +10,7 @@
 
 #include "Gnuplot.hpp"
 
-#include "Global.h"
+#include "Global.hpp"
 
 namespace Core {
 Gnuplot::Gnuplot() {

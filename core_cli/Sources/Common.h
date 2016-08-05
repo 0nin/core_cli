@@ -18,7 +18,7 @@
 
 #define DEBUG_IO
 
-#ifndef _WIN32
+#ifdef _WIN32
 #define TMPDIR "./"
 #else
 #define TMPDIR "/tmp"

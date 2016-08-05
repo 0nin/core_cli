@@ -6,15 +6,14 @@
 #include "Exception.hpp"
 #include "PathList.hpp"
 #include "Gnuplot.hpp"
-#include "Cmd.h"
-
 #include <sstream>
 #include <fstream>
 #include <cmath>
 #include <algorithm>
 #include <iterator>
 
-#include "Global.h"
+#include "Cmd.hpp"
+#include "Global.hpp"
 
 #define GREET "(core)"
 
