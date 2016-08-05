@@ -9,7 +9,6 @@
 #define GNUPLOT_HPP_
 
 #include "Common.h"
-//#include "Global.h"
 
 #include <cstdio>
 #include <sstream>
@@ -37,8 +36,8 @@ public:
 //	void a
 	void cmd (const std::string &command);
 //	void plot (const std::string &dat, std::vector<size_t> &col);
-	template<class T>
-	void plot (const std::list<std::vector<std::pair<T, T>>>&dataLis, const std::string &param);
+//	template<class T>
+	void plot (const std::list<std::vector<std::pair<double, double>>>&dataLis, const std::string &param);
 	void plotDat (const std::string &dat, std::vector<size_t> &columns);
 	void run (const std::string &script);
 	void operator<<(const std::string & command);

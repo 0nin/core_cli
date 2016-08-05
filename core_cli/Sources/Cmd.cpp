@@ -15,54 +15,59 @@ using namespace Core;
 namespace cr = CppReadline;
 using ret = cr::Console::ReturnCode;
 
+////template<class Temp>
+//void fluxList(const std::list<std::vector<std::pair<double, double>>>&data,
+//std::list<std::vector<std::pair<double, double>>> &diff) {
+//	diff.clear();
+//	std::vector<std::pair<double, double>> tmp;
+//	for (auto it = data.begin(); it != data.end(); ++it) {
+////		for (auto jt = it->begin(); jt != it->end() - 1; ++jt) {
+////			Temp x = jt->first;
+////			Temp y = jt->second;
+////			Temp x1 = (jt + 1)->first;
+////			Temp y1 = (jt + 1)->second;
+////			tmp.push_back(std::make_pair(x, (y1 - y) / (x1 - x)));
+////		}
+//
+////		flux ()
+//		flux(it, tmp);
+//		diff.push_back(tmp);
+////		tmp.clear();
+//	}
+//}
+
+
 //Readline commands
 unsigned plotCmd(const std::vector<std::string> &input) {
 	Gnuplot gp;
 
-//	std::stringstream tmp;
-//	for (float i = -3.14f / 2.0f; i < 3.14f / 2.0f; i += 0.01) {
-//		tmp << i;
-//		tmp << ", ";
-//		tmp << std::abs(std::sin(i));
-//		tmp << ", ";
-//		tmp << 2 * std::sin(i) * std::cos(i);
-//		tmp << "\n";
-//	}
-//
-//	std::ofstream file;
-//	file.open("plot.dat");
-//	if (file.is_open()) {
-//		file << tmp.str();
-//		file.close();
-//	}
-//	tmp.clear();
+#ifdef _WIN32
+	std::string file = "V:/cableCheck.dat";
+#else
+	std::string file = "cableCheck.dat";
+#endif
+	std::list<std::vector<std::pair<double, double>>>dat;
+//	std::list<std::vector<std::pair<double, double>>>diff;
+	std::vector<std::pair<double, double>>diff;
 
-//	std::string path;
-//	if (!Core::PathList::getSingletonPtr()->getPath("cableCheck.dat", path)) {
-//		return 1;
-//	}
+	copy2list(file, dat);
+	list2dat(dat, "out.dat");
+	dat2csv("out.dat", "out.csv");
+//	gp.plot(dat, "");
+	std::vector<size_t> col;
+	col.push_back(2);
+	col.push_back(3);
+	col.push_back(4);
+	col.push_back(5);
+//	gp.plotDat(file, col);
+	gp.plot(dat, "");
+//	fluxList (dat, diff);
+	for (auto it = dat.begin(); it != dat.end(); ++it)
+	flux(*it, diff);
+//	gp.plot(diff, "");
 
-//	path = std::string("V:\\") + "cableCheck2211.dat";
-//	gp << "set term wxt 0";
-//	gp << "set grid";
-//
-//	gp << "plot '" + path + "' using 1:2 with linespoints pt 7 ps 0.5";
-//	gp << "replot '" + path + "' using 1:3 with linespoints pt 7 ps 0.5";
-//	gp << "replot '" + path + "' using 1:4 with linespoints pt 7 ps 0.5";
-//	gp << "replot '" + path + "' using 1:5 with linespoints pt 7 ps 0.5";
-//
-//	path = std::string("V:\\") + "cableCheck1122.dat";
-//
-//	gp << "set term wxt 1";
-//	gp << "set grid";
-//
-//	gp << "plot '" + path + "' using 1:2 with linespoints pt 7 ps 0.5";
-//	gp << "replot '" + path + "' using 1:3 with linespoints pt 7 ps 0.5";
-//	gp << "replot '" + path + "' using 1:4 with linespoints pt 7 ps 0.5";
-//	gp << "replot '" + path + "' using 1:5 with linespoints pt 7 ps 0.5";
-//
-//	gp << "end";
-
+	dat.clear();
+	diff.clear();
 	return ret::Ok;
 }
 
@@ -138,7 +143,7 @@ unsigned csv2datCmd(const std::vector<std::string> &input) {
 	}
 
 	for (auto it = copy.begin(); it != copy.end(); ++it) {
-		if (!fixLine(*it))
+		if (!datLine(*it))
 			return 1;
 	}
 

@@ -12,8 +12,8 @@
 //#include "Runtime.hpp"
 //#include "Console.hpp"
 #include "Exception.hpp"
-#include "Gnuplot.hpp"
-#include "PathList.hpp"
+//#include "Gnuplot.hpp"
+//#include "PathList.hpp"
 
 #include <sstream>
 #include <fstream>
@@ -24,6 +24,8 @@
 using namespace Core;
 namespace cr = CppReadline;
 using ret = cr::Console::ReturnCode;
+
+const char digits[] = "0123456789.\t\n";
 
 int main(int argc, char *args[]) {
 	try {
@@ -36,11 +38,17 @@ int main(int argc, char *args[]) {
 	return 0;
 }
 
+double getDummy() {
+#ifdef _WIN32
+	return 0.0f;
+#else
+	return 0.0f;
+#endif
+}
 
-template<class T>
-bool list2dat(const std::list<std::vector<std::pair<T, T>>>&dataList,
-const std::string &out,
-const std::string &header) {
+//template<class T1>
+bool list2dat(const std::list<std::vector<std::pair<double, double>>>&dataList,
+const std::string &out) {
 	std::stringstream tmp;
 	std::string file;
 	std::ofstream write;
@@ -77,40 +85,103 @@ const std::string &header) {
 	return true;
 }
 
+bool list2csv(const std::list<std::vector<std::pair<double, double>>>&dataList,
+const std::string &out) {
+	std::stringstream tmp;
+	std::string file;
+	std::ofstream write;
+	size_t maxSize = 0;
+	for (auto it = dataList.begin(); it != dataList.end(); ++it) {
+		if (it->size() > maxSize) maxSize = it->size();
+	}
 
-template<class T>
-void flux(const std::vector<std::pair<T, T>> &data,
-		std::vector<std::pair<T, T>> &diff) {
+	for (size_t i = 0; i < maxSize; i++) {
+		for (auto it = dataList.begin(); it != dataList.end(); ++it) {
+			if (it->size() > i) {
+				if (it == dataList.begin()) {
+					tmp << it->at(i).first << "," << it->at(i).second << ",";
+				}
+				else {
+					tmp << it->at(i).second << ",";
+				}
+			}
+		}
+		tmp << std::endl;
+		file += tmp.str();
+		tmp.str( std::string() );
+		tmp.clear();
+	}
+
+	write.open(out);
+	if (write.is_open()) {
+		write << file;
+		write.close();
+	} else
+	return false;
+	file.clear();
+
+	return true;
+}
+
+//template<class Temp>
+void flux(const std::vector<std::pair<double, double>> &data,
+		std::vector<std::pair<double, double>> &diff) {
 	diff.clear();
 	for (auto it = data.begin(); it != data.end() - 1; ++it) {
-		T x = it->first;
-		T y = it->second;
-		T x1 = (it + 1)->first;
-		T y1 = (it + 1)->second;
+		double x = it->first;
+		double y = it->second;
+		double x1 = (it + 1)->first;
+		double y1 = (it + 1)->second;
 
 		diff.push_back(std::make_pair(x, (y1 - y) / (x1 - x)));
 	}
 
 }
 
-template<class T>
-bool atos(T real, std::string &str) {
-//	bool result = true;
-//	std::ostringstream strs;
-//	strs << real;
-//	str = strs.str();
+//template<class Temp>
+void fluxList(const std::list<std::vector<std::pair<double, double>>>&data,
+std::list<std::vector<std::pair<double, double>>> &diff) {
+	diff.clear();
+	std::vector<std::pair<double, double>> tmp;
+	for (auto it = data.begin(); it != data.end(); ++it) {
+		flux(*it, tmp);
+		diff.push_back(tmp);
+		tmp.clear();
+	}
+}
+//template<class T>
+//bool atos(T real, std::string &str) {
+////	bool result = true;
+////	std::ostringstream strs;
+////	strs << real;
+////	str = strs.str();
+////	if (str.empty())
+////		return false;
+//
+//	str = std::to_string(real);
 //	if (str.empty())
 //		return false;
+//
+//	return true;
+//}
 
-	str = std::to_string(real);
+template<class T>
+std::string atos(T real) {
+	std::ostringstream strs;
+	strs << real;
+	std::string str = strs.str();
 	if (str.empty())
-		return false;
+		return std::string("");
 
-	return true;
+//	std::string str = std::to_string(real);
+//	if (str.empty())
+//		return std::string("");
+
+	return str;
 }
 
 bool isDigit(char ch) {
-	const char digits[] = "0123456789.\t\n ";
+//	const char digits[] = "0123456789.\t\n ";
 	size_t N = sizeof(digits) / sizeof(char);
 
 	for (size_t i = 0; i < N; i++) {
@@ -120,34 +191,37 @@ bool isDigit(char ch) {
 	return false;
 }
 
-bool fixLine(std::string &str) {
+bool datLine(std::string &str) {
 	if (str[0] == '#')
 		return true;
 
 	for (std::string::iterator it = str.begin(); it != str.end(); ++it) {
 		if (*it == ',')
 			*it = ' ';
-		if (isDigit(*it))
+		else if (isDigit(*it))
 			continue;
-		else
-			*it = ' ';
+//		else
+//			*it = ' ';
 	}
 
 	return true;
 }
 
 bool csvLine(std::string &str) {
-	bool wordBegin = false;
+	bool wordEnd = true;
 	if (str[0] == '#')
 		return true;
 
 	for (std::string::iterator it = str.begin(); it != str.end(); ++it) {
-		if (*it == ',' && wordBegin)
-			*it = ' ';
-		if (isDigit(*it))
+		if (*it == ' ' && wordEnd) {
+			*it = ',';
+			wordEnd = false;
+		} else if (isDigit(*it)) {
+			wordEnd = true;
 			continue;
-		else
-			*it = ' ';
+		} else {
+//			*it = ' ';
+		}
 	}
 
 	return true;
@@ -155,8 +229,8 @@ bool csvLine(std::string &str) {
 
 bool copyText(const std::string &file, std::vector<std::string> &copy) {
 	std::string line;
-	std::string path;
-	Core::PathList::getSingletonPtr()->getPath(file, path);
+	std::string path = file;
+//	Core::PathList::getSingletonPtr()->getPath(file, path);
 	std::ifstream csvFile(path);
 
 	copy.clear();
@@ -176,12 +250,12 @@ bool copyText(const std::string &file, std::vector<std::string> &copy) {
 	return true;
 }
 
-bool copyData(const std::string &file,
+bool copy2vec(const std::string &file,
 		std::vector<std::pair<double, double>> &copy, size_t colX,
 		size_t colY) {
 	std::string line;
-	std::string path;
-	Core::PathList::getSingletonPtr()->getPath(file, path);
+	std::string path = file;
+//	Core::PathList::getSingletonPtr()->getPath(file, path);
 	std::ifstream datFile(path);
 	std::stringstream tmp;
 	double x, y;
@@ -195,7 +269,7 @@ bool copyData(const std::string &file,
 			yI = false;
 			if (line[0] == '#')
 				continue;
-			fixLine(line);
+			datLine(line);
 			std::istringstream iss(line);
 			size_t count = 0;
 			while (iss) {
@@ -204,11 +278,21 @@ bool copyData(const std::string &file,
 
 				count++;
 				if (count == colX) {
-					x = std::stod(word);
+					if (!word.empty())
+						x = std::stod(word);
+					else
+//						x = getDummy();
+						break;
 					xI = true;
 				} else if (count == colY) {
-					y = std::stod(word);
+					if (!word.empty())
+						y = std::stod(word);
+					else
+//						y = getDummy();
+						break;
 					yI = true;
+				} else if (xI && yI) {
+					break;
 				} else {
 					//do nothing
 				}
@@ -226,12 +310,60 @@ bool copyData(const std::string &file,
 	return true;
 }
 
+bool copy2list(const std::string &file,
+		std::list<std::vector<std::pair<double, double>>>&copy) {
+	std::string line;
+	std::vector<std::pair<double, double>> stroke;
+	std::string path = file;
+//	Core::PathList::getSingletonPtr()->getPath(file, path);
+	std::ifstream datFile(path);
+	std::stringstream tmp;
+//	double x, y;
+//	bool xI = false, yI = false;
+	size_t x=1, y=1;
+	size_t colX=1, colY=1;
+	bool check = false;
+	copy.clear();
+
+	if (datFile.is_open()) {
+		while (getline(datFile, line)) {
+			if (line[0] == '#')
+			continue;
+			datLine(line);
+			std::istringstream iss(line);
+			size_t count = 0;
+			while (iss) {
+				std::string word;
+				iss >> word;
+				count++;
+			}
+			check = true;
+			colY = count;
+			colX = 1;
+			if (check) break;
+		}
+		line.clear();
+	} else {
+		std::cerr << "I can't open to " + file << std::endl;
+		return false;
+	}
+
+	for (y = colX; y<colY; y++) {
+		copy2vec (file, stroke, x, y+1);
+		copy.push_back (stroke);
+		stroke.clear();
+	}
+
+	datFile.close();
+	return true;
+}
+
 template<class T>
-bool copyColumn(const std::string &file, std::vector<double> &copy,
+bool copy2column(const std::string &file, std::vector<double> &copy,
 		size_t colXY) {
 	std::string line;
-	std::string path;
-	Core::PathList::getSingletonPtr()->getPath(file, path);
+	std::string path = file;
+//	Core::PathList::getSingletonPtr()->getPath(file, path);
 	std::ifstream datFile(path);
 	std::stringstream tmp;
 //	double x, y;
@@ -245,7 +377,7 @@ bool copyColumn(const std::string &file, std::vector<double> &copy,
 			xyI = false;
 			if (line[0] == '#')
 				continue;
-			fixLine(line);
+			datLine(line);
 			std::istringstream iss(line);
 			size_t count = 0;
 			while (iss) {
@@ -276,8 +408,7 @@ bool copyColumn(const std::string &file, std::vector<double> &copy,
 
 bool csv2dat(const std::string &file, const std::string &out) {
 	std::string line;
-	std::string path;
-	Core::PathList::getSingletonPtr()->getPath(file, path);
+	std::string path = file;
 	std::ifstream csvFile(path);
 	std::vector<std::string> copy;
 
@@ -291,15 +422,17 @@ bool csv2dat(const std::string &file, const std::string &out) {
 		std::cerr << "I can't open to" + file << std::endl;
 	}
 
-	for (std::vector<std::string>::iterator it = copy.begin(); it != copy.end(); ++it) {
-		if (!fixLine(*it))
+	for (std::vector<std::string>::iterator it = copy.begin(); it != copy.end();
+			++it) {
+		if (!datLine(*it))
 			return 1;
 	}
 
 	std::ofstream write;
 	write.open(out);
 	if (write.is_open()) {
-		for (std::vector<std::string>::const_iterator it = copy.begin(); it != copy.end(); ++it) {
+		for (std::vector<std::string>::const_iterator it = copy.begin();
+				it != copy.end(); ++it) {
 			write << *it << std::endl;
 		}
 		write.close();
@@ -310,10 +443,10 @@ bool csv2dat(const std::string &file, const std::string &out) {
 	return true;
 }
 
-bool dat2cvs(const std::string &file, const std::string &out) {
+bool dat2csv(const std::string &file, const std::string &out) {
 	std::string line;
-	std::string path;
-	Core::PathList::getSingletonPtr()->getPath(file, path);
+	std::string path = file;
+//	Core::PathList::getSingletonPtr()->getPath(file, path);
 	std::ifstream csvFile(path);
 	std::vector<std::string> copy;
 
@@ -327,15 +460,17 @@ bool dat2cvs(const std::string &file, const std::string &out) {
 		std::cerr << "I can't open to" + file << std::endl;
 	}
 
-	for (std::vector<std::string>::iterator it = copy.begin(); it != copy.end(); ++it) {
-		if (!fixLine(*it))
+	for (std::vector<std::string>::iterator it = copy.begin(); it != copy.end();
+			++it) {
+		if (!csvLine(*it))
 			return 1;
 	}
 
 	std::ofstream write;
 	write.open(out);
 	if (write.is_open()) {
-		for (std::vector<std::string>::const_iterator it = copy.begin(); it != copy.end(); ++it) {
+		for (std::vector<std::string>::const_iterator it = copy.begin();
+				it != copy.end(); ++it) {
 			write << *it << std::endl;
 		}
 		write.close();
@@ -368,7 +503,6 @@ bool vec2dat(const std::vector<std::pair<T, T>> &data, const std::string &out,
 
 	return true;
 }
-
 
 template<class T>
 bool vec2csv(const std::list<std::vector<std::pair<T, T>>>&dataList,
@@ -410,41 +544,34 @@ const std::string &header="") {
 	return true;
 }
 
-
-template<class T>
-void plotList(const std::string &name,
-		const std::list<std::vector<std::pair<T, T>>>&dataList) {
-	FILE* gnuplotpipe = popen(GNUPLOT_NAME, "w");
-	if (!gnuplotpipe) {
-		std::cerr << ("Gnuplot not found !");
-	}
-	std::stringstream tmp;
-	std::string fileName = name+".dat";
-	std::string path;
-	path = "/tmp/" + fileName;
-//  path = fileName;
-	list2dat(dataList, path);
-
-//  gp << "set grid";
-	fprintf (gnuplotpipe, "set grid \n");
-//  fprintf (gnuplotpipe, "%s \n", tmp.str ().c_str ());
-
-//	ML_FOR_ACTIVE_DIES(die) {
-	for (size_t die = 1; die != 4; ++die) {
-		if (die == 1) {
-			tmp << "plot " << " '" << path << "' " << "using 1:" << (die + 1) << " with linespoints pt 7 ps 0.5\n";
-		}
-		else {
-			tmp << "replot " << " '" << path << "' " << "using 1:" << (die + 1) << " with linespoints pt 7 ps 0.5\n";
-		}
-
-		fprintf (gnuplotpipe, "%s \n", tmp.str ().c_str ());
-	}
-
-	fflush (gnuplotpipe); // flush needed to start render
-	pclose (gnuplotpipe);
-	tmp.str( std::string() );
-	tmp.clear();
-
-//  return ret::Ok;
-}
+//template<class T>
+//void plotList(const std::string &name,
+//		const std::list<std::vector<std::pair<T, T>>>&dataList) {
+//			FILE* gnuplotpipe = popen(GNUPLOT_NAME, "w");
+//			if (!gnuplotpipe) {
+//				std::cerr << ("Gnuplot not found !");
+//			}
+//			std::stringstream tmp;
+//			std::string fileName = name+".dat";
+//			std::string path;
+//			path = "/tmp/" + fileName;
+//			list2dat(dataList, path);
+//
+//			fprintf (gnuplotpipe, "set grid \n");
+//
+//			for (size_t die = 1; die != 4; ++die) {
+//				if (die == 1) {
+//					tmp << "plot " << " '" << path << "' " << "using 1:" << (die + 1) << " with linespoints pt 7 ps 0.5\n";
+//				}
+//				else {
+//					tmp << "replot " << " '" << path << "' " << "using 1:" << (die + 1) << " with linespoints pt 7 ps 0.5\n";
+//				}
+//
+//				fprintf (gnuplotpipe, "%s \n", tmp.str ().c_str ());
+//			}
+//
+//			fflush (gnuplotpipe); // flush needed to start render
+//			pclose (gnuplotpipe);
+//			tmp.str( std::string() );
+//			tmp.clear();
+//		}
