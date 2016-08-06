@@ -15,28 +15,6 @@ using namespace Core;
 namespace cr = CppReadline;
 using ret = cr::Console::ReturnCode;
 
-////template<class Temp>
-//void fluxList(const std::list<std::vector<std::pair<double, double>>>&data,
-//std::list<std::vector<std::pair<double, double>>> &diff) {
-//	diff.clear();
-//	std::vector<std::pair<double, double>> tmp;
-//	for (auto it = data.begin(); it != data.end(); ++it) {
-////		for (auto jt = it->begin(); jt != it->end() - 1; ++jt) {
-////			Temp x = jt->first;
-////			Temp y = jt->second;
-////			Temp x1 = (jt + 1)->first;
-////			Temp y1 = (jt + 1)->second;
-////			tmp.push_back(std::make_pair(x, (y1 - y) / (x1 - x)));
-////		}
-//
-////		flux ()
-//		flux(it, tmp);
-//		diff.push_back(tmp);
-////		tmp.clear();
-//	}
-//}
-
-
 //Readline commands
 unsigned plotCmd(const std::vector<std::string> &input) {
 	Gnuplot gp;
@@ -47,8 +25,8 @@ unsigned plotCmd(const std::vector<std::string> &input) {
 	std::string file = "cableCheck.dat";
 #endif
 	std::list<std::vector<std::pair<double, double>>>dat;
-//	std::list<std::vector<std::pair<double, double>>>diff;
-	std::vector<std::pair<double, double>>diff;
+	std::list<std::vector<std::pair<double, double>>>diff;
+//	std::vector<std::pair<double, double>>diff;
 
 	copy2list(file, dat);
 	list2dat(dat, "out.dat");
@@ -61,10 +39,14 @@ unsigned plotCmd(const std::vector<std::string> &input) {
 	col.push_back(5);
 //	gp.plotDat(file, col);
 	gp.plot(dat, "");
-//	fluxList (dat, diff);
-	for (auto it = dat.begin(); it != dat.end(); ++it)
-	flux(*it, diff);
-//	gp.plot(diff, "");
+#ifdef DEBUG
+	printList(dat);
+#endif
+	fluxList (dat, diff);
+
+//	for (auto it = dat.begin(); it != dat.end(); ++it)
+//	flux(*it, diff);
+	gp.plot(diff, "");
 
 	dat.clear();
 	diff.clear();

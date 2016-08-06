@@ -105,6 +105,8 @@ void Gnuplot::plotDat(const std::string &dat, std::vector<size_t> &columns) {
 //	tmp << " ";
 	size_t die = 1;
 	cmd("set grid");
+	cmd("set term wxt " + atos(window));
+	window++;
 	for (auto it = columns.begin(); it != columns.end(); ++it) {
 //		tmp << *it << " ";
 		if (die == 1) {
@@ -150,12 +152,12 @@ void Gnuplot::plot(const std::list<std::vector<std::pair<double, double>>>&dataL
 //	plot for [col=1:4] 'file' using 0:col with lines
 
 //	ML_FOR_ACTIVE_DIES(die) {
-	for (size_t die = 1; die !=dataList.size(); ++die) {
+	for (size_t die = 1; die <= dataList.size(); die++) {
 		if (die == 1) {
 			tmp << "plot " << " '" << path << "' " << "using 1:" << (die + 1) << " with linespoints pt 7 ps 0.5" << std::endl;
 		}
 		else {
-			tmp << "replot " << " '" << path << "' " << "using 1:" << (die + 1) << " with linespoints pt 7 ps 0.5" <<std::endl;
+			tmp << "replot " << " '" << path << "' " << "using 1:" << (die + 1) << " with linespoints pt 7 ps 0.5" << std::endl;
 		}
 
 //		fprintf (gnuplotpipe, "%s \n", tmp.str ().c_str ());

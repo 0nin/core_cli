@@ -46,6 +46,51 @@ double getDummy() {
 #endif
 }
 
+template<class T>
+std::string atos(T real) {
+	std::ostringstream strs;
+	strs << real;
+	std::string str = strs.str();
+	if (str.empty())
+		return std::string("");
+
+//	std::string str = std::to_string(real);
+//	if (str.empty())
+//		return std::string("");
+
+	return str;
+}
+
+void printList(const std::list<std::vector<std::pair<double, double>>>&dataList) {
+	size_t maxSize = 0;
+	for (auto it = dataList.begin(); it != dataList.end(); ++it) {
+		if (it->size() > maxSize) maxSize = it->size();
+	}
+
+	std::cout << "MaxSize: " << maxSize << std::endl;
+	std::cout << "ListLength: " << dataList.size() << std::endl;
+
+	for (size_t i = 0; i < maxSize; i++) {
+		for (auto it = dataList.begin(); it != dataList.end(); ++it) {
+			if (it->size() > i) {
+//				if (it == dataList.begin()) {
+//					std::cout << it->at(i).first << " " << it->at(i).second << " ";
+//				}
+//				else {
+//					std::cout << it->at(i).second << " ";
+//				}
+				std::cout << it->at(i).first << " " << it->at(i).second << " ";
+			}
+		}
+		std::cout << std::endl;
+//		tmp << std::endl;
+//		file += tmp.str();
+//		tmp.str( std::string() );
+//		tmp.clear();
+	}
+
+}
+
 //template<class T1>
 bool list2dat(const std::list<std::vector<std::pair<double, double>>>&dataList,
 const std::string &out) {
@@ -164,21 +209,6 @@ std::list<std::vector<std::pair<double, double>>> &diff) {
 //
 //	return true;
 //}
-
-template<class T>
-std::string atos(T real) {
-	std::ostringstream strs;
-	strs << real;
-	std::string str = strs.str();
-	if (str.empty())
-		return std::string("");
-
-//	std::string str = std::to_string(real);
-//	if (str.empty())
-//		return std::string("");
-
-	return str;
-}
 
 bool isDigit(char ch) {
 //	const char digits[] = "0123456789.\t\n ";
@@ -350,6 +380,7 @@ bool copy2list(const std::string &file,
 
 	for (y = colX; y<colY; y++) {
 		copy2vec (file, stroke, x, y+1);
+		if (!stroke.empty())
 		copy.push_back (stroke);
 		stroke.clear();
 	}

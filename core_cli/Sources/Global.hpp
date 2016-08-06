@@ -14,6 +14,7 @@
 
 template<class T0>
 extern std::string atos(T0 real);
+extern void printList (const std::list<std::vector<std::pair<double, double>>> &dataList);
 extern bool csv2dat(const std::string &file, const std::string &out);
 extern bool dat2csv(const std::string &file, const std::string &out);
 extern bool isDigit(char ch);
