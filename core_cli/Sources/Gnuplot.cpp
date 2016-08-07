@@ -105,7 +105,7 @@ void Gnuplot::plotDat(const std::string &dat, std::vector<size_t> &columns) {
 //	tmp << " ";
 	size_t die = 1;
 	cmd("set grid");
-	cmd("set term wxt " + atos(window));
+	cmd("set term qt " + atos(window));
 	window++;
 	for (auto it = columns.begin(); it != columns.end(); ++it) {
 //		tmp << *it << " ";
@@ -147,7 +147,7 @@ void Gnuplot::plot(const std::list<std::vector<std::pair<double, double>>>&dataL
 	path = "./" + fileName;
 	list2dat(dataList, path);
 	cmd("set grid");
-	cmd("set term wxt " + atos(window));
+	cmd("set term qt " + atos(window));
 
 //	plot for [col=1:4] 'file' using 0:col with lines
 
