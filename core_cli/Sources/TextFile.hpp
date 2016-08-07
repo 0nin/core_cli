@@ -24,10 +24,10 @@ public:
 	virtual void setFile(const std::string &name);
 
 private:
-	TextFile(const TextFile&) = delete;
-	TextFile(TextFile&&) = delete;
-	TextFile& operator =(TextFile const&) = delete;
-	TextFile& operator =(TextFile&&) = delete;
+//	TextFile(const TextFile&) = delete;
+//	TextFile(TextFile&&) = delete;
+//	TextFile& operator =(TextFile const&) = delete;
+//	TextFile& operator =(TextFile&&) = delete;
 
 	std::string fileName;
 	std::string mode;

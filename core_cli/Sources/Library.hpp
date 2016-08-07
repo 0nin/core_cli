@@ -35,7 +35,7 @@ public:
 	virtual void printAll(void);
 
 protected:
-	size_t currentString;
+	size_t currentString=0;
 
 	std::string currentFileName;
 
@@ -45,7 +45,7 @@ protected:
 
 	std::string currentType;
 
-	Core::TextFile scriptCopy;
+	TextFile scriptCopy=std::string("");
 };
 // class Decoder
 

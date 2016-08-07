@@ -23,50 +23,10 @@ std::string atos(T real) {
 	return str;
 }
 
-//template<class T>
-//bool list2dat(const std::list<std::vector<std::pair<T, T>>>&dataList,
-//const std::string &out,
-//const std::string &header) {
-//	std::stringstream tmp;
-//	std::string file;
-//	std::ofstream write;
-//	size_t maxSize = 0;
-//	for (auto it = dataList.begin(); it != dataList.end(); ++it) {
-//		if (it->size() > maxSize) maxSize = it->size();
-//	}
-//
-//	for (size_t i = 0; i < maxSize; i++) {
-//		for (auto it = dataList.begin(); it != dataList.end(); ++it) {
-//			if (it->size() > i) {
-//				if (it == dataList.begin()) {
-//					tmp << it->at(i).first << " " << it->at(i).second << " ";
-//				}
-//				else {
-//					tmp << it->at(i).second << " ";
-//				}
-//			}
-//		}
-//		tmp << std::endl;
-//		file += tmp.str();
-//		tmp.str( std::string() );
-//		tmp.clear();
-//	}
-//
-//	write.open(out);
-//	if (write.is_open()) {
-//		write << file;
-//		write.close();
-//	} else
-//	return false;
-//	file.clear();
-//
-//	return true;
-//}
-
 namespace Core {
 Gnuplot::Gnuplot() {
 	window = 0;
-#ifdef WIN32
+#ifdef _WIN32
 	gnuplotpipe = _popen(GNUPLOT_NAME, "w");
 #else
 	gnuplotpipe = popen(GNUPLOT_NAME, "w");
@@ -79,7 +39,7 @@ Gnuplot::Gnuplot() {
 Gnuplot::~Gnuplot() {
 	fprintf(gnuplotpipe, "exit\n");
 
-#ifdef WIN32
+#ifdef _WIN32
 	_pclose(gnuplotpipe);
 #else
 	pclose(gnuplotpipe);

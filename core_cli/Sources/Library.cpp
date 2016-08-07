@@ -47,8 +47,12 @@ bool stob(std::string str) {
 		ERRCONVERT
 }
 
-Library::Library() :
-		scriptCopy(""), currentString(0) {
+//Library::Library() :
+//		scriptCopy(""), currentString(0) {
+//}
+
+Library::Library() {
+
 }
 
 Library::~Library() {

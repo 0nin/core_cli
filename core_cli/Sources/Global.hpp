@@ -12,6 +12,8 @@
 
 #include "Common.h"
 
+#define DUMMY 999.99f
+
 template<class T0>
 extern std::string atos(T0 real);
 extern void printList (const std::list<std::vector<std::pair<double, double>>> &dataList);

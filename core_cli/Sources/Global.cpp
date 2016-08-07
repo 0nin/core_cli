@@ -8,12 +8,7 @@
 #include "Global.hpp"
 
 #include "Application.hpp"
-//#include "Library.hpp"
-//#include "Runtime.hpp"
-//#include "Console.hpp"
 #include "Exception.hpp"
-//#include "Gnuplot.hpp"
-//#include "PathList.hpp"
 
 #include <sstream>
 #include <fstream>
@@ -288,7 +283,7 @@ bool copy2vec(const std::string &file,
 //	Core::PathList::getSingletonPtr()->getPath(file, path);
 	std::ifstream datFile(path);
 	std::stringstream tmp;
-	double x, y;
+	double x = DUMMY, y = DUMMY;
 	bool xI = false, yI = false;
 
 	copy.clear();
@@ -574,35 +569,3 @@ const std::string &header="") {
 
 	return true;
 }
-
-//template<class T>
-//void plotList(const std::string &name,
-//		const std::list<std::vector<std::pair<T, T>>>&dataList) {
-//			FILE* gnuplotpipe = popen(GNUPLOT_NAME, "w");
-//			if (!gnuplotpipe) {
-//				std::cerr << ("Gnuplot not found !");
-//			}
-//			std::stringstream tmp;
-//			std::string fileName = name+".dat";
-//			std::string path;
-//			path = "/tmp/" + fileName;
-//			list2dat(dataList, path);
-//
-//			fprintf (gnuplotpipe, "set grid \n");
-//
-//			for (size_t die = 1; die != 4; ++die) {
-//				if (die == 1) {
-//					tmp << "plot " << " '" << path << "' " << "using 1:" << (die + 1) << " with linespoints pt 7 ps 0.5\n";
-//				}
-//				else {
-//					tmp << "replot " << " '" << path << "' " << "using 1:" << (die + 1) << " with linespoints pt 7 ps 0.5\n";
-//				}
-//
-//				fprintf (gnuplotpipe, "%s \n", tmp.str ().c_str ());
-//			}
-//
-//			fflush (gnuplotpipe); // flush needed to start render
-//			pclose (gnuplotpipe);
-//			tmp.str( std::string() );
-//			tmp.clear();
-//		}
