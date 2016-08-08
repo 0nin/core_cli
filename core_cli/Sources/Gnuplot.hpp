@@ -10,16 +10,21 @@
 
 #include "Common.h"
 
-#include <cstdio>
-#include <sstream>
-#include <fstream>
-
-#ifdef WIN32
+#ifdef _WIN32
 //    #define GNUPLOT_NAME "pgnuplot -persist"
 #define GNUPLOT_NAME "gnuplot -persis"
 #else
 #define GNUPLOT_NAME "gnuplot -persis"
 #endif
+
+#ifdef _WIN32
+//    #define GNUPLOT_NAME "pgnuplot -persist"
+#define GNUPLOT_EN "wxt"
+#else
+#define GNUPLOT_EN "qt"
+#endif
+
+#define TMPGNUT "tmpxtd.gnu"
 
 namespace Core {
 
@@ -40,8 +45,10 @@ public:
 	void plot (const std::list<std::vector<std::pair<double, double>>>&dataLis, const std::string &param);
 	void plotDat (const std::string &dat, std::vector<size_t> &columns);
 	void run (const std::string &script);
+//	void run (const std::string &script);
 	void operator<<(const std::string & command);
 	void render(void);
+	void close(void);
 //	template<class T> void operator<<(std::pair<T, T> point);
 
 protected:

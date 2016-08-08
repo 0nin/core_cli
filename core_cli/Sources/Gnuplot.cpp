@@ -8,6 +8,10 @@
 #include "Gnuplot.hpp"
 #include "Global.hpp"
 
+#include <cstdio>
+#include <sstream>
+#include <fstream>
+
 template<class T>
 std::string atos(T real) {
 	std::ostringstream strs;
@@ -37,13 +41,14 @@ Gnuplot::Gnuplot() {
 	}
 }
 Gnuplot::~Gnuplot() {
-	fprintf(gnuplotpipe, "exit\n");
-
-#ifdef _WIN32
-	_pclose(gnuplotpipe);
-#else
-	pclose(gnuplotpipe);
-#endif
+//	fprintf(gnuplotpipe, "exit\n");
+//
+//#ifdef _WIN32
+//	_pclose(gnuplotpipe);
+//#else
+//	pclose(gnuplotpipe);
+//#endif
+	close();
 }
 
 void Gnuplot::operator<<(const std::string &command) {
@@ -59,14 +64,25 @@ void Gnuplot::render(void) {
 	fflush(gnuplotpipe); // flush needed to start render
 }
 
+void Gnuplot::close(void) {
+//	fflush(gnuplotpipe); // flush needed to start render
+	fprintf(gnuplotpipe, "exit\n");
+#ifdef _WIN32
+	_pclose(gnuplotpipe);
+#else
+	pclose(gnuplotpipe);
+#endif
+
+}
+
 void Gnuplot::plotDat(const std::string &dat, std::vector<size_t> &columns) {
 	std::stringstream tmp;
 
 //	tmp << " ";
 	size_t die = 1;
 	cmd("set grid");
-	cmd("set term qt " + atos(window));
-	window++;
+//	cmd(std::string("set term ") + GNUPLOT_EN + std::string(" ") + atos(window));
+//	window++;
 	for (auto it = columns.begin(); it != columns.end(); ++it) {
 //		tmp << *it << " ";
 		if (die == 1) {
@@ -104,10 +120,11 @@ void Gnuplot::plot(const std::list<std::vector<std::pair<double, double>>>&dataL
 	std::stringstream tmp;
 	std::string path;
 	std::string fileName = "gnuplot" + atos(window)+".dat";
-	path = "./" + fileName;
+	path = TMPDIR + fileName;
 	list2dat(dataList, path);
 	cmd("set grid");
-	cmd("set term qt " + atos(window));
+	cmd(std::string("set term ") + GNUPLOT_EN + std::string(" ") + atos(window));
+//	cmd("set term qt " + atos(window));
 
 //	plot for [col=1:4] 'file' using 0:col with lines
 
@@ -132,6 +149,10 @@ void Gnuplot::plot(const std::list<std::vector<std::pair<double, double>>>&dataL
 	tmp.str( std::string() );
 	tmp.clear();
 	window++;
+}
+
+void Gnuplot::run(const std::string &script) {
+	//TODO:
 }
 
 }

@@ -1,4 +1,4 @@
-#!/usr/bin/gnuplot -persist
+#!/usr/bin/gnuplot --persist
 
 set grid
 

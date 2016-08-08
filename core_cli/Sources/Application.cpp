@@ -36,7 +36,7 @@ Application::~Application(void) {
 }
 
 void Application::init(void) {
-	Library::getSingletonPtr()->loadConfigFile("config.conf");
+	Library::getSingletonPtr()->loadConfigFile("core.cfg");
 
 	cs.registerCommand("info", infoCmd);
 	cs.registerCommand("calc", calcCmd);

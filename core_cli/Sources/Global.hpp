@@ -14,9 +14,9 @@
 
 #define DUMMY 999.99f
 
-template<class T0>
-extern std::string atos(T0 real);
-extern void printList (const std::list<std::vector<std::pair<double, double>>> &dataList);
+template<class T>
+extern std::string atos(T real);
+extern void printList(const std::list<std::vector<std::pair<double, double>>>&dataList);
 extern bool csv2dat(const std::string &file, const std::string &out);
 extern bool dat2csv(const std::string &file, const std::string &out);
 extern bool isDigit(char ch);
@@ -37,10 +37,9 @@ const std::string &out);
 //template<class Temp>
 extern void flux(const std::vector<std::pair<double, double>> &data,
 		std::vector<std::pair<double, double>> &diff);
-extern void fluxList(const std::list<std::vector<std::pair<double, double>>> &data,
-		std::list<std::vector<std::pair<double, double>>> &diff);
+extern void fluxList(const std::list<std::vector<std::pair<double, double>>>&data,
+std::list<std::vector<std::pair<double, double>>> &diff);
 //template<class T>
-//extern void plotList(const std::string &name,
-//		const std::list<std::vector<std::pair<T, T>>>&dataList);
+extern bool plotList(const std::list<std::vector<std::pair<double, double>>>&dataList, const std::string &name);
 
 #endif /* GLOBAL_HPP_ */

@@ -22,9 +22,11 @@ using ret = cr::Console::ReturnCode;
 
 const char digits[] = "0123456789.\t\n";
 
-int main(int argc, char *args[]) {
+//int main(int argc, char *args[]) {
+int main() {
 	try {
-		Core::Application* app = new Core::Application("path.sc", "config.sc");
+//		Core::Application* app = new Core::Application("path.sc", "config.sc");
+		Core::Application* app = new Core::Application("path.cfg", "core.cfg");
 		app->go();
 	} catch (Core::Exception& e) {
 		Core::Exception::die(e.getDescription(), "error.log");
@@ -569,3 +571,43 @@ const std::string &header="") {
 
 	return true;
 }
+
+//template<class T>
+bool plotList(const std::list<std::vector<std::pair<double, double>>>&dataList,const std::string &name) {
+			const char* gnuplotName = "gnuplot -persis";
+			FILE* gnuplotpipe = _popen(gnuplotName, "w");
+			if (!gnuplotpipe) {
+				std::cerr << ("Gnuplot not found !");
+				return false;
+			}
+			std::stringstream tmp;
+			std::string fileName = name+".dat";
+			std::string path;
+			path = std::string(TMPDIR) + fileName;
+			list2dat(dataList, path);
+
+			fprintf (gnuplotpipe, "set grid \n");
+
+//			cmd("set grid");
+//			cmd(std::string("set term ") + GNUPLOT_EN + std::string(" ") + atos(window));
+
+			size_t count = 0;
+			for (size_t die = 1; die <= dataList.size(); die++) {
+				count++;
+				if (die == 1) {
+					tmp << "plot " << " '" << path << "' " << "using 1:" << (count+1) << " with linespoints pt 7 ps 0.5\n";
+				}
+				else {
+					tmp << "replot " << " '" << path << "' " << "using 1:" << (count + 1) << " with linespoints pt 7 ps 0.5\n";
+				}
+			}
+
+			fprintf (gnuplotpipe, "%s \n", tmp.str ().c_str ());
+			fflush (gnuplotpipe); // flush needed to start render
+			fprintf(gnuplotpipe, "exit\n");
+			pclose (gnuplotpipe);
+			tmp.str( std::string() );
+			tmp.clear();
+
+			return true;
+		}

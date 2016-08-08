@@ -11,6 +11,10 @@
 #include "Console.hpp"
 #include "PathList.hpp"
 
+#include <cstdio>
+#include <sstream>
+#include <fstream>
+
 using namespace Core;
 namespace cr = CppReadline;
 using ret = cr::Console::ReturnCode;
@@ -39,6 +43,7 @@ unsigned plotCmd(const std::vector<std::string> &input) {
 	col.push_back(5);
 //	gp.plotDat(file, col);
 	gp.plot(dat, "");
+//	plotList(dat,"TITLE");
 #ifdef DEBUG
 	printList(dat);
 #endif
@@ -46,7 +51,9 @@ unsigned plotCmd(const std::vector<std::string> &input) {
 
 //	for (auto it = dat.begin(); it != dat.end(); ++it)
 //	flux(*it, diff);
+//	Gnuplot gp;
 	gp.plot(diff, "");
+//	plotList(diff,"DIFF");
 
 	dat.clear();
 	diff.clear();
