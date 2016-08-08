@@ -28,33 +28,48 @@ unsigned plotCmd(const std::vector<std::string> &input) {
 #else
 	std::string file = "cableCheck.dat";
 #endif
+	std::list<std::vector<std::pair<double, double>>>tmp;
 	std::list<std::vector<std::pair<double, double>>>dat;
 	std::list<std::vector<std::pair<double, double>>>diff;
-//	std::vector<std::pair<double, double>>diff;
 
 	copy2list(file, dat);
 	list2dat(dat, "out.dat");
 	dat2csv("out.dat", "out.csv");
-//	gp.plot(dat, "");
-	std::vector<size_t> col;
-	col.push_back(2);
-	col.push_back(3);
-	col.push_back(4);
-	col.push_back(5);
+//	std::vector<size_t> col;
+//	col.push_back(2);
+//	col.push_back(3);
+//	col.push_back(4);
+//	col.push_back(5);
 //	gp.plotDat(file, col);
-	gp.plot(dat, "");
+//	gp.plot(dat, "");
 //	plotList(dat,"TITLE");
+//	size_t i = 0;
+	std::vector<std::pair<double, double>> tmpflux;
+	for (auto it = dat.begin(); it != dat.end(); ++it) {
+		tmp.push_back(*it);
+		if (!tmp.empty()) {
+			flux(*it, tmpflux);
+			tmp.push_back(tmpflux);
+			gp.plot(tmp, "");
+			tmp.clear();
+			tmpflux.clear();
+		}
+
+	}
+
+//	gp.plot();
 #ifdef DEBUG
 	printList(dat);
 #endif
-	fluxList (dat, diff);
+	fluxList(dat, diff);
 
 //	for (auto it = dat.begin(); it != dat.end(); ++it)
 //	flux(*it, diff);
 //	Gnuplot gp;
-	gp.plot(diff, "");
+//	gp.plot(diff, "");
 //	plotList(diff,"DIFF");
 
+	gp.close();
 	dat.clear();
 	diff.clear();
 	return ret::Ok;
