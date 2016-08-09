@@ -24,6 +24,9 @@
 #define TMPDIR "/tmp/"
 #endif
 
+#define DUMMY 999.99f
+
+
 #ifdef DEBUG
 #define ENABLE_RUNTIME
 #define ENABLE_LOG2FILE

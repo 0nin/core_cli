@@ -42,13 +42,14 @@ void Application::init(void) {
 	cs.registerCommand("calc", calcCmd);
 	cs.registerCommand("plot", plotCmd);
 	cs.registerCommand("csv2dat", csv2datCmd);
+	cs.registerCommand("tau", tauCmd);
 //	cs.registerCommand("diff", rtCmd);
 
 	cs.executeCommand("help");
 
 #ifdef DEBUG
+	cs.executeCommand("tau");
 	cs.executeCommand("plot");
-//	cs.executeCommand("diff");
 	quit();
 #endif
 }

@@ -32,18 +32,10 @@ unsigned plotCmd(const std::vector<std::string> &input) {
 	std::list<std::vector<std::pair<double, double>>>dat;
 	std::list<std::vector<std::pair<double, double>>>diff;
 
-	copy2list(file, dat);
+	dat2list(file, dat);
 	list2dat(dat, "out.dat");
 	dat2csv("out.dat", "out.csv");
-//	std::vector<size_t> col;
-//	col.push_back(2);
-//	col.push_back(3);
-//	col.push_back(4);
-//	col.push_back(5);
-//	gp.plotDat(file, col);
-//	gp.plot(dat, "");
-//	plotList(dat,"TITLE");
-//	size_t i = 0;
+
 	std::vector<std::pair<double, double>> tmpflux;
 	for (auto it = dat.begin(); it != dat.end(); ++it) {
 		tmp.push_back(*it);
@@ -59,15 +51,9 @@ unsigned plotCmd(const std::vector<std::string> &input) {
 
 //	gp.plot();
 #ifdef DEBUG
-	printList(dat);
+//	printList(dat);
 #endif
 	fluxList(dat, diff);
-
-//	for (auto it = dat.begin(); it != dat.end(); ++it)
-//	flux(*it, diff);
-//	Gnuplot gp;
-//	gp.plot(diff, "");
-//	plotList(diff,"DIFF");
 
 	gp.close();
 	dat.clear();
@@ -130,37 +116,63 @@ unsigned csv2datCmd(const std::vector<std::string> &input) {
 		return 1;
 	}
 
-	std::string line;
+//	std::string line;
 	std::string path;
+	std::string out = input[1] + std::string(".csv");
+//	std::st
 	Core::PathList::getSingletonPtr()->getPath(input[1], path);
-	std::ifstream csvFile(path);
-	std::vector<std::string> copy;
+	dat2csv(path, input[2]);
+//	std::ifstream csvFile(path);
 
-	if (csvFile.is_open()) {
-		while (getline(csvFile, line)) {
-			copy.push_back(line);
-		}
-		csvFile.close();
-		line.clear();
-	} else {
-		std::cerr << "I can't open to" + input[1] << std::endl;
-	}
+//	std::vector<std::string> copy;
+//
+//	if (csvFile.is_open()) {
+//		while (getline(csvFile, line)) {
+//			copy.push_back(line);
+//		}
+//		csvFile.close();
+//		line.clear();
+//	} else {
+//		std::cerr << "I can't open to" + input[1] << std::endl;
+//	}
+//
+//	for (auto it = copy.begin(); it != copy.end(); ++it) {
+//		if (!datLine(*it))
+//			return 1;
+//	}
+//
+//	std::ofstream file;
+//	file.open(input[2]);
+//	if (file.is_open()) {
+//		for (auto it = copy.begin(); it != copy.end(); ++it) {
+//			file << *it << std::endl;
+//		}
+//		file.close();
+//	}
+//
+//	copy.clear();
 
-	for (auto it = copy.begin(); it != copy.end(); ++it) {
-		if (!datLine(*it))
-			return 1;
-	}
+	return ret::Ok;
+}
 
-	std::ofstream file;
-	file.open(input[2]);
-	if (file.is_open()) {
-		for (auto it = copy.begin(); it != copy.end(); ++it) {
-			file << *it << std::endl;
-		}
-		file.close();
-	}
+unsigned tauCmd(const std::vector<std::string> &) {
+//	std::list<std::vector<std::pair<double, double>>>tmp;
+//	std::vector<std::pair<double, double>> tmp;
+	std::list<std::vector<std::pair<double, double>>>dat;
+	std::list<std::vector<std::pair<double, double>>>diff;
+	std::list<std::vector<std::pair<double, double>>>diffNorm;
 
-	copy.clear();
+#ifdef _WIN32
+	std::string file = "V:/cableCheck.dat";
+#else
+	std::string file = "cableCheck.dat";
+#endif
+
+	dat2list(file, dat);
+	fluxList(dat, diff);
+	normListNoRet(diff);
+	list2dat(diff, "./tmp/norm.dat");
+	list2csv(diff, "./tmp/norm.csv");
 
 	return ret::Ok;
 }

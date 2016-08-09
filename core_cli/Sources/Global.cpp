@@ -88,14 +88,15 @@ void printList(const std::list<std::vector<std::pair<double, double>>>&dataList)
 
 }
 
-//template<class T1>
 bool list2dat(const std::list<std::vector<std::pair<double, double>>>&dataList,
 const std::string &out) {
 	std::stringstream tmp;
 	std::string file;
 	std::ofstream write;
 	size_t maxSize = 0;
-	for (auto it = dataList.begin(); it != dataList.end(); ++it) {
+	typedef std::list<std::vector<std::pair<double, double>>>::const_iterator DataListCIt;
+
+	for (DataListCIt it = dataList.begin(); it != dataList.end(); ++it) {
 		if (it->size() > maxSize) maxSize = it->size();
 	}
 
@@ -133,7 +134,9 @@ const std::string &out) {
 	std::string file;
 	std::ofstream write;
 	size_t maxSize = 0;
-	for (auto it = dataList.begin(); it != dataList.end(); ++it) {
+	typedef std::list<std::vector<std::pair<double, double>>>::const_iterator DataListCIt;
+
+	for (DataListCIt it = dataList.begin(); it != dataList.end(); ++it) {
 		if (it->size() > maxSize) maxSize = it->size();
 	}
 
@@ -165,11 +168,12 @@ const std::string &out) {
 	return true;
 }
 
-//template<class Temp>
 void flux(const std::vector<std::pair<double, double>> &data,
 		std::vector<std::pair<double, double>> &diff) {
 	diff.clear();
-	for (auto it = data.begin(); it != data.end() - 1; ++it) {
+	typedef std::vector<std::pair<double, double>>::const_iterator DataVecCIt;
+
+	for (DataVecCIt it = data.begin(); it != data.end() - 1; ++it) {
 		double x = it->first;
 		double y = it->second;
 		double x1 = (it + 1)->first;
@@ -180,32 +184,18 @@ void flux(const std::vector<std::pair<double, double>> &data,
 
 }
 
-//template<class Temp>
 void fluxList(const std::list<std::vector<std::pair<double, double>>>&data,
 std::list<std::vector<std::pair<double, double>>> &diff) {
 	diff.clear();
 	std::vector<std::pair<double, double>> tmp;
-	for (auto it = data.begin(); it != data.end(); ++it) {
+	typedef std::list<std::vector<std::pair<double, double>>>::const_iterator DataListCIt;
+
+	for (DataListCIt it = data.begin(); it != data.end(); ++it) {
 		flux(*it, tmp);
 		diff.push_back(tmp);
 		tmp.clear();
 	}
 }
-//template<class T>
-//bool atos(T real, std::string &str) {
-////	bool result = true;
-////	std::ostringstream strs;
-////	strs << real;
-////	str = strs.str();
-////	if (str.empty())
-////		return false;
-//
-//	str = std::to_string(real);
-//	if (str.empty())
-//		return false;
-//
-//	return true;
-//}
 
 bool isDigit(char ch) {
 //	const char digits[] = "0123456789.\t\n ";
@@ -254,7 +244,7 @@ bool csvLine(std::string &str) {
 	return true;
 }
 
-bool copyText(const std::string &file, std::vector<std::string> &copy) {
+bool text2vec(const std::string &file, std::vector<std::string> &copy) {
 	std::string line;
 	std::string path = file;
 //	Core::PathList::getSingletonPtr()->getPath(file, path);
@@ -277,7 +267,7 @@ bool copyText(const std::string &file, std::vector<std::string> &copy) {
 	return true;
 }
 
-bool copy2vec(const std::string &file,
+bool dat2vec(const std::string &file,
 		std::vector<std::pair<double, double>> &copy, size_t colX,
 		size_t colY) {
 	std::string line;
@@ -337,7 +327,7 @@ bool copy2vec(const std::string &file,
 	return true;
 }
 
-bool copy2list(const std::string &file,
+bool dat2list(const std::string &file,
 		std::list<std::vector<std::pair<double, double>>>&copy) {
 	std::string line;
 	std::vector<std::pair<double, double>> stroke;
@@ -376,7 +366,7 @@ bool copy2list(const std::string &file,
 	}
 
 	for (y = colX; y<colY; y++) {
-		copy2vec (file, stroke, x, y+1);
+		dat2vec (file, stroke, x, y+1);
 		if (!stroke.empty())
 		copy.push_back (stroke);
 		stroke.clear();
@@ -574,40 +564,143 @@ const std::string &header="") {
 
 //template<class T>
 bool plotList(const std::list<std::vector<std::pair<double, double>>>&dataList,const std::string &name) {
-			const char* gnuplotName = "gnuplot -persis";
-			FILE* gnuplotpipe = _popen(gnuplotName, "w");
-			if (!gnuplotpipe) {
-				std::cerr << ("Gnuplot not found !");
-				return false;
-			}
-			std::stringstream tmp;
-			std::string fileName = name+".dat";
-			std::string path;
-			path = std::string(TMPDIR) + fileName;
-			list2dat(dataList, path);
+	const char* gnuplotName = "gnuplot -persis";
+	FILE* gnuplotpipe = _popen(gnuplotName, "w");
+	if (!gnuplotpipe) {
+		std::cerr << ("Gnuplot not found !");
+		return false;
+	}
+	std::stringstream tmp;
+	std::string fileName = name+".dat";
+	std::string path;
+	path = std::string(TMPDIR) + fileName;
+	list2dat(dataList, path);
 
-			fprintf (gnuplotpipe, "set grid \n");
+	fprintf (gnuplotpipe, "set grid \n");
 
 //			cmd("set grid");
 //			cmd(std::string("set term ") + GNUPLOT_EN + std::string(" ") + atos(window));
 
-			size_t count = 0;
-			for (size_t die = 1; die <= dataList.size(); die++) {
-				count++;
-				if (die == 1) {
-					tmp << "plot " << " '" << path << "' " << "using 1:" << (count+1) << " with linespoints pt 7 ps 0.5\n";
-				}
-				else {
-					tmp << "replot " << " '" << path << "' " << "using 1:" << (count + 1) << " with linespoints pt 7 ps 0.5\n";
-				}
-			}
-
-			fprintf (gnuplotpipe, "%s \n", tmp.str ().c_str ());
-			fflush (gnuplotpipe); // flush needed to start render
-			fprintf(gnuplotpipe, "exit\n");
-			pclose (gnuplotpipe);
-			tmp.str( std::string() );
-			tmp.clear();
-
-			return true;
+	size_t count = 0;
+	for (size_t die = 1; die <= dataList.size(); die++) {
+		count++;
+		if (die == 1) {
+			tmp << "plot " << " '" << path << "' " << "using 1:" << (count+1) << " with linespoints pt 7 ps 0.5\n";
 		}
+		else {
+			tmp << "replot " << " '" << path << "' " << "using 1:" << (count + 1) << " with linespoints pt 7 ps 0.5\n";
+		}
+	}
+
+	fprintf (gnuplotpipe, "%s \n", tmp.str ().c_str ());
+	fflush (gnuplotpipe); // flush needed to start render
+	fprintf(gnuplotpipe, "exit\n");
+	pclose (gnuplotpipe);
+	tmp.str( std::string() );
+	tmp.clear();
+
+	return true;
+}
+
+//bool normVec(const std::vector<std::pair<double, double>>&inData,
+//		std::vector<std::pair<double, double>>&outData) {
+//	if (!outData.empty()) {
+//		outData.clear();
+//	}
+//	if (inData.empty())
+//		return false;
+//
+//	typedef std::vector<std::pair<double, double>> DataVec;
+//
+//	for (DataVec::const_iterator jt = inData.begin(); jt != inData.end();
+//			++jt) {
+//		if (jt->second > 0) {
+//			outData.push_back(std::make_pair(jt->first, (double) 1.0));
+//		} else if (jt->second == 0) {
+//			outData.push_back(std::make_pair(jt->first, (double) 0.0));
+//		} else {
+//			outData.push_back(std::make_pair(jt->first, (double) -1.0));
+//		}
+//	}
+//
+//	return true;
+//}
+
+bool normVec(const std::vector<std::pair<double, double>>&inData,
+		std::vector<std::pair<double, double>>&outData) {
+	if (!outData.empty()) {
+		outData.clear();
+	}
+	if (inData.empty())
+		return false;
+
+	typedef std::vector<std::pair<double, double>> DataVec;
+
+	for (DataVec::const_iterator jt = inData.begin(); jt != inData.end();
+			++jt) {
+		if (jt->second > 0) {
+			outData.push_back(std::make_pair(jt->first, (double) 1.0));
+		} else {
+			outData.push_back(std::make_pair(jt->first, (double) 0.0));
+		}
+	}
+
+	return true;
+}
+
+bool normList(const std::list<std::vector<std::pair<double, double>>>&inData,
+std::list<std::vector<std::pair<double, double>>>&outData) {
+	if (!outData.empty()) {
+		outData.clear();
+	}
+	if(inData.empty())
+	return false;
+	typedef std::list<std::vector<std::pair<double, double>>> DataList;
+	typedef std::vector<std::pair<double, double>> DataVec;
+
+	DataVec tmp;
+
+	for (DataList::const_iterator it = inData.begin(); it != inData.end(); ++it){
+		normVec (*it, tmp);
+		outData.push_back(tmp);
+	}
+	if (!tmp.empty()) {
+		tmp.clear();
+	}
+
+	return true;
+}
+
+
+bool normVecNoRet(std::vector<std::pair<double, double>>&inData) {
+	if (inData.empty())
+		return false;
+
+	typedef std::vector<std::pair<double, double>> DataVec;
+	DataVec tmp;
+
+	for (DataVec::iterator jt = inData.begin(); jt != inData.end();
+			++jt) {
+		if (jt->second > 0) {
+			jt->second = (float) 1.0;
+		} else {
+			jt->second = (float) 0.0;
+		}
+	}
+
+	return true;
+}
+
+bool normListNoRet(std::list<std::vector<std::pair<double, double>>>&inData) {
+	if(inData.empty())
+	return false;
+	typedef std::list<std::vector<std::pair<double, double>>> DataList;
+	typedef std::vector<std::pair<double, double>> DataVec;
+
+	for (DataList::iterator it = inData.begin(); it != inData.end(); ++it){
+		normVecNoRet (*it);
+	}
+
+	return true;
+}
+
