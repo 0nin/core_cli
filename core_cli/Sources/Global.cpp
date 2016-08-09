@@ -565,7 +565,11 @@ const std::string &header="") {
 //template<class T>
 bool plotList(const std::list<std::vector<std::pair<double, double>>>&dataList,const std::string &name) {
 	const char* gnuplotName = "gnuplot -persis";
+#ifdef _WIN32
 	FILE* gnuplotpipe = _popen(gnuplotName, "w");
+#else
+	FILE* gnuplotpipe = popen(gnuplotName, "w");
+#endif
 	if (!gnuplotpipe) {
 		std::cerr << ("Gnuplot not found !");
 		return false;

@@ -21,7 +21,8 @@
 //    #define GNUPLOT_NAME "pgnuplot -persist"
 #define GNUPLOT_EN "wxt"
 #else
-#define GNUPLOT_EN "qt"
+//#define GNUPLOT_EN "qt"
+#define GNUPLOT_EN "x11"
 #endif
 
 #define TMPGNUT "tmpxtd.gnu"
