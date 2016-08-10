@@ -173,6 +173,11 @@ unsigned tauCmd(const std::vector<std::string> &) {
 	normListNoRet(diff);
 	list2dat(diff, "./tmp/norm.dat");
 	list2csv(diff, "./tmp/norm.csv");
+	for (auto it = diff.begin(); it != diff.end(); ++it ){
+		std::cout <<"NEXT DIE: " << std::endl;
+		getTauVec (*it);
+	}
+
 
 	return ret::Ok;
 }

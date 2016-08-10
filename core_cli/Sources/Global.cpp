@@ -58,9 +58,20 @@ std::string atos(T real) {
 	return str;
 }
 
+template<class T1, class T2>
+void printVec(const std::vector<std::pair<T1, T2>>&dataVec) {
+	typename std::vector<std::pair<T1, T2>>::const_iterator DataVecCIt;
+	std::cout << "VecLength: " << dataVec.size() << std::endl;
+	for (auto it = dataVec.begin(); it != dataVec.end(); ++it) {
+		std::cout << it->first << "  " << it->second << std::endl;
+	}
+}
+
 void printList(const std::list<std::vector<std::pair<double, double>>>&dataList) {
 	size_t maxSize = 0;
-	for (auto it = dataList.begin(); it != dataList.end(); ++it) {
+	typedef std::list<std::vector<std::pair<double, double>>>::const_iterator DataListCIt;
+
+	for (DataListCIt it = dataList.begin(); it != dataList.end(); ++it) {
 		if (it->size() > maxSize) maxSize = it->size();
 	}
 
@@ -68,24 +79,62 @@ void printList(const std::list<std::vector<std::pair<double, double>>>&dataList)
 	std::cout << "ListLength: " << dataList.size() << std::endl;
 
 	for (size_t i = 0; i < maxSize; i++) {
-		for (auto it = dataList.begin(); it != dataList.end(); ++it) {
+		for (DataListCIt it = dataList.begin(); it != dataList.end(); ++it) {
 			if (it->size() > i) {
-//				if (it == dataList.begin()) {
-//					std::cout << it->at(i).first << " " << it->at(i).second << " ";
-//				}
-//				else {
-//					std::cout << it->at(i).second << " ";
-//				}
 				std::cout << it->at(i).first << " " << it->at(i).second << " ";
 			}
 		}
 		std::cout << std::endl;
-//		tmp << std::endl;
-//		file += tmp.str();
-//		tmp.str( std::string() );
-//		tmp.clear();
+	}
+}
+
+template<class T>
+bool vec2dat(const std::vector<std::pair<T, T>> &data, const std::string &out,
+		const std::string &header = std::string("")) {
+	std::ofstream write;
+	write.open(out);
+	if (write.is_open()) {
+		for (auto it = data.begin(); it != data.end(); ++it) {
+			write << it->first << " " << it->second << std::endl;
+		}
+		write.close();
+	} else
+		return false;
+
+#ifdef DEBUG
+	std::cout << "__X__" << " " << "__DATA__" << std::endl;
+	for (auto it = data.begin(); it != data.end(); ++it) {
+		std::cout << it->first << " " << it->second << std::endl;
+	}
+#endif
+
+	return true;
+}
+
+bool vec2csv(const std::vector<std::pair<double, double>>&dataList,
+		const std::string &out) {
+	std::stringstream tmp;
+	std::string file;
+	std::ofstream write;
+	typedef std::vector<std::pair<double, double>>::const_iterator DataVecCIt;
+
+	for (DataVecCIt it = dataList.begin(); it != dataList.end(); ++it) {
+		tmp << it->first << "," << it->second << "," << std::endl;
+		file += tmp.str();
+		tmp.str(std::string());
+		tmp.clear();
+
 	}
 
+	write.open(out);
+	if (write.is_open()) {
+		write << file;
+		write.close();
+	} else
+		return false;
+	file.clear();
+
+	return true;
 }
 
 bool list2dat(const std::list<std::vector<std::pair<double, double>>>&dataList,
@@ -499,69 +548,6 @@ bool dat2csv(const std::string &file, const std::string &out) {
 	return true;
 }
 
-template<class T>
-bool vec2dat(const std::vector<std::pair<T, T>> &data, const std::string &out,
-		const std::string &header = std::string("")) {
-	std::ofstream write;
-	write.open(out);
-	if (write.is_open()) {
-		for (auto it = data.begin(); it != data.end(); ++it) {
-			write << it->first << " " << it->second << std::endl;
-		}
-		write.close();
-	} else
-		return false;
-
-#ifdef DEBUG
-	std::cout << "__X__" << " " << "__DATA__" << std::endl;
-	for (auto it = data.begin(); it != data.end(); ++it) {
-		std::cout << it->first << " " << it->second << std::endl;
-	}
-#endif
-
-	return true;
-}
-
-template<class T>
-bool vec2csv(const std::list<std::vector<std::pair<T, T>>>&dataList,
-const std::string &out,
-const std::string &header="") {
-	std::stringstream tmp;
-	std::string file;
-	std::ofstream write;
-	size_t maxSize = 0;
-	for (auto it = dataList.begin(); it != dataList.end(); ++it) {
-		if (it->size() > maxSize) maxSize = it->size();
-	}
-
-	for (size_t i = 0; i < maxSize; i++) {
-		for (auto it = dataList.begin(); it != dataList.end(); ++it) {
-			if (it->size() > i) {
-				if (it == dataList.begin()) {
-					tmp << it->at(i).first << "," << it->at(i).second << ",";
-				}
-				else {
-					tmp << it->at(i).second << ",";
-				}
-			}
-		}
-		tmp << std::endl;
-		file += tmp.str();
-		tmp.str( std::string() );
-		tmp.clear();
-	}
-
-	write.open(out);
-	if (write.is_open()) {
-		write << file;
-		write.close();
-	} else
-	return false;
-	file.clear();
-
-	return true;
-}
-
 //template<class T>
 bool plotList(const std::list<std::vector<std::pair<double, double>>>&dataList,const std::string &name) {
 	const char* gnuplotName = "gnuplot -persis";
@@ -664,7 +650,7 @@ std::list<std::vector<std::pair<double, double>>>&outData) {
 
 	DataVec tmp;
 
-	for (DataList::const_iterator it = inData.begin(); it != inData.end(); ++it){
+	for (DataList::const_iterator it = inData.begin(); it != inData.end(); ++it) {
 		normVec (*it, tmp);
 		outData.push_back(tmp);
 	}
@@ -675,7 +661,6 @@ std::list<std::vector<std::pair<double, double>>>&outData) {
 	return true;
 }
 
-
 bool normVecNoRet(std::vector<std::pair<double, double>>&inData) {
 	if (inData.empty())
 		return false;
@@ -683,8 +668,7 @@ bool normVecNoRet(std::vector<std::pair<double, double>>&inData) {
 	typedef std::vector<std::pair<double, double>> DataVec;
 	DataVec tmp;
 
-	for (DataVec::iterator jt = inData.begin(); jt != inData.end();
-			++jt) {
+	for (DataVec::iterator jt = inData.begin(); jt != inData.end(); ++jt) {
 		if (jt->second > 0) {
 			jt->second = (float) 1.0;
 		} else {
@@ -699,12 +683,90 @@ bool normListNoRet(std::list<std::vector<std::pair<double, double>>>&inData) {
 	if(inData.empty())
 	return false;
 	typedef std::list<std::vector<std::pair<double, double>>> DataList;
-	typedef std::vector<std::pair<double, double>> DataVec;
 
-	for (DataList::iterator it = inData.begin(); it != inData.end(); ++it){
+	for (DataList::iterator it = inData.begin(); it != inData.end(); ++it) {
 		normVecNoRet (*it);
 	}
 
 	return true;
 }
 
+bool comp(std::pair<double, double> i, std::pair<double, double> j) {
+//	return (i.second < j.second);
+	return (i.second > j.second);
+}
+
+double getTauVec(const std::vector<std::pair<double, double>>&dataVec) {
+	if (dataVec.empty()) {
+		return (double) 0.0f;
+	}
+
+	typedef std::vector<std::pair<double, double>> DataVec;
+	typedef DataVec::const_iterator DataVecCIt;
+	typedef std::vector<std::pair<double, double>> IntVec;
+	typedef IntVec::const_iterator InVecCIt;
+	InVecCIt maxIt;
+	double result = 0.0f;
+	IntVec intervals, ones; // withCopy
+//	IntVec intervalsSort;
+
+	for (DataVecCIt it = dataVec.begin(); it != dataVec.end(); ++it) {
+		if (it->second == (double) 1.0f) {
+			for (DataVecCIt jt = it + 1; jt != dataVec.end(); ++jt) {
+				if (jt->second == (double) 1.0f) {
+					intervals.push_back(
+							std::make_pair(it->first, jt->first - it->first));
+					break;
+				} else {
+					continue;
+					//do nothing;
+				}
+			}
+		} else {
+			//do nothing
+		}
+
+		if (it->second == (double) 1.0f) {
+			if (it != dataVec.end())
+				ones.push_back(*it);
+		}
+	}
+
+	for (auto it = ones.begin(); it != ones.end() - 1; ++it) {
+		it->second = (it + 1)->first - it->first;
+	}
+
+//	intervalsSort = intervals;
+//	std::sort(intervalsSort.begin(), intervalsSort.end(), comp);
+
+	std::sort(ones.begin(), ones.end(), comp);
+	if (ones[1].first < ones[0].first) {
+		result = ones[1].first + ones[1].second - dataVec[0].first;
+	} else if (ones[2].first < ones[0].first) {
+		result = ones[2].first + ones[2].second - dataVec[0].first;
+	} else {
+		result = ones[3].first + ones[3].second - dataVec[0].first;
+	}
+
+#ifdef DEBUG
+	std::cout << "TAU: " << result << std::endl;
+#endif
+
+
+//	if (!intervalsSort.empty()) {
+//		intervalsSort.clear();
+//	}
+	if (!intervals.empty()) {
+		intervals.clear();
+	}
+	if (!ones.empty()) {
+		ones.clear();
+	}
+
+	return result;
+}
+
+//double getTauList(const std::list<std::vector<std::pair<double, double>>>&dataList) {
+//
+//	return (double)0.0f;
+//}
