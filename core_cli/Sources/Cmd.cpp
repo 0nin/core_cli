@@ -46,7 +46,6 @@ unsigned plotCmd(const std::vector<std::string> &input) {
 			tmp.clear();
 			tmpflux.clear();
 		}
-
 	}
 
 //	gp.plot();
@@ -55,7 +54,7 @@ unsigned plotCmd(const std::vector<std::string> &input) {
 #endif
 	fluxList(dat, diff);
 
-	gp.close();
+//	gp.close();
 	dat.clear();
 	diff.clear();
 	return ret::Ok;
@@ -177,7 +176,6 @@ unsigned tauCmd(const std::vector<std::string> &) {
 		std::cout <<"NEXT DIE: " << std::endl;
 		getTauVec (*it);
 	}
-
 
 	return ret::Ok;
 }

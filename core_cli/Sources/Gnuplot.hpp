@@ -22,7 +22,7 @@
 #define GNUPLOT_EN "wxt"
 #else
 //#define GNUPLOT_EN "qt"
-#define GNUPLOT_EN "x11"
+#define GNUPLOT_EN "wxt"
 #endif
 
 #define TMPGNUT "tmpxtd.gnu"

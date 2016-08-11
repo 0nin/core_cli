@@ -41,13 +41,6 @@ Gnuplot::Gnuplot() {
 	}
 }
 Gnuplot::~Gnuplot() {
-//	fprintf(gnuplotpipe, "exit\n");
-//
-//#ifdef _WIN32
-//	_pclose(gnuplotpipe);
-//#else
-//	pclose(gnuplotpipe);
-//#endif
 	close();
 }
 
@@ -65,6 +58,7 @@ void Gnuplot::render(void) {
 }
 
 void Gnuplot::close(void) {
+	render();
 //	fflush(gnuplotpipe); // flush needed to start render
 	fprintf(gnuplotpipe, "exit\n");
 #ifdef _WIN32
@@ -113,6 +107,7 @@ void Gnuplot::plotDat(const std::string &dat, std::vector<size_t> &columns) {
 //	std::string command = "plot '" + dat + "' using" + tmp.str();
 //
 //	cmd(command);
+	window++;
 }
 
 //template<class T>
