@@ -60,13 +60,12 @@ void Gnuplot::render(void) {
 void Gnuplot::close(void) {
 	render();
 //	fflush(gnuplotpipe); // flush needed to start render
-	fprintf(gnuplotpipe, "exit\n");
+//	fprintf(gnuplotpipe, "exit\n");
 #ifdef _WIN32
 	_pclose(gnuplotpipe);
 #else
 	pclose(gnuplotpipe);
 #endif
-
 }
 
 void Gnuplot::plotDat(const std::string &dat, std::vector<size_t> &columns) {
@@ -112,38 +111,47 @@ void Gnuplot::plotDat(const std::string &dat, std::vector<size_t> &columns) {
 
 //template<class T>
 void Gnuplot::plot(const std::list<std::vector<std::pair<double, double>>>&dataList, const std::string &param) {
-	std::stringstream tmp;
-	std::string path;
-	std::string fileName = "gnuplot" + atos(window)+".dat";
-	path = TMPDIR + fileName;
-	list2dat(dataList, path);
-	cmd("set grid");
-	cmd(std::string("set term ") + GNUPLOT_EN + std::string(" ") + atos(window));
-//	cmd("set term qt " + atos(window));
+	  std::stringstream tmp;
+	  std::string path;
+	  std::string fileName = "gnuplot" + atos(window)+".dat";
+	#ifndef _WIN32
+	  path = std::string("/tmp/") + fileName;
+	#else
+	  path = std::string("./tmp/") + fileName;
+	#endif
+	  list2dat(dataList, path);
+	  cmd("set grid");
+	  cmd(std::string("set term ") + GNUPLOT_EN + std::string(" ") + atos(window));
+	//  cmd("set term qt " + atos(window));
 
-//	plot for [col=1:4] 'file' using 0:col with lines
+	//  plot for [col=1:4] 'file' using 0:col with lines
 
-//	ML_FOR_ACTIVE_DIES(die) {
-	for (size_t die = 1; die <= dataList.size(); die++) {
-		if (die == 1) {
-			tmp << "plot " << " '" << path << "' " << "using 1:" << (die + 1) << " with linespoints pt 7 ps 0.5" << std::endl;
-		}
-		else {
-			tmp << "replot " << " '" << path << "' " << "using 1:" << (die + 1) << " with linespoints pt 7 ps 0.5" << std::endl;
-		}
+	//  ML_FOR_ACTIVE_DIES(die) {
+	//  for (size_t die = 1; die <= dataList.size(); die++) {
+	//    if (die == 1) {
+	//      tmp << "plot " << " '" << path << "' " << "using 1:" << (die + 1) << " with linespoints pt 7 ps 0.5" << std::endl;
+	//    }
+	//    else {
+	//      tmp << "replot " << " '" << path << "' " << "using 1:" << (die + 1) << " with linespoints pt 7 ps 0.5" << std::endl;
+	//    }
 
-//		fprintf (gnuplotpipe, "%s \n", tmp.str ().c_str ());
-	}
+	  for (size_t die = 1; die <= 2*dataList.size(); die+=2) {
+	    if (die == 1) {
+	      tmp << "plot " << " '" << path << "' " << "using " << die << ":" << (die + 1) << " with linespoints pt 7 ps 0.5" << std::endl;
+	    }
+	    else {
+	      tmp << "replot " << " '" << path << "' " << "using " << die << ":" << (die + 1) << " with linespoints pt 7 ps 0.5" << std::endl;
+	    }
+	  }
 
-	std::string command = tmp.str();
-//	std::string command = "plot for [col=1:" + atos(dataList.size()) << "] '" << path << "] using 0:col with linespoints pt 7 ps 0.5";
-	cmd (command);
+	  std::string command = tmp.str();
+	  cmd (command);
 
-//	fflush (gnuplotpipe); // flush needed to start render
-//	pclose (gnuplotpipe);
-	tmp.str( std::string() );
-	tmp.clear();
-	window++;
+	//  cmd ("plot")
+
+	  tmp.str( std::string() );
+	  tmp.clear();
+	  window++;
 }
 
 void Gnuplot::run(const std::string &script) {

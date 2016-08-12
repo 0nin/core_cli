@@ -54,7 +54,7 @@ unsigned plotCmd(const std::vector<std::string> &input) {
 #endif
 	fluxList(dat, diff);
 
-//	gp.close();
+	gp.close();
 	dat.clear();
 	diff.clear();
 	return ret::Ok;

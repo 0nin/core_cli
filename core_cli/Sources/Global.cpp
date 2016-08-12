@@ -139,82 +139,87 @@ bool vec2csv(const std::vector<std::pair<double, double>>&dataList,
 
 bool list2dat(const std::list<std::vector<std::pair<double, double>>>&dataList,
 const std::string &out) {
-	std::stringstream tmp;
-	std::string file;
-	std::ofstream write;
-	size_t maxSize = 0;
-	typedef std::list<std::vector<std::pair<double, double>>>::const_iterator DataListCIt;
+	  std::stringstream tmp;
+	  std::string file;
+	  std::ofstream write;
+	  size_t maxSize = 0;
+	  typedef std::list<std::vector<std::pair<double, double>>>::const_iterator DataListCIt;
 
-	for (DataListCIt it = dataList.begin(); it != dataList.end(); ++it) {
-		if (it->size() > maxSize) maxSize = it->size();
-	}
+	  for (DataListCIt it = dataList.begin(); it != dataList.end(); ++it) {
+	    if (it->size() > maxSize) maxSize = it->size();
+	  }
 
-	for (size_t i = 0; i < maxSize; i++) {
-		for (auto it = dataList.begin(); it != dataList.end(); ++it) {
-			if (it->size() > i) {
-				if (it == dataList.begin()) {
-					tmp << it->at(i).first << " " << it->at(i).second << " ";
-				}
-				else {
-					tmp << it->at(i).second << " ";
-				}
-			}
-		}
-		tmp << std::endl;
-		file += tmp.str();
-		tmp.str( std::string() );
-		tmp.clear();
-	}
+	  for (size_t i = 0; i < maxSize; i++) {
+	    for (auto it = dataList.begin(); it != dataList.end(); ++it) {
+	//      if (it->size() > i) {
+	//        if (it == dataList.begin()) {
+	//          tmp << it->at(i).first << " " << it->at(i).second << " ";
+	//        }
+	//        else {
+	//          tmp << it->at(i).second << " ";
+	//        }
+	//      }
+	      if (it->size() > i) {
+	        tmp << it->at(i).first << " " << it->at(i).second << " ";
+	      }
+	    }
+	    tmp << std::endl;
+	    file += tmp.str();
+	    tmp.str( std::string() );
+	    tmp.clear();
+	  }
 
-	write.open(out);
-	if (write.is_open()) {
-		write << file;
-		write.close();
-	} else
-	return false;
-	file.clear();
+	  write.open(out);
+	  if (write.is_open()) {
+	    write << file;
+	    write.close();
+	  } else
+	  return false;
+	  file.clear();
 
-	return true;
+	  return true;
 }
 
 bool list2csv(const std::list<std::vector<std::pair<double, double>>>&dataList,
 const std::string &out) {
-	std::stringstream tmp;
-	std::string file;
-	std::ofstream write;
-	size_t maxSize = 0;
-	typedef std::list<std::vector<std::pair<double, double>>>::const_iterator DataListCIt;
+      std::stringstream tmp;
+      std::string file;
+      std::ofstream write;
+      size_t maxSize = 0;
+      typedef std::list<std::vector<std::pair<double, double>>>::const_iterator DataListCIt;
 
-	for (DataListCIt it = dataList.begin(); it != dataList.end(); ++it) {
-		if (it->size() > maxSize) maxSize = it->size();
-	}
+      for (DataListCIt it = dataList.begin(); it != dataList.end(); ++it) {
+        if (it->size() > maxSize) maxSize = it->size();
+      }
 
-	for (size_t i = 0; i < maxSize; i++) {
-		for (auto it = dataList.begin(); it != dataList.end(); ++it) {
-			if (it->size() > i) {
-				if (it == dataList.begin()) {
-					tmp << it->at(i).first << "," << it->at(i).second << ",";
-				}
-				else {
-					tmp << it->at(i).second << ",";
-				}
-			}
-		}
-		tmp << std::endl;
-		file += tmp.str();
-		tmp.str( std::string() );
-		tmp.clear();
-	}
+      for (size_t i = 0; i < maxSize; i++) {
+        for (auto it = dataList.begin(); it != dataList.end(); ++it) {
+          if (it->size() > i) {
+//                       if (it == dataList.begin()) {
+//                         tmp << it->at(i).first << "," << it->at(i).second << ",";
+//                       }
+//                       else {
+//                         tmp << it->at(i).second << ",";
+//                       }
+            tmp << it->at(i).first << "," << it->at(i).second << ",";
+          }
+        }
+        tmp << std::endl;
+        file += tmp.str();
+        tmp.str( std::string() );
+        tmp.clear();
+      }
 
-	write.open(out);
-	if (write.is_open()) {
-		write << file;
-		write.close();
-	} else
-	return false;
-	file.clear();
+      write.open(out);
+      if (write.is_open()) {
+        write << file;
+        write.close();
+      }
+      else
+      return false;
+      file.clear();
 
-	return true;
+      return true;
 }
 
 void flux(const std::vector<std::pair<double, double>> &data,
@@ -740,18 +745,26 @@ double getTauVec(const std::vector<std::pair<double, double>>&dataVec) {
 //	std::sort(intervalsSort.begin(), intervalsSort.end(), comp);
 
 	std::sort(ones.begin(), ones.end(), comp);
-	if (ones[1].first < ones[0].first) {
-		result = ones[1].first + ones[1].second - dataVec[0].first;
-	} else if (ones[2].first < ones[0].first) {
-		result = ones[2].first + ones[2].second - dataVec[0].first;
-	} else {
-		result = ones[3].first + ones[3].second - dataVec[0].first;
+//	if (ones[1].first < ones[0].first) {
+//		result = ones[1].first + ones[1].second - dataVec[0].first;
+//	} else if (ones[2].first < ones[0].first) {
+//		result = ones[2].first + ones[2].second - dataVec[0].first;
+//	} else {
+//		result = ones[3].first + ones[3].second - dataVec[0].first;
+//	}
+
+	for (size_t i = 1; i < ones.size() - 2; i++) {
+		if (ones[i].first < ones[0].first) {
+			result = ones[i].first + ones[1].second - dataVec[0].first;
+			break;
+		} else {
+			continue;
+		}
 	}
 
 #ifdef DEBUG
 	std::cout << "TAU: " << result << std::endl;
 #endif
-
 
 //	if (!intervalsSort.empty()) {
 //		intervalsSort.clear();
