@@ -68,15 +68,16 @@ void Gnuplot::close(void) {
 #endif
 }
 
-void Gnuplot::plotDat(const std::string &dat, std::vector<size_t> &columns) {
+void Gnuplot::plotDat(const std::string &dat, size_t col) {
 	std::stringstream tmp;
 
 //	tmp << " ";
-	size_t die = 1;
+//	size_t die = 1;
 	cmd("set grid");
 //	cmd(std::string("set term ") + GNUPLOT_EN + std::string(" ") + atos(window));
 //	window++;
-	for (auto it = columns.begin(); it != columns.end(); ++it) {
+//	for (auto it = columns.begin(); it != columns.end(); ++it) {
+		for (size_t die = 1; die<=col; die++) {
 //		tmp << *it << " ";
 		if (die == 1) {
 			tmp << "plot " << " '" << dat << "' " << "using 1:" << (die + 1)
@@ -89,23 +90,9 @@ void Gnuplot::plotDat(const std::string &dat, std::vector<size_t> &columns) {
 		fprintf(gnuplotpipe, "%s \n", tmp.str().c_str());
 		tmp.str(std::string());
 		tmp.clear();
-		die++;
+//		die++;
 	}
 
-//	for (size_t die = 1; die !=dataList.size(); ++die) {
-//		if (die == 1) {
-//			tmp << "plot " << " '" << path << "' " << "using 1:" << (die + 1) << " with linespoints pt 7 ps 0.5" << std::endl;
-//		}
-//		else {
-//			tmp << "replot " << " '" << path << "' " << "using 1:" << (die + 1) << " with linespoints pt 7 ps 0.5" <<std::endl;
-//		}
-//
-//		fprintf (gnuplotpipe, "%s \n", tmp.str ().c_str ());
-//	}
-
-//	std::string command = "plot '" + dat + "' using" + tmp.str();
-//
-//	cmd(command);
 	window++;
 }
 
@@ -122,18 +109,6 @@ void Gnuplot::plot(const std::list<std::vector<std::pair<double, double>>>&dataL
 	  list2dat(dataList, path);
 	  cmd("set grid");
 	  cmd(std::string("set term ") + GNUPLOT_EN + std::string(" ") + atos(window));
-	//  cmd("set term qt " + atos(window));
-
-	//  plot for [col=1:4] 'file' using 0:col with lines
-
-	//  ML_FOR_ACTIVE_DIES(die) {
-	//  for (size_t die = 1; die <= dataList.size(); die++) {
-	//    if (die == 1) {
-	//      tmp << "plot " << " '" << path << "' " << "using 1:" << (die + 1) << " with linespoints pt 7 ps 0.5" << std::endl;
-	//    }
-	//    else {
-	//      tmp << "replot " << " '" << path << "' " << "using 1:" << (die + 1) << " with linespoints pt 7 ps 0.5" << std::endl;
-	//    }
 
 	  for (size_t die = 1; die <= 2*dataList.size(); die+=2) {
 	    if (die == 1) {

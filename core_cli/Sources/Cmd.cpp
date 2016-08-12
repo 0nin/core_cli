@@ -28,35 +28,37 @@ unsigned plotCmd(const std::vector<std::string> &input) {
 #else
 	std::string file = "cableCheck.dat";
 #endif
-	std::list<std::vector<std::pair<double, double>>>tmp;
-	std::list<std::vector<std::pair<double, double>>>dat;
-	std::list<std::vector<std::pair<double, double>>>diff;
-
-	dat2list(file, dat);
-	list2dat(dat, "out.dat");
-	dat2csv("out.dat", "out.csv");
-
-	std::vector<std::pair<double, double>> tmpflux;
-	for (auto it = dat.begin(); it != dat.end(); ++it) {
-		tmp.push_back(*it);
-		if (!tmp.empty()) {
-			flux(*it, tmpflux);
-			tmp.push_back(tmpflux);
-			gp.plot(tmp, "");
-			tmp.clear();
-			tmpflux.clear();
-		}
-	}
+//	std::list<std::vector<std::pair<double, double>>>tmp;
+//	std::list<std::vector<std::pair<double, double>>>dat;
+//	std::list<std::vector<std::pair<double, double>>>diff;
+//
+//	dat2list(file, dat);
+//	list2dat(dat, "out.dat");
+//	dat2csv("out.dat", "out.csv");
+//
+//	std::vector<std::pair<double, double>> tmpflux;
+//	for (auto it = dat.begin(); it != dat.end(); ++it) {
+//		tmp.push_back(*it);
+//		if (!tmp.empty()) {
+//			flux(*it, tmpflux);
+//			tmp.push_back(tmpflux);
+//			gp.plot(tmp, "");
+//			tmp.clear();
+//			tmpflux.clear();
+//		}
+//	}
 
 //	gp.plot();
 #ifdef DEBUG
 //	printList(dat);
 #endif
-	fluxList(dat, diff);
-
-	gp.close();
-	dat.clear();
-	diff.clear();
+//	fluxList(dat, diff);
+//
+//	gp.close();
+//	dat.clear();
+//	diff.clear();
+	gp.plotDat("cableCheck.dat", 4);
+//	gp.close();
 	return ret::Ok;
 }
 
@@ -121,35 +123,6 @@ unsigned csv2datCmd(const std::vector<std::string> &input) {
 //	std::st
 	Core::PathList::getSingletonPtr()->getPath(input[1], path);
 	dat2csv(path, input[2]);
-//	std::ifstream csvFile(path);
-
-//	std::vector<std::string> copy;
-//
-//	if (csvFile.is_open()) {
-//		while (getline(csvFile, line)) {
-//			copy.push_back(line);
-//		}
-//		csvFile.close();
-//		line.clear();
-//	} else {
-//		std::cerr << "I can't open to" + input[1] << std::endl;
-//	}
-//
-//	for (auto it = copy.begin(); it != copy.end(); ++it) {
-//		if (!datLine(*it))
-//			return 1;
-//	}
-//
-//	std::ofstream file;
-//	file.open(input[2]);
-//	if (file.is_open()) {
-//		for (auto it = copy.begin(); it != copy.end(); ++it) {
-//			file << *it << std::endl;
-//		}
-//		file.close();
-//	}
-//
-//	copy.clear();
 
 	return ret::Ok;
 }
