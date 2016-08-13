@@ -14,53 +14,15 @@
 #include <cstdio>
 #include <sstream>
 #include <fstream>
+#include <math.h>
 
 using namespace Core;
 namespace cr = CppReadline;
 using ret = cr::Console::ReturnCode;
 
+#define _USE_MATH_DEFINES
+
 //Readline commands
-unsigned plotCmd(const std::vector<std::string> &input) {
-	Gnuplot gp;
-
-#ifdef _WIN32
-	std::string file = "V:/cableCheck.dat";
-#else
-	std::string file = "cableCheck.dat";
-#endif
-//	std::list<std::vector<std::pair<double, double>>>tmp;
-//	std::list<std::vector<std::pair<double, double>>>dat;
-//	std::list<std::vector<std::pair<double, double>>>diff;
-//
-//	dat2list(file, dat);
-//	list2dat(dat, "out.dat");
-//	dat2csv("out.dat", "out.csv");
-//
-//	std::vector<std::pair<double, double>> tmpflux;
-//	for (auto it = dat.begin(); it != dat.end(); ++it) {
-//		tmp.push_back(*it);
-//		if (!tmp.empty()) {
-//			flux(*it, tmpflux);
-//			tmp.push_back(tmpflux);
-//			gp.plot(tmp, "");
-//			tmp.clear();
-//			tmpflux.clear();
-//		}
-//	}
-
-//	gp.plot();
-#ifdef DEBUG
-//	printList(dat);
-#endif
-//	fluxList(dat, diff);
-//
-//	gp.close();
-//	dat.clear();
-//	diff.clear();
-	gp.plotDat("cableCheck.dat", 4);
-//	gp.close();
-	return ret::Ok;
-}
 
 // In this command we implement a basic calculator
 unsigned calcCmd(const std::vector<std::string> & input) {
@@ -150,5 +112,55 @@ unsigned tauCmd(const std::vector<std::string> &) {
 		getTauVec (*it);
 	}
 
+	return ret::Ok;
+}
+
+unsigned plotCmd(const std::vector<std::string> &input) {
+	Gnuplot gp, gp1, gp2;
+
+#ifdef _WIN32
+	std::string file = "V:/cableCheck.dat";
+#else
+	std::string file = "cableCheck.dat";
+#endif
+//	std::list<std::vector<std::pair<double, double>>>tmp;
+//	std::list<std::vector<std::pair<double, double>>>dat;
+//	std::list<std::vector<std::pair<double, double>>>diff;
+//
+//	dat2list(file, dat);
+//	list2dat(dat, "out.dat");
+//	dat2csv("out.dat", "out.csv");
+//
+//	std::vector<std::pair<double, double>> tmpflux;
+//	for (auto it = dat.begin(); it != dat.end(); ++it) {
+//		tmp.push_back(*it);
+//		if (!tmp.empty()) {
+//			flux(*it, tmpflux);
+//			tmp.push_back(tmpflux);
+//			gp.plot(tmp, "");
+//			tmp.clear();
+//			tmpflux.clear();
+//		}
+//	}
+
+//	gp.plot();
+#ifdef DEBUG
+//	printList(dat);
+#endif
+//	fluxList(dat, diff);
+//
+//	gp.close();
+//	dat.clear();
+//	diff.clear();
+	std::list<std::vector<std::pair<double, double>>> data;
+	std::vector<std::pair<double, double>> tmp;
+	for (double x = -M_PI; x < M_PI; x+=0.01f) {
+		tmp.push_back(std::make_pair(x, sin(x)));
+	}
+	data.push_back(tmp);
+	gp2.plot(data);
+	gp.plotDat("cableCheck.dat", 4);
+	gp1.plotDat("plot.dat", 4);
+//	gp.close();
 	return ret::Ok;
 }

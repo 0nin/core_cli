@@ -12,6 +12,8 @@
 
 template<class T>
 extern std::string atos(T real);
+extern std::string rand(size_t range);
+extern bool fileExist (const std::string &name);
 template<class T1, class T2>
 extern void printVec(const std::vector<std::pair<T1, T2>>&dataVec);
 extern void printList(const std::list<std::vector<std::pair<double, double>>>&dataList);

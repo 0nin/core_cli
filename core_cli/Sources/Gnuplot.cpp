@@ -77,7 +77,7 @@ void Gnuplot::plotDat(const std::string &dat, size_t col) {
 //	cmd(std::string("set term ") + GNUPLOT_EN + std::string(" ") + atos(window));
 //	window++;
 //	for (auto it = columns.begin(); it != columns.end(); ++it) {
-		for (size_t die = 1; die<=col; die++) {
+	for (size_t die = 1; die <= col; die++) {
 //		tmp << *it << " ";
 		if (die == 1) {
 			tmp << "plot " << " '" << dat << "' " << "using 1:" << (die + 1)
@@ -98,35 +98,38 @@ void Gnuplot::plotDat(const std::string &dat, size_t col) {
 
 //template<class T>
 void Gnuplot::plot(const std::list<std::vector<std::pair<double, double>>>&dataList, const std::string &param) {
-	  std::stringstream tmp;
-	  std::string path;
-	  std::string fileName = "gnuplot" + atos(window)+".dat";
-	#ifndef _WIN32
-	  path = std::string("/tmp/") + fileName;
-	#else
-	  path = std::string("./tmp/") + fileName;
-	#endif
-	  list2dat(dataList, path);
-	  cmd("set grid");
-	  cmd(std::string("set term ") + GNUPLOT_EN + std::string(" ") + atos(window));
+	std::stringstream tmp;
+	std::string path;
+	std::string fileName = "gnuplot" + atos(window) + "_" + rand(3) +".dat";
+	while (!fileExist(fileName)) {
+		fileName = "gnuplot" + atos(window) + "_" + rand(3) +".dat";
+	}
+#ifndef _WIN32
+	path = std::string("/tmp/") + fileName;
+#else
+	path = std::string("./tmp/") + fileName;
+#endif
+	list2dat(dataList, path);
+	cmd("set grid");
+	cmd(std::string("set term ") + GNUPLOT_EN + std::string(" ") + atos(window));
 
-	  for (size_t die = 1; die <= 2*dataList.size(); die+=2) {
-	    if (die == 1) {
-	      tmp << "plot " << " '" << path << "' " << "using " << die << ":" << (die + 1) << " with linespoints pt 7 ps 0.5" << std::endl;
-	    }
-	    else {
-	      tmp << "replot " << " '" << path << "' " << "using " << die << ":" << (die + 1) << " with linespoints pt 7 ps 0.5" << std::endl;
-	    }
-	  }
+	for (size_t die = 1; die <= 2*dataList.size(); die+=2) {
+		if (die == 1) {
+			tmp << "plot " << " '" << path << "' " << "using " << die << ":" << (die + 1) << " with linespoints pt 7 ps 0.5" << std::endl;
+		}
+		else {
+			tmp << "replot " << " '" << path << "' " << "using " << die << ":" << (die + 1) << " with linespoints pt 7 ps 0.5" << std::endl;
+		}
+	}
 
-	  std::string command = tmp.str();
-	  cmd (command);
+	std::string command = tmp.str();
+	cmd (command);
 
 	//  cmd ("plot")
 
-	  tmp.str( std::string() );
-	  tmp.clear();
-	  window++;
+	tmp.str( std::string() );
+	tmp.clear();
+	window++;
 }
 
 void Gnuplot::run(const std::string &script) {

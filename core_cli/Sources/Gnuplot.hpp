@@ -43,7 +43,7 @@ public:
 	void cmd (const std::string &command);
 //	void plot (const std::string &dat, std::vector<size_t> &col);
 //	template<class T>
-	void plot (const std::list<std::vector<std::pair<double, double>>>&dataLis, const std::string &param);
+	void plot (const std::list<std::vector<std::pair<double, double>>>&dataLis, const std::string &param="");
 	void plotDat (const std::string &dat, size_t col);
 	void run (const std::string &script);
 //	void run (const std::string &script);
