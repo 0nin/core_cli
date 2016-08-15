@@ -144,23 +144,16 @@ unsigned plotCmd(const std::vector<std::string> &input) {
 //	}
 
 //	gp.plot();
-#ifdef DEBUG
-//	printList(dat);
-#endif
-//	fluxList(dat, diff);
-//
-//	gp.close();
-//	dat.clear();
-//	diff.clear();
-	std::list<std::vector<std::pair<double, double>>> data;
-	std::vector<std::pair<double, double>> tmp;
-	for (double x = -M_PI; x < M_PI; x+=0.01f) {
-		tmp.push_back(std::make_pair(x, sin(x)));
-	}
-	data.push_back(tmp);
-	gp2.plot(data);
+
+//	std::list<std::vector<std::pair<double, double>>> data;
+//	std::vector<std::pair<double, double>> tmp;
+//	for (double x = -3.14f; x < 3.14f; x+=0.01f) {
+//		tmp.push_back(std::make_pair(x, sin(x)));
+//	}
+//	data.push_back(tmp);
+//	gp2.plot(data);
 	gp.plotDat("cableCheck.dat", 4);
-	gp1.plotDat("plot.dat", 4);
+//	gp1.plotDat("plot.dat", 4);
 //	gp.close();
 	return ret::Ok;
 }

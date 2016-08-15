@@ -32,25 +32,14 @@ namespace Core {
 class Gnuplot {
 public:
 	Gnuplot();
-//	Gnuplot(const std::string &plot);
 	virtual ~Gnuplot();
-//	template<class T>
-//	void addPoint(std::pair<T, T> point);
-//	template<class T>
-//	void addCurve(const std::string &name,
-//			const std::list<std::vector<std::pair<T, T>>>&dataLis, const std::string &attributes);
-//	void a
 	void cmd (const std::string &command);
-//	void plot (const std::string &dat, std::vector<size_t> &col);
-//	template<class T>
 	void plot (const std::list<std::vector<std::pair<double, double>>>&dataLis, const std::string &param="");
 	void plotDat (const std::string &dat, size_t col);
 	void run (const std::string &script);
-//	void run (const std::string &script);
 	void operator<<(const std::string & command);
 	void render(void);
 	void close(void);
-//	template<class T> void operator<<(std::pair<T, T> point);
 
 protected:
 	FILE *gnuplotpipe;

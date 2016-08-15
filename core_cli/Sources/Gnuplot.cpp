@@ -58,12 +58,13 @@ void Gnuplot::render(void) {
 }
 
 void Gnuplot::close(void) {
-	render();
-//	fflush(gnuplotpipe); // flush needed to start render
-//	fprintf(gnuplotpipe, "exit\n");
+//	render();
+//	fprintf(gnuplotpipe, "exit\n")
+
 #ifdef _WIN32
 	_pclose(gnuplotpipe);
 #else
+	cmd("exit");
 	pclose(gnuplotpipe);
 #endif
 }
@@ -71,14 +72,8 @@ void Gnuplot::close(void) {
 void Gnuplot::plotDat(const std::string &dat, size_t col) {
 	std::stringstream tmp;
 
-//	tmp << " ";
-//	size_t die = 1;
 	cmd("set grid");
-//	cmd(std::string("set term ") + GNUPLOT_EN + std::string(" ") + atos(window));
-//	window++;
-//	for (auto it = columns.begin(); it != columns.end(); ++it) {
 	for (size_t die = 1; die <= col; die++) {
-//		tmp << *it << " ";
 		if (die == 1) {
 			tmp << "plot " << " '" << dat << "' " << "using 1:" << (die + 1)
 					<< " with linespoints pt 7 ps 0.5" << std::endl;
@@ -90,13 +85,11 @@ void Gnuplot::plotDat(const std::string &dat, size_t col) {
 		fprintf(gnuplotpipe, "%s \n", tmp.str().c_str());
 		tmp.str(std::string());
 		tmp.clear();
-//		die++;
 	}
 
 	window++;
 }
 
-//template<class T>
 void Gnuplot::plot(const std::list<std::vector<std::pair<double, double>>>&dataList, const std::string &param) {
 	std::stringstream tmp;
 	std::string path;
@@ -124,8 +117,6 @@ void Gnuplot::plot(const std::list<std::vector<std::pair<double, double>>>&dataL
 
 	std::string command = tmp.str();
 	cmd (command);
-
-	//  cmd ("plot")
 
 	tmp.str( std::string() );
 	tmp.clear();
