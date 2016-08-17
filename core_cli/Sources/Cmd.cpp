@@ -116,7 +116,7 @@ unsigned tauCmd(const std::vector<std::string> &) {
 }
 
 unsigned plotCmd(const std::vector<std::string> &input) {
-	Gnuplot gp, gp1, gp2;
+	static Gnuplot gp, gp1, gp2;
 
 #ifdef _WIN32
 	std::string file = "V:/cableCheck.dat";

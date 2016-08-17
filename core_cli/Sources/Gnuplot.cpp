@@ -12,6 +12,8 @@
 #include <sstream>
 #include <fstream>
 
+
+
 template<class T>
 std::string atos(T real) {
 	std::ostringstream strs;
@@ -60,7 +62,8 @@ void Gnuplot::render(void) {
 void Gnuplot::close(void) {
 //	render();
 //	fprintf(gnuplotpipe, "exit\n")
-
+//	render();
+	cmd("exit");
 #ifdef _WIN32
 	_pclose(gnuplotpipe);
 #else

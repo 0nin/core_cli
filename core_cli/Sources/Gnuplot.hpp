@@ -10,23 +10,6 @@
 
 #include "Common.h"
 
-#ifdef _WIN32
-//    #define GNUPLOT_NAME "pgnuplot -persist"
-#define GNUPLOT_NAME "gnuplot -persis"
-#else
-#define GNUPLOT_NAME "gnuplot -persis"
-#endif
-
-#ifdef _WIN32
-//    #define GNUPLOT_NAME "pgnuplot -persist"
-#define GNUPLOT_EN "wxt"
-#else
-//#define GNUPLOT_EN "qt"
-#define GNUPLOT_EN "wxt"
-#endif
-
-#define TMPGNUT "tmpxtd.gnu"
-
 namespace Core {
 
 class Gnuplot {
