@@ -64,7 +64,7 @@ std::string rand(size_t range) {
 	static std::random_device rd;     // only used once to initialise (seed) engine
 	std::mt19937 rng(rd()); // random-number engine used (Mersenne-Twister in this case)
 	const static char* ch = "ABCDEFGHIJKLMNOPQRSTUWXYZabcdefghijklmnopqrstuwxyz";
-	std::uniform_int_distribution<int> uni(0, 50); // guaranteed unbiased
+	std::uniform_int_distribution<int> uni(0, 49); // guaranteed unbiased
 
 	std::string str;
 	for (size_t i = 0; i < range; i++) { //length-1 for the '\0' at the end

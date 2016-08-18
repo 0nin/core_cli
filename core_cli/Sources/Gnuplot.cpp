@@ -12,6 +12,8 @@
 #include <sstream>
 #include <fstream>
 
+#define GNUPLOT_EN "wxt"
+#define GNUPLOT_NAME "gnuplot"
 
 
 template<class T>
