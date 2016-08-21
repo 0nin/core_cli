@@ -74,23 +74,42 @@ void Gnuplot::close(void) {
 #endif
 }
 
-void Gnuplot::plotDat(const std::string &dat, size_t col) {
+void Gnuplot::plotDat(const std::string &path, size_t col) {
 	std::stringstream tmp;
 
+//	cmd("set grid");
+//	cmd(std::string("set term ") + GNUPLOT_EN + std::string(" ") + atos(window));
+//	for (size_t die = 1; die <= col; die++) {
+//		if (die == 1) {
+//			tmp << "plot " << " '" << dat << "' " << "using 1:" << (die + 1)
+//					<< " with linespoints pt 7 ps 0.5" << std::endl;
+//		} else {
+//			tmp << "replot " << " '" << dat << "' " << "using 1:" << (die + 1)
+//					<< " with linespoints pt 7 ps 0.5" << std::endl;
+//		}
+//
+//		fprintf(gnuplotpipe, "%s \n", tmp.str().c_str());
+//		tmp.str(std::string());
+//		tmp.clear();
+//	}
 	cmd("set grid");
-	for (size_t die = 1; die <= col; die++) {
-		if (die == 1) {
-			tmp << "plot " << " '" << dat << "' " << "using 1:" << (die + 1)
-					<< " with linespoints pt 7 ps 0.5" << std::endl;
-		} else {
-			tmp << "replot " << " '" << dat << "' " << "using 1:" << (die + 1)
-					<< " with linespoints pt 7 ps 0.5" << std::endl;
-		}
+	cmd(std::string("set term ") + GNUPLOT_EN + std::string(" ") + atos(window));
 
-		fprintf(gnuplotpipe, "%s \n", tmp.str().c_str());
-		tmp.str(std::string());
-		tmp.clear();
+	for (size_t die = 1; die <= 2*col; die+=2) {
+		if (die == 1) {
+			tmp << "plot " << " '" << path << "' " << "using " << die << ":" << (die + 1) << " with linespoints pt 7 ps 0.5" << std::endl;
+		}
+		else {
+			tmp << "replot " << " '" << path << "' " << "using " << die << ":" << (die + 1) << " with linespoints pt 7 ps 0.5" << std::endl;
+		}
 	}
+
+	std::string command = tmp.str();
+	cmd (command);
+
+	tmp.str( std::string() );
+	tmp.clear();
+
 
 	window++;
 }

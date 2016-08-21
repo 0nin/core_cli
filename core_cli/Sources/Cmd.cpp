@@ -84,7 +84,7 @@ unsigned csv2datCmd(const std::vector<std::string> &input) {
 	std::string out = input[1] + std::string(".csv");
 //	std::st
 	Core::PathList::getSingletonPtr()->getPath(input[1], path);
-	dat2csv(path, input[2]);
+	csv2dat(path, input[2]);
 
 	return ret::Ok;
 }
@@ -116,15 +116,15 @@ unsigned tauCmd(const std::vector<std::string> &) {
 }
 
 unsigned plotCmd(const std::vector<std::string> &input) {
-	static Gnuplot gp, gp1, gp2;
+	static Gnuplot gp, gp1;
 
 #ifdef _WIN32
 	std::string file = "V:/cableCheck.dat";
 #else
 	std::string file = "cableCheck.dat";
 #endif
-//	std::list<std::vector<std::pair<double, double>>>tmp;
-//	std::list<std::vector<std::pair<double, double>>>dat;
+	std::vector<std::pair<double, double>>tmp;
+	std::list<std::vector<std::pair<double, double>>>data;
 //	std::list<std::vector<std::pair<double, double>>>diff;
 //
 //	dat2list(file, dat);
@@ -147,12 +147,12 @@ unsigned plotCmd(const std::vector<std::string> &input) {
 
 //	std::list<std::vector<std::pair<double, double>>> data;
 //	std::vector<std::pair<double, double>> tmp;
-//	for (double x = -3.14f; x < 3.14f; x+=0.01f) {
-//		tmp.push_back(std::make_pair(x, sin(x)));
-//	}
-//	data.push_back(tmp);
-//	gp2.plot(data);
-	gp.plotDat("cableCheck.dat", 4);
+	for (double x = -3.14f; x < 3.14f; x+=0.01f) {
+		tmp.push_back(std::make_pair(x, sin(x)));
+	}
+	data.push_back(tmp);
+	gp1.plot(data);
+	gp.plotDat("plot.dat", 1);
 //	gp1.plotDat("plot.dat", 4);
 //	gp.close();
 	return ret::Ok;
