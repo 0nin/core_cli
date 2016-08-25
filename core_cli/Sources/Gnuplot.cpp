@@ -6,14 +6,16 @@
  */
 
 #include "Gnuplot.hpp"
-#include "Global.hpp"
-
 #include <cstdio>
 #include <sstream>
 #include <fstream>
+#include "Global.h"
+#include "Conv.h"
 
 #define GNUPLOT_EN "wxt"
 #define GNUPLOT_NAME "gnuplot"
+
+using namespace Conv;
 
 template<class T>
 std::string atos(T real) {

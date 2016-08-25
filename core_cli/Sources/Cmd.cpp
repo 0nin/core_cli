@@ -7,7 +7,6 @@
 
 #include "Cmd.hpp"
 #include "Gnuplot.hpp"
-#include "Global.hpp"
 #include "Conv.h"
 #include "Console.hpp"
 #include "PathList.hpp"
@@ -16,7 +15,9 @@
 #include <sstream>
 #include <fstream>
 #include <math.h>
+#include "Global.h"
 
+using namespace Conv;
 using namespace Core;
 namespace cr = CppReadline;
 using ret = cr::Console::ReturnCode;

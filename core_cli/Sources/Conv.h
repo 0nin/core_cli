@@ -17,6 +17,11 @@
 #include <iterator>
 #include <random>
 
+namespace Conv {
+
+extern bool datLine(std::string &str);
+extern bool csvLine(std::string &str);
+
 //template<typename T1, typename T2>
 //extern bool dat2vec(const std::string &file,
 //		std::vector<std::pair<T1, T2>> &copy, size_t colX, size_t colY);
@@ -126,5 +131,106 @@ bool dat2list(const std::string &file, std::list<std::vector<std::pair<T1, T2>>>
 	return true;
 }
 
+extern bool csv2dat(const std::string &in, const std::string &out);
+extern bool dat2csv(const std::string &in, const std::string &out);
+extern bool text2vec(const std::string &file, std::vector<std::string> &copy);
 
+template<typename T1, typename T2>
+bool vec2dat(const std::vector<std::pair<T1, T2>> &data,
+		const std::string &out) {
+	std::ofstream write;
+	write.open(out);
+	if (write.is_open()) {
+		for (auto it = data.begin(); it != data.end(); ++it) {
+			write << it->first << " " << it->second << std::endl;
+		}
+		write.close();
+	} else
+		return false;
+
+#ifdef DEBUG
+	std::cout << "__X__" << " " << "__DATA__" << std::endl;
+	for (auto it = data.begin(); it != data.end(); ++it) {
+		std::cout << it->first << " " << it->second << std::endl;
+	}
+#endif
+
+	return true;
+}
+
+template<typename T1, typename T2>
+bool list2dat(const std::list<std::vector<std::pair<T1, T2>>>&dataList,
+const std::string &out) {
+	std::stringstream tmp;
+	std::string file;
+	std::ofstream write;
+	size_t maxSize = 0;
+	typedef std::list<std::vector<std::pair<double, double>>>::const_iterator DataListCIt;
+
+	for (DataListCIt it = dataList.begin(); it != dataList.end(); ++it) {
+		if (it->size() > maxSize) maxSize = it->size();
+	}
+
+	for (size_t i = 0; i < maxSize; i++) {
+		for (auto it = dataList.begin(); it != dataList.end(); ++it) {
+			if (it->size() > i) {
+				tmp << it->at(i).first << " " << it->at(i).second << " ";
+			}
+		}
+		tmp << std::endl;
+		file += tmp.str();
+		tmp.str( std::string() );
+		tmp.clear();
+	}
+
+	write.open(out);
+	if (write.is_open()) {
+		write << file;
+		write.close();
+	} else
+	return false;
+	file.clear();
+
+	return true;
+}
+
+template<typename T1, typename T2>
+bool list2csv(const std::list<std::vector<std::pair<T1, T2>>>&dataList,
+const std::string &out) {
+	std::stringstream tmp;
+	std::string file;
+	std::ofstream write;
+	size_t maxSize = 0;
+	typename std::list<std::vector<std::pair<T1, T2>>>::const_iterator DataListCIt;
+
+	for (auto it = dataList.begin(); it != dataList.end(); ++it) {
+		if (it->size() > maxSize) maxSize = it->size();
+	}
+
+	for (size_t i = 0; i < maxSize; i++) {
+		for (auto it = dataList.begin(); it != dataList.end(); ++it) {
+			if (it->size() > i) {
+				tmp << it->at(i).first << "," << it->at(i).second << ",";
+			}
+		}
+		tmp << std::endl;
+		file += tmp.str();
+		tmp.str( std::string() );
+		tmp.clear();
+	}
+
+	write.open(out);
+	if (write.is_open()) {
+		write << file;
+		write.close();
+	}
+	else
+	return false;
+	file.clear();
+
+	return true;
+}
+
+
+}
 #endif /* CONV_H_ */

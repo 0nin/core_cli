@@ -13,7 +13,7 @@
 #include <iterator>
 
 #include "Cmd.hpp"
-#include "Global.hpp"
+#include "Global.h"
 
 #define GREET "(core)"
 
