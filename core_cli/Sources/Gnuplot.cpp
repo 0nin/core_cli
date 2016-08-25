@@ -15,7 +15,6 @@
 #define GNUPLOT_EN "wxt"
 #define GNUPLOT_NAME "gnuplot"
 
-
 template<class T>
 std::string atos(T real) {
 	std::ostringstream strs;
@@ -77,39 +76,28 @@ void Gnuplot::close(void) {
 void Gnuplot::plotDat(const std::string &path, size_t col) {
 	std::stringstream tmp;
 
-//	cmd("set grid");
-//	cmd(std::string("set term ") + GNUPLOT_EN + std::string(" ") + atos(window));
-//	for (size_t die = 1; die <= col; die++) {
-//		if (die == 1) {
-//			tmp << "plot " << " '" << dat << "' " << "using 1:" << (die + 1)
-//					<< " with linespoints pt 7 ps 0.5" << std::endl;
-//		} else {
-//			tmp << "replot " << " '" << dat << "' " << "using 1:" << (die + 1)
-//					<< " with linespoints pt 7 ps 0.5" << std::endl;
-//		}
-//
-//		fprintf(gnuplotpipe, "%s \n", tmp.str().c_str());
-//		tmp.str(std::string());
-//		tmp.clear();
-//	}
 	cmd("set grid");
-	cmd(std::string("set term ") + GNUPLOT_EN + std::string(" ") + atos(window));
+	cmd(
+			std::string("set term ") + GNUPLOT_EN + std::string(" ")
+					+ atos(window));
 
-	for (size_t die = 1; die <= 2*col; die+=2) {
+	for (size_t die = 1; die <= 2 * col; die += 2) {
 		if (die == 1) {
-			tmp << "plot " << " '" << path << "' " << "using " << die << ":" << (die + 1) << " with linespoints pt 7 ps 0.5" << std::endl;
-		}
-		else {
-			tmp << "replot " << " '" << path << "' " << "using " << die << ":" << (die + 1) << " with linespoints pt 7 ps 0.5" << std::endl;
+			tmp << "plot " << " '" << path << "' " << "using " << die << ":"
+					<< (die + 1) << " with linespoints pt 7 ps 0.5"
+					<< std::endl;
+		} else {
+			tmp << "replot " << " '" << path << "' " << "using " << die << ":"
+					<< (die + 1) << " with linespoints pt 7 ps 0.5"
+					<< std::endl;
 		}
 	}
 
 	std::string command = tmp.str();
-	cmd (command);
+	cmd(command);
 
-	tmp.str( std::string() );
+	tmp.str(std::string());
 	tmp.clear();
-
 
 	window++;
 }
@@ -118,33 +106,56 @@ void Gnuplot::plot(const std::list<std::vector<std::pair<double, double>>>&dataL
 	std::stringstream tmp;
 	std::string path;
 	std::string fileName = "gnuplot" + atos(window) + "_" + rand(3) +".dat";
-	while (!fileExist(fileName)) {
-		fileName = "gnuplot" + atos(window) + "_" + rand(3) +".dat";
-	}
+	std::vector<std::string> plotDatFiles;
+
+	typedef std::list<std::vector<std::pair<double, double>>> DataList;
+	typedef DataList::const_iterator DataListCIt;
+	for (DataListCIt it = dataList.begin(); it != dataList.end(); ++it) {
+//		while (!fileExist(path)) {
+			fileName = "gnuplot" + atos(window) + "_" + rand(3) +".dat";
 #ifndef _WIN32
-	path = std::string("/tmp/") + fileName;
+			path = std::string("/tmp/") + fileName;
 #else
-	path = std::string("./tmp/") + fileName;
+			path = std::string("./tmp/") + fileName;
 #endif
-	list2dat(dataList, path);
+			plotDatFiles.push_back(path);
+//		}
+		vec2dat (*it, path);
+	}
+
 	cmd("set grid");
 	cmd(std::string("set term ") + GNUPLOT_EN + std::string(" ") + atos(window));
 
-	for (size_t die = 1; die <= 2*dataList.size(); die+=2) {
-		if (die == 1) {
-			tmp << "plot " << " '" << path << "' " << "using " << die << ":" << (die + 1) << " with linespoints pt 7 ps 0.5" << std::endl;
+	//	list2dat(dataList, path);
+	typedef std::vector<std::string> StringVec;
+	typedef StringVec::const_iterator StringVecCIt;
+
+	for (StringVecCIt it = plotDatFiles.begin(); it != plotDatFiles.end(); ++it) {
+		if (it == plotDatFiles.begin()) {
+			tmp << "plot " << " '" << *it << "' " << "using " << 1 << ":" << 2 << " with linespoints pt 7 ps 0.5" << std::endl;
 		}
 		else {
-			tmp << "replot " << " '" << path << "' " << "using " << die << ":" << (die + 1) << " with linespoints pt 7 ps 0.5" << std::endl;
+			tmp << "replot " << " '" << *it << "' " << "using " << 1 << ":" << 2 << " with linespoints pt 7 ps 0.5" << std::endl;
 		}
+
 	}
+
+//	for (size_t die = 1; die <= 2*dataList.size(); die+=2) {
+//		if (die == 1) {
+//			tmp << "plot " << " '" << plotDatFiles[fileN] << "' " << "using " << die << ":" << (die + 1) << " with linespoints pt 7 ps 0.5" << std::endl;
+//		}
+//		else {
+//			tmp << "replot " << " '" << plotDatFiles[fileN] << "' " << "using " << die << ":" << (die + 1) << " with linespoints pt 7 ps 0.5" << std::endl;
+//		}
+//		fileN++;
+//	}
 
 	std::string command = tmp.str();
 	cmd (command);
 
 	tmp.str( std::string() );
 	tmp.clear();
-	window++;
+	this->window++;
 }
 
 void Gnuplot::run(const std::string &script) {

@@ -8,11 +8,13 @@
 #ifndef BASH_HPP_
 #define BASH_HPP_
 
+#include "Common.h"
+
 namespace Core {
 
 class Bash {
 public:
-	Bash();
+	explicit Bash();
 	virtual ~Bash();
 };
 

@@ -8,6 +8,7 @@
 #include "Cmd.hpp"
 #include "Gnuplot.hpp"
 #include "Global.hpp"
+#include "Conv.h"
 #include "Console.hpp"
 #include "PathList.hpp"
 
@@ -125,35 +126,16 @@ unsigned plotCmd(const std::vector<std::string> &input) {
 #endif
 	std::vector<std::pair<double, double>>tmp;
 	std::list<std::vector<std::pair<double, double>>>data;
-//	std::list<std::vector<std::pair<double, double>>>diff;
-//
-//	dat2list(file, dat);
-//	list2dat(dat, "out.dat");
-//	dat2csv("out.dat", "out.csv");
-//
-//	std::vector<std::pair<double, double>> tmpflux;
-//	for (auto it = dat.begin(); it != dat.end(); ++it) {
-//		tmp.push_back(*it);
-//		if (!tmp.empty()) {
-//			flux(*it, tmpflux);
-//			tmp.push_back(tmpflux);
-//			gp.plot(tmp, "");
-//			tmp.clear();
-//			tmpflux.clear();
-//		}
-//	}
+	std::vector<std::pair<double, double>>diff;
 
-//	gp.plot();
-
-//	std::list<std::vector<std::pair<double, double>>> data;
-//	std::vector<std::pair<double, double>> tmp;
 	for (double x = -3.14f; x < 3.14f; x+=0.01f) {
 		tmp.push_back(std::make_pair(x, sin(x)));
 	}
+	flux (tmp, diff);
 	data.push_back(tmp);
+	data.push_back(diff);
 	gp1.plot(data);
 	gp.plotDat("plot.dat", 1);
-//	gp1.plotDat("plot.dat", 4);
-//	gp.close();
+
 	return ret::Ok;
 }

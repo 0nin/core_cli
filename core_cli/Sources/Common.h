@@ -8,6 +8,8 @@
 #ifndef _common_h_
 #define _common_h_
 
+#include "Define.h"
+
 #include <string>
 #include <vector>
 #include <list>
