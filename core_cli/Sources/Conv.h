@@ -22,12 +22,9 @@ namespace Conv {
 extern bool datLine(std::string &str);
 extern bool csvLine(std::string &str);
 
-//template<typename T1, typename T2>
-//extern bool dat2vec(const std::string &file,
-//		std::vector<std::pair<T1, T2>> &copy, size_t colX, size_t colY);
 template<typename T1, typename T2>
 bool dat2vec(const std::string &file, std::vector<std::pair<T1, T2>> &copy,
-		size_t colX, size_t colY) {
+		size_t colX =1 , size_t colY = 2) {
 	std::string line;
 	std::string path = file;
 	std::ifstream datFile(path);
@@ -82,9 +79,6 @@ bool dat2vec(const std::string &file, std::vector<std::pair<T1, T2>> &copy,
 	return true;
 }
 
-//template<typename T1, typename T2>
-//extern bool dat2list(const std::string &file,
-//		std::list<std::vector<std::pair<T1, T2>>>&copy);
 template<typename T1, typename T2>
 bool dat2list(const std::string &file, std::list<std::vector<std::pair<T1, T2>>>&copy) {
 	std::string line;
@@ -165,9 +159,8 @@ const std::string &out) {
 	std::string file;
 	std::ofstream write;
 	size_t maxSize = 0;
-	typedef std::list<std::vector<std::pair<double, double>>>::const_iterator DataListCIt;
 
-	for (DataListCIt it = dataList.begin(); it != dataList.end(); ++it) {
+	for (auto it = dataList.begin(); it != dataList.end(); ++it) {
 		if (it->size() > maxSize) maxSize = it->size();
 	}
 
@@ -201,7 +194,6 @@ const std::string &out) {
 	std::string file;
 	std::ofstream write;
 	size_t maxSize = 0;
-	typename std::list<std::vector<std::pair<T1, T2>>>::const_iterator DataListCIt;
 
 	for (auto it = dataList.begin(); it != dataList.end(); ++it) {
 		if (it->size() > maxSize) maxSize = it->size();

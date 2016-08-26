@@ -25,13 +25,8 @@ extern bool fileExist (const std::string &name);
 extern bool isDigit(char ch);
 
 
-//template<typename T1, typename T2>
-//extern void printVec(const std::vector<std::pair<T1, T2>>&dataVec);
-//template<typename T1, typename T2>
-//extern void printList(const std::list<std::vector<std::pair<T1, T2>>>&dataList);
 template<typename T1, typename T2>
 void printVec(const std::vector<std::pair<T1, T2>>&dataVec) {
-	typename std::vector<std::pair<T1, T2>>::const_iterator DataVecCIt;
 	std::cout << "VecLength: " << dataVec.size() << std::endl;
 	for (auto it = dataVec.begin(); it != dataVec.end(); ++it) {
 		std::cout << it->first << "  " << it->second << std::endl;
@@ -41,7 +36,6 @@ void printVec(const std::vector<std::pair<T1, T2>>&dataVec) {
 template<typename T1, typename T2>
 void printList(const std::list<std::vector<std::pair<T1, T2>>>&dataList) {
 	size_t maxSize = 0;
-	typename std::list<std::vector<std::pair<double, double>>>::const_iterator DataListCIt;
 
 	for (auto it = dataList.begin(); it != dataList.end(); ++it) {
 		if (it->size() > maxSize) maxSize = it->size();
@@ -78,11 +72,11 @@ void printList(const std::list<std::vector<std::pair<T1, T2>>>&dataList) {
 //const std::string &out);
 //extern void flux(const std::vector<std::pair<double, double>> &data,
 //		std::vector<std::pair<double, double>> &diff);
+
 template<typename T1, typename T2>
 void flux(const std::vector<std::pair<T1, T2>> &data,
 		std::vector<std::pair<T1, T2>> &diff) {
 	diff.clear();
-	typename std::vector<std::pair<T1, T2>>::const_iterator DataVecCIt;
 
 	for (auto it = data.begin(); it != data.end() - 1; ++it) {
 		T1 x = it->first;
@@ -95,14 +89,11 @@ void flux(const std::vector<std::pair<T1, T2>> &data,
 
 }
 
-//extern void fluxList(const std::list<std::vector<std::pair<double, double>>>&data,
-//std::list<std::vector<std::pair<double, double>>> &diff);
 template<typename T1, typename T2>
 void fluxList(const std::list<std::vector<std::pair<T1, T2>>>&data,
 std::list<std::vector<std::pair<T1, T2>>> &diff) {
 	diff.clear();
 	std::vector<std::pair<T1, T2>> tmp;
-	typename std::list<std::vector<std::pair<T1, T2>>>::const_iterator DataListCIt;
 
 	for (auto it = data.begin(); it != data.end(); ++it) {
 		flux(*it, tmp);
@@ -112,10 +103,6 @@ std::list<std::vector<std::pair<T1, T2>>> &diff) {
 }
 
 
-//template<typename T1, typename T2>
-//extern bool plotList(const std::list<std::vector<std::pair<double, double>>>&dataList,
-//const std::string &name);
-
 template<typename T1, typename T2>
 bool normVec(const std::vector<std::pair<T1, T2>>&inData,
 		std::vector<std::pair<T1, T2>>&outData) {
@@ -124,8 +111,6 @@ bool normVec(const std::vector<std::pair<T1, T2>>&inData,
 	}
 	if (inData.empty())
 		return false;
-
-	typename std::vector<std::pair<T1, T2>> DataVec;
 
 	for (auto jt = inData.begin(); jt != inData.end();
 			++jt) {
@@ -139,9 +124,6 @@ bool normVec(const std::vector<std::pair<T1, T2>>&inData,
 	return true;
 }
 
-//extern bool normVec(const std::vector<std::pair<double, double>>&inData,
-//		std::vector<std::pair<double, double>>&outData);
-
 template<typename T1, typename T2>
 bool normList(const std::list<std::vector<std::pair<T1, T2>>>&inData,
 std::list<std::vector<std::pair<T1, T2>>>&outData) {
@@ -150,7 +132,6 @@ std::list<std::vector<std::pair<T1, T2>>>&outData) {
 	}
 	if(inData.empty())
 	return false;
-//	typedef std::list<std::vector<std::pair<T1, T2>>> DataList;
 	typedef std::vector<std::pair<T1, T2>> DataVec;
 
 	DataVec tmp;
@@ -165,9 +146,6 @@ std::list<std::vector<std::pair<T1, T2>>>&outData) {
 
 	return true;
 }
-
-//extern bool normList(const std::list<std::vector<std::pair<double, double>>>&inData,
-//std::list<std::vector<std::pair<double, double>>>&outData);
 
 template<typename T1, typename T2>
 bool normVecNoRet(std::vector<std::pair<T1, T2>>&inData) {
@@ -188,13 +166,10 @@ bool normVecNoRet(std::vector<std::pair<T1, T2>>&inData) {
 	return true;
 }
 
-//extern bool normVecNoRet(std::vector<std::pair<double, double>>&inData);
-
 template<typename T1, typename T2>
 bool normListNoRet(std::list<std::vector<std::pair<T1, T2>>>&inData) {
 	if(inData.empty())
 	return false;
-//	typedef std::list<std::vector<std::pair<T1, T2>>> DataList;
 
 	for (auto it = inData.begin(); it != inData.end(); ++it) {
 		normVecNoRet (*it);
@@ -202,8 +177,6 @@ bool normListNoRet(std::list<std::vector<std::pair<T1, T2>>>&inData) {
 
 	return true;
 }
-
-//extern bool normListNoRet(std::list<std::vector<std::pair<double, double>>>&inData);
 
 extern double getTauVec(const std::vector<std::pair<double, double>>&dataVec);
 
