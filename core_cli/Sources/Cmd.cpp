@@ -36,7 +36,13 @@ unsigned calcCmd(const std::vector<std::string> & input) {
 		// as Console will return it.
 		return 1;
 	}
-	double num1 = std::stod(input[1]), num2 = std::stod(input[3]);
+	double num1, num2;
+//	double num1 = std::stod(input[1]), num2 = std::stod(input[3]);
+#ifdef __MINGW32__
+	num1 = std::atof(input[1].c_str()), num2 = std::atof(input[3].c_str());
+#else
+	num1 = std::stod(input[1]), num2 = std::stod(input[3]);
+#endif
 
 	char op = input[2][0];
 
@@ -109,7 +115,7 @@ unsigned tauCmd(const std::vector<std::string> &) {
 	normListNoRet(diff);
 	list2dat(diff, "./tmp/norm.dat");
 	list2csv(diff, "./tmp/norm.csv");
-	for (auto it = diff.begin(); it != diff.end(); ++it ){
+	for (auto it = diff.begin(); it != diff.end(); ++it ) {
 		std::cout <<"NEXT DIE: " << std::endl;
 		getTauVec (*it);
 	}
@@ -125,14 +131,14 @@ unsigned plotCmd(const std::vector<std::string> &input) {
 #else
 	std::string file = "cableCheck.dat";
 #endif
-	std::vector<std::pair<double, double>>tmp;
+	std::vector<std::pair<double, double>> tmp;
 	std::list<std::vector<std::pair<double, double>>>data;
-	std::vector<std::pair<double, double>>diff;
+	std::vector<std::pair<double, double>> diff;
 
-	for (double x = -3.14f; x < 3.14f; x+=0.01f) {
+	for (double x = -3.14f; x < 3.14f; x += 0.01f) {
 		tmp.push_back(std::make_pair(x, sin(x)));
 	}
-	flux (tmp, diff);
+	flux(tmp, diff);
 	data.push_back(tmp);
 	data.push_back(diff);
 	gp1.plot(data);

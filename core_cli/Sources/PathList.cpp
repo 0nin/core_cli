@@ -1,6 +1,7 @@
 #include "PathList.hpp"
 
 #include "Exception.hpp"
+#include <stdio.h>
 
 namespace Core {
 

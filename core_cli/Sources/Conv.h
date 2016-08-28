@@ -24,7 +24,7 @@ extern bool csvLine(std::string &str);
 
 template<typename T1, typename T2>
 bool dat2vec(const std::string &file, std::vector<std::pair<T1, T2>> &copy,
-		size_t colX =1 , size_t colY = 2) {
+		size_t colX = 1, size_t colY = 2) {
 	std::string line;
 	std::string path = file;
 	std::ifstream datFile(path);
@@ -50,14 +50,22 @@ bool dat2vec(const std::string &file, std::vector<std::pair<T1, T2>> &copy,
 				count++;
 				if (count == colX) {
 					if (!word.empty())
+#ifdef __MINGW32__
+						x = std::atof(word.c_str());
+#else
 						x = std::stod(word);
-					else
+#endif
+						else
 						break;
 					xI = true;
 				} else if (count == colY) {
 					if (!word.empty())
-						y = std::stod(word);
-					else
+#ifdef __MINGW32__
+						x = std::atof(word.c_str());
+#else
+						x = std::stod(word);
+#endif
+						else
 						break;
 					yI = true;
 				} else if (xI && yI) {
@@ -222,7 +230,6 @@ const std::string &out) {
 
 	return true;
 }
-
 
 }
 #endif /* CONV_H_ */

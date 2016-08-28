@@ -22,15 +22,15 @@
 //extern std::string atos(T real);
 template<typename T>
 std::string atos(T real) {
-//	std::ostringstream strs;
-//	strs << real;
-//	std::string str = strs.str();
-//	if (str.empty())
-//		return std::string("");
-
-	std::string str = std::to_string(real);
+	std::ostringstream strs;
+	strs << real;
+	std::string str = strs.str();
 	if (str.empty())
 		return std::string("");
+
+//	std::string str = std::to_string(real);
+//	if (str.empty())
+//		return std::string("");
 
 	return str;
 }
