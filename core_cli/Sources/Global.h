@@ -18,8 +18,23 @@
 #include <iterator>
 #include <random>
 
+//template<typename T>
+//extern std::string atos(T real);
 template<typename T>
-extern std::string atos(T real);
+std::string atos(T real) {
+//	std::ostringstream strs;
+//	strs << real;
+//	std::string str = strs.str();
+//	if (str.empty())
+//		return std::string("");
+
+	std::string str = std::to_string(real);
+	if (str.empty())
+		return std::string("");
+
+	return str;
+}
+
 extern std::string rand(size_t range);
 extern bool fileExist (const std::string &name);
 extern bool isDigit(char ch);

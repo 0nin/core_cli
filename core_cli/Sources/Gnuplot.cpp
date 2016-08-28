@@ -17,21 +17,6 @@
 
 using namespace Conv;
 
-template<class T>
-std::string atos(T real) {
-	std::ostringstream strs;
-	strs << real;
-	std::string str = strs.str();
-	if (str.empty())
-		return std::string("");
-
-//	std::string str = std::to_string(real);
-//	if (str.empty())
-//		return std::string("");
-
-	return str;
-}
-
 namespace Core {
 Gnuplot::Gnuplot() {
 	window = 0;
@@ -141,16 +126,6 @@ void Gnuplot::plot(const std::list<std::vector<std::pair<double, double>>>&dataL
 		}
 
 	}
-
-//	for (size_t die = 1; die <= 2*dataList.size(); die+=2) {
-//		if (die == 1) {
-//			tmp << "plot " << " '" << plotDatFiles[fileN] << "' " << "using " << die << ":" << (die + 1) << " with linespoints pt 7 ps 0.5" << std::endl;
-//		}
-//		else {
-//			tmp << "replot " << " '" << plotDatFiles[fileN] << "' " << "using " << die << ":" << (die + 1) << " with linespoints pt 7 ps 0.5" << std::endl;
-//		}
-//		fileN++;
-//	}
 
 	std::string command = tmp.str();
 	cmd (command);

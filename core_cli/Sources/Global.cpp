@@ -44,20 +44,20 @@ double getDummy() {
 #endif
 }
 
-template<class T>
-std::string atos(T real) {
-	std::ostringstream strs;
-	strs << real;
-	std::string str = strs.str();
-	if (str.empty())
-		return std::string("");
-
-//	std::string str = std::to_string(real);
+//template<class T>
+//std::string atos(T real) {
+//	std::ostringstream strs;
+//	strs << real;
+//	std::string str = strs.str();
 //	if (str.empty())
 //		return std::string("");
-
-	return str;
-}
+//
+////	std::string str = std::to_string(real);
+////	if (str.empty())
+////		return std::string("");
+//
+//	return str;
+//}
 
 std::string rand(size_t range) {
 	static std::random_device rd;  // only used once to initialise (seed) engine
