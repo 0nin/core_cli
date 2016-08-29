@@ -6,6 +6,7 @@
  */
 
 #include "Gnuplot.hpp"
+
 #include <cstdio>
 #include <sstream>
 #include <fstream>

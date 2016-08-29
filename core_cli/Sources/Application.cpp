@@ -5,7 +5,6 @@
 #include "Console.hpp"
 #include "Exception.hpp"
 #include "PathList.hpp"
-#include "Gnuplot.hpp"
 #include <sstream>
 #include <fstream>
 #include <cmath>
@@ -14,6 +13,7 @@
 
 #include "Cmd.hpp"
 #include "Global.h"
+#include "Gnuplot.hpp"
 
 #define GREET "(core)"
 

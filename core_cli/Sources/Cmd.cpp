@@ -6,7 +6,6 @@
  */
 
 #include "Cmd.hpp"
-#include "Gnuplot.hpp"
 #include "Conv.h"
 #include "Console.hpp"
 #include "PathList.hpp"
@@ -15,10 +14,13 @@
 #include <sstream>
 #include <fstream>
 #include <math.h>
+
+#include "gnuplot-iostream.hpp"
 #include "Global.h"
+#include "Gnuplot.hpp"
 
 using namespace Conv;
-using namespace Core;
+//using namespace Core;
 namespace cr = CppReadline;
 using ret = cr::Console::ReturnCode;
 
@@ -124,25 +126,49 @@ unsigned tauCmd(const std::vector<std::string> &) {
 }
 
 unsigned plotCmd(const std::vector<std::string> &input) {
-	static Gnuplot gp, gp1;
+//	static Core::Gnuplot gp, gp1;
+//
+//#ifdef _WIN32
+//	std::string file = "V:/cableCheck.dat";
+//#else
+//	std::string file = "cableCheck.dat";
+//#endif
+//	std::vector<std::pair<double, double>> tmp;
+//	std::list<std::vector<std::pair<double, double>>>data;
+//	std::vector<std::pair<double, double>> diff;
+//
+//	for (double x = -3.14f; x < 3.14f; x += 0.01f) {
+//		tmp.push_back(std::make_pair(x, sin(x)));
+//	}
+//	flux(tmp, diff);
+//	data.push_back(tmp);
+//	data.push_back(diff);
+//	gp1.plot(data);
+//	gp.plotDat("plot.dat", 1);
+	static Gnuplot gp;
 
-#ifdef _WIN32
-	std::string file = "V:/cableCheck.dat";
-#else
-	std::string file = "cableCheck.dat";
-#endif
-	std::vector<std::pair<double, double>> tmp;
-	std::list<std::vector<std::pair<double, double>>>data;
-	std::vector<std::pair<double, double>> diff;
-
-	for (double x = -3.14f; x < 3.14f; x += 0.01f) {
-		tmp.push_back(std::make_pair(x, sin(x)));
+	std::vector<std::pair<double, double> > xy_pts_A;
+	for(double x=-2; x<2; x+=0.01) {
+		double y = x*x*x;
+		xy_pts_A.push_back(std::make_pair(x, y));
 	}
-	flux(tmp, diff);
-	data.push_back(tmp);
-	data.push_back(diff);
-	gp1.plot(data);
-	gp.plotDat("plot.dat", 1);
+
+	std::vector<std::pair<double, double> > xy_pts_B;
+	for(double alpha=0; alpha<1; alpha+=1.0/24.0) {
+		double theta = alpha*2.0*3.14159;
+		xy_pts_B.push_back(std::make_pair(cos(theta), sin(theta)));
+	}
+
+	gp << "set xrange [-2:2]\nset yrange [-2:2]\n";
+	// Data will be sent via a temporary file.  These are erased when you call
+	// gp.clearTmpfiles() or when gp goes out of scope.  If you pass a filename
+	// (e.g. "gp.file1d(pts, 'mydata.dat')"), then the named file will be created
+	// and won't be deleted (this is useful when creating a script).
+	gp << "plot" << gp.file1d(xy_pts_A) << "with lines title 'cubic',"
+		<< gp.file1d(xy_pts_B) << "with points title 'circle'" << std::endl;
+
+
+
 
 	return ret::Ok;
 }
