@@ -1,4 +1,4 @@
-#include "../src/Console.hpp"
+#include "Console.hpp"
 
 #include <iostream>
 #include <fstream>

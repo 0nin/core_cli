@@ -5,9 +5,9 @@
  *      Author: caveman
  */
 
-#include "../src/Conv.h"
+#include "Conv.h"
 
-#include "../src/Global.h"
+#include "Global.h"
 
 //bool datLine(std::string &str);
 //bool csvLine(std::string &str);

@@ -8,8 +8,8 @@
 #ifndef CFGTABLE_HPP_
 #define CFGTABLE_HPP_
 
-#include "../src/Common.h"
-#include "../src/Table.hpp"
+#include "Common.h"
+#include "Table.hpp"
 
 namespace Core {
 

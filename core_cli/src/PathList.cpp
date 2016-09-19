@@ -1,8 +1,8 @@
-#include "../src/PathList.hpp"
+#include "PathList.hpp"
 
 #include "Exception.hpp"
 #include <stdio.h>
-#include "../src/Exception.hpp"
+#include "Exception.hpp"
 
 namespace Core {
 

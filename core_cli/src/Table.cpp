@@ -5,7 +5,7 @@
  *      Author: avs
  */
 
-#include "../src/Table.hpp"
+#include "Table.hpp"
 
 namespace Core {
 

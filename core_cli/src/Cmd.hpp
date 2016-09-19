@@ -8,7 +8,7 @@
 #ifndef CMD_HPP_
 #define CMD_HPP_
 
-#include "../src/Common.h"
+#include "Common.h"
 
 // Readline commands
 extern unsigned rtCmd(const std::vector<std::string> &);

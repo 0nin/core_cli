@@ -1,9 +1,9 @@
 #ifndef _Script_h_
 #define _Script_h_
 
-#include "../src/Common.h"
-#include "../src/Table.hpp"
-#include "../src/TextFile.hpp"
+#include "Common.h"
+#include "Table.hpp"
+#include "TextFile.hpp"
 
 namespace Core {
 /**

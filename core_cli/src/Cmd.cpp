@@ -5,18 +5,18 @@
  *      Author: avs
  */
 
-#include "../src/Cmd.hpp"
+#include "Cmd.hpp"
 
 #include <cstdio>
 #include <sstream>
 #include <fstream>
 #include <math.h>
 
-#include "../src/Console.hpp"
-#include "../src/Conv.h"
-#include "../src/Global.h"
-#include "../src/Gnuplot.hpp"
-#include "../src/PathList.hpp"
+#include "Console.hpp"
+#include "Conv.h"
+#include "Global.h"
+#include "Gnuplot.hpp"
+#include "PathList.hpp"
 
 using namespace Conv;
 //using namespace Core;

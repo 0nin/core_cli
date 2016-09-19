@@ -5,10 +5,10 @@
  *      Author: avs
  */
 
-#include "../src/Global.h"
+#include "Global.h"
 
-#include "../src/Application.hpp"
-#include "../src/Exception.hpp"
+#include "Application.hpp"
+#include "Exception.hpp"
 
 //#include <sstream>
 //#include <fstream>

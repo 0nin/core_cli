@@ -8,7 +8,7 @@
 #ifndef SOURCE_LOG_H_
 #define SOURCE_LOG_H_
 
-#include "../src/Common.h"
+#include "Common.h"
 
 namespace Core {
 

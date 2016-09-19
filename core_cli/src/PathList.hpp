@@ -1,7 +1,7 @@
 #ifndef _PathList_h_
 #define _PathList_h_
 
-#include "../src/Common.h"
+#include "Common.h"
 
 namespace Core {
 

@@ -13,7 +13,7 @@
 #include <list>
 #include <iostream>
 #include <stdlib.h>
-#include "../src/Define.h"
+#include "Define.h"
 
 //#undef DEBUG
 

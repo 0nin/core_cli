@@ -5,7 +5,7 @@
  *      Author: avs
  */
 
-#include "../src/Bash.hpp"
+#include "Bash.hpp"
 
 namespace Core {
 

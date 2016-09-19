@@ -1,4 +1,4 @@
-#include "../src/Library.hpp"
+#include "Library.hpp"
 
 #include <stdlib.h>
 #include <sstream>
@@ -6,8 +6,8 @@
 #include <sstream>
 #include <time.h>
 
-#include "../src/Exception.hpp"
-#include "../src/PathList.hpp"
+#include "Exception.hpp"
+#include "PathList.hpp"
 
 namespace Core {
 

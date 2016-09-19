@@ -1,7 +1,7 @@
 #ifndef _File_h_
 #define _File_h_
 
-#include "../src/Common.h"
+#include "Common.h"
 
 namespace Core {
 

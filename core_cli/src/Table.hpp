@@ -9,7 +9,7 @@
 #define TABLE_HPP_
 
 #include <map>
-#include "../src/Common.h"
+#include "Common.h"
 
 namespace Core {
 

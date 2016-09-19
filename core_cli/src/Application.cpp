@@ -1,4 +1,4 @@
-#include "../src/Application.hpp"
+#include "Application.hpp"
 
 #include "Library.hpp"
 #include <sstream>
@@ -7,14 +7,14 @@
 #include <algorithm>
 #include <iterator>
 
-#include "../src/Cmd.hpp"
-#include "../src/Console.hpp"
-#include "../src/Exception.hpp"
-#include "../src/Global.h"
-#include "../src/Gnuplot.hpp"
-#include "../src/Library.hpp"
-#include "../src/PathList.hpp"
-#include "../src/Runtime.hpp"
+#include "Cmd.hpp"
+#include "Console.hpp"
+#include "Exception.hpp"
+#include "Global.h"
+#include "Gnuplot.hpp"
+#include "Library.hpp"
+#include "PathList.hpp"
+#include "Runtime.hpp"
 
 #define GREET "(core)"
 

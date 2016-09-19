@@ -5,7 +5,7 @@
  *      Author: avs
  */
 
-#include "../src/Runtime.hpp"
+#include "Runtime.hpp"
 
 namespace Core {
 

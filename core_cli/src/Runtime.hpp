@@ -12,8 +12,8 @@
 #include <chrono>
 #include <map>
 
-#include "../src/Common.h"
-#include "../src/Log.hpp"
+#include "Common.h"
+#include "Log.hpp"
 
 namespace Core {
 

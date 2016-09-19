@@ -14,7 +14,7 @@
 #include <algorithm>
 #include <iterator>
 #include <random>
-#include "../src/Common.h"
+#include "Common.h"
 
 //template<typename T>
 //extern std::string atos(T real);

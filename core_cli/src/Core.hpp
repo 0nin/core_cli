@@ -1,10 +1,10 @@
 #ifndef _core_h_
 #define _core_h_
 
-#include "../src/Application.hpp"
-#include "../src/Library.hpp"
-#include "../src/Log.hpp"
-#include "../src/Runtime.hpp"
-#include "../src/TextFile.hpp"
+#include "Application.hpp"
+#include "Library.hpp"
+#include "Log.hpp"
+#include "Runtime.hpp"
+#include "TextFile.hpp"
 
 #endif

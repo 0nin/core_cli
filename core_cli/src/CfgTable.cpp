@@ -5,7 +5,7 @@
  *      Author: avs
  */
 
-#include "../src/CfgTable.hpp"
+#include "CfgTable.hpp"
 
 namespace Core {
 

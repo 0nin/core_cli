@@ -5,12 +5,12 @@
  *      Author: avs
  */
 
-#include "../src/Log.hpp"
+#include "Log.hpp"
 
 #include <fstream>
 #include <sstream>
-#include "../src/Exception.hpp"
-#include "../src/TextFile.hpp"
+#include "Exception.hpp"
+#include "TextFile.hpp"
 
 namespace Core {
 

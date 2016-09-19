@@ -1,8 +1,8 @@
 #include "TextFile.hpp"
-#include "../src/Exception.hpp"
+#include "Exception.hpp"
 
-#include "../src/Log.hpp"
-#include "../src/TextFile.hpp"
+#include "Log.hpp"
+#include "TextFile.hpp"
 
 #if defined __WIN32__ || _WIN32
 #define WIN32_LEAN_AND_MEAN
@@ -18,7 +18,7 @@ extern void eBox(const std::string &message, const std::string &caption)
 }
 #endif
 
-#include "../src/Exception.hpp"
+#include "Exception.hpp"
 
 namespace Core {
 

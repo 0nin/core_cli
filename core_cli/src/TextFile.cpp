@@ -1,10 +1,10 @@
-#include "../src/TextFile.hpp"
+#include "TextFile.hpp"
 
 #include <sstream>
 #include <fstream>
-#include "../src/Exception.hpp"
-#include "../src/Log.hpp"
-#include "../src/PathList.hpp"
+#include "Exception.hpp"
+#include "Log.hpp"
+#include "PathList.hpp"
 
 namespace Core {
 
