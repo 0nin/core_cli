@@ -13,7 +13,7 @@
 #include <math.h>
 
 #include "Console.hpp"
-#include "Conv.h"
+#include "Conv.hpp"
 #include "Global.h"
 #include "Gnuplot.hpp"
 #include "PathList.hpp"

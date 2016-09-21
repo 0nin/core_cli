@@ -14,8 +14,13 @@ namespace Core {
 
 class Bash {
 public:
-	explicit Bash();
-	virtual ~Bash();
+	explicit Bash() {
+
+	}
+
+	virtual ~Bash() {
+
+	}
 };
 
 } /* namespace Core */

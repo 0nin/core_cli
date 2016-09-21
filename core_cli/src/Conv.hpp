@@ -5,8 +5,8 @@
  *      Author: caveman
  */
 
-#ifndef CONV_H_
-#define CONV_H_
+#ifndef CONV_HPP_
+#define CONV_HPP_
 
 #include <sstream>
 #include <fstream>
@@ -231,4 +231,4 @@ const std::string &out) {
 }
 
 }
-#endif /* CONV_H_ */
+#endif /* CONV_HPP_ */
