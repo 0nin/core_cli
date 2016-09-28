@@ -8,49 +8,30 @@
 #ifndef GNUPLOT_HPP_
 #define GNUPLOT_HPP_
 
-#ifdef CORELIB
 
-#include "Common.h"
 #include "Conv.hpp"
-#include "Global.h"
-
-#else
+#include "Global.hpp"
 #include <string>
 #include <vector>
 #include <list>
+#include <tuple>
 #include <iostream>
 #include <stdlib.h>
 #include <stdio.h>
+#include <algorithm>
 #ifdef _WIN32
 #define TMPDIR "./tmp/"
 #else
 #define TMPDIR "/tmp/"
 #endif
-define DUMMY 999.99f
-#endif
+
 
 #define GNUPLOT_EN "wxt"
 #define GNUPLOT_NAME "gnuplot"
 
 namespace Core {
 
-//class Plot {
-//public:
-//
-//	explicit Plot() {
-//
-//	}
-//	virtual ~Plot() {
-//
-//	}
-//
-//	std::string path;
-//	std::list<std::vector<std::pair<double, double>>>*data;
-//	std::vector<std::string> title;
-//	std::vector<std::string> window;
-//	std::string style;
-//	//protected:
-//};
+
 
 class Gnuplot {
 public:
@@ -61,10 +42,9 @@ public:
 #else
 		gnuplotpipe = popen(GNUPLOT_NAME, "w");
 #endif
-
 		if (!gnuplotpipe) {
-				std::cerr << ("Gnuplot not found !");
-			}
+			std::cerr << ("Gnuplot not found !");
+		}
 	}
 
 	virtual ~Gnuplot() {
@@ -77,13 +57,68 @@ public:
 		render();
 	}
 
-	void operator<<(const std::string &command) {
-		cmd(command);
+	void send(const std::string &command) {
+		fprintf(gnuplotpipe, "%s\n", command.c_str());
+		render();
+	}
+
+//	struct compare {
+//		template <class Val1, class Val2>
+//		bool operator() (const std::vector<std::pair<Val1, Val2>> &i, const std::vector<std::pair<Val1, Val2>> &j) {
+//			return (i.size() > j.size());
+//		}
+//	} c;
+
+	template <class Val1, class Val2>
+	void send(const std::list<std::vector<std::pair<Val1, Val2>>>&arg) {
+		std::string tmp;
+
+		size_t maxSize=0;
+		for (auto it = arg.begin(); it != arg.end(); ++it) {
+			if (it->size() > maxSize) maxSize = it->size();
+		}
+
+		for (size_t i = 0; i < maxSize; i++) {
+			for (auto it = arg.begin(); it != arg.end(); ++it) {
+				if (it->size() > i) {
+					tmp += std::to_string(it->at(i).first) + " " + std::to_string(it->at(i).second) + " ";
+				}
+			}
+
+			this->send(tmp);
+			tmp.clear();
+		}
+
+		this->send("e\n");
+	}
+
+	template <class Val1, class Val2>
+	void send(const std::vector<std::pair<Val1, Val2>> &arg) {
+		for (auto it = arg.begin(); it != arg.end(); ++it) {
+			this->send(std::to_string(it->first) + " " + std::to_string(it->second));
+		}
+		this->send("e\n");
 	}
 
 
-	template<class Float1, class Float2>
-	void plot(const std::list<std::vector<std::pair<Float1, Float2>>>&dataList,const std::string &param="") {
+//	void operator<<(const std::string &command) {
+//		cmd(command);
+//	}
+//
+//	template <class Val1, class Val2>
+//	void operator<<(const std::list<std::vector<std::pair<Val1, Val2>>> &arg) {
+//		send(arg);
+//	}
+//
+//	template <class Val1, class Val2>
+//	void operator<<(const std::vector<std::pair<Val1, Val2>> &arg) {
+//		send(arg);
+//	}
+
+
+
+	template<class Val1, class Val2>
+	void plot(const std::list<std::vector<std::pair<Val1, Val2>>>&dataList,const std::string &param="") {
 				std::stringstream tmp;
 				std::string path;
 				std::string fileName = "gnuplot" + atos(window) + "_" + rand(3) +".dat";
@@ -126,8 +161,8 @@ public:
 		this->window++;
 	}
 
-	template<class Float1, class Float2>
-	void plot(const std::vector<std::pair<Float1, Float2>>&dataVec,const std::string &param="") {
+	template<class Val1, class Val2>
+	void plot(const std::vector<std::pair<Val1, Val2>>&dataVec,const std::string &param="") {
 		std::stringstream tmp;
 		std::string path;
 		std::string fileName = "gnuplot" + atos(window) + "_" + rand(3) +".dat";
@@ -223,7 +258,7 @@ public:
 	#ifdef _WIN32
 		_pclose(gnuplotpipe);
 	#else
-		cmd("exit");
+//		cmd("exit");
 		pclose(gnuplotpipe);
 	#endif
 	}

@@ -5,8 +5,8 @@
  *      Author: avs
  */
 
-#ifndef GLOBAL_H_
-#define GLOBAL_H_
+#ifndef GLOBAL_HPP_
+#define GLOBAL_HPP_
 
 #include <sstream>
 #include <fstream>
@@ -194,4 +194,4 @@ bool normListNoRet(std::list<std::vector<std::pair<T1, T2>>>&inData) {
 extern double getTauVec(const std::vector<std::pair<double, double>>&dataVec);
 extern double getTauList(const std::list<std::vector<std::pair<double, double>>>&dataList);
 
-#endif /* GLOBAL_H_ */
+#endif /* GLOBAL_HPP_ */

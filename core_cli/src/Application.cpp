@@ -10,7 +10,7 @@
 #include "Cmd.hpp"
 #include "Console.hpp"
 #include "Exception.hpp"
-#include "Global.h"
+#include "Global.hpp"
 #include "Gnuplot.hpp"
 #include "Library.hpp"
 #include "PathList.hpp"
@@ -50,7 +50,7 @@ void Application::init(void) {
 
 #ifdef DEBUG
 //	cs.executeCommand("tau");
-	cs.executeCommand("plot");
+//	cs.executeCommand("plot");
 //	quit();
 #endif
 }

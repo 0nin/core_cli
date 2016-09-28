@@ -7,7 +7,7 @@
 
 #include "Conv.hpp"
 
-#include "Global.h"
+#include "Global.hpp"
 
 //bool datLine(std::string &str);
 //bool csvLine(std::string &str);

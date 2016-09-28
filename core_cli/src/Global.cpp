@@ -5,7 +5,7 @@
  *      Author: avs
  */
 
-#include "Global.h"
+#include "Global.hpp"
 
 #include "Application.hpp"
 #include "Exception.hpp"
@@ -758,7 +758,7 @@ double getTauVec(const std::vector<std::pair<double, double>>&dataVec) {
 }
 
 double getTauList(const std::list<std::vector<std::pair<double, double>>>&dataList) {
-#ifdef DEBUG
+#ifndef DEBUG
 	throw ExceptionNotImplemented("getTauList");
 #endif
 	return (double)0.0f;

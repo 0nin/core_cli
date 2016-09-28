@@ -14,9 +14,11 @@
 
 #include "Console.hpp"
 #include "Conv.hpp"
-#include "Global.h"
+#include "Global.hpp"
 #include "Gnuplot.hpp"
 #include "PathList.hpp"
+
+//#include <gnuplot-iostream.h>
 
 using namespace Conv;
 //using namespace Core;
@@ -127,22 +129,48 @@ unsigned tauCmd(const std::vector<std::string> &) {
 unsigned plotCmd(const std::vector<std::string> &input) {
 	static Core::Gnuplot gp, gp1;
 
-#ifdef _WIN32
-	std::string file = "V:/cableCheck.dat";
-#else
-	std::string file = "cableCheck.dat";
-#endif
-	std::vector<std::pair<double, double>> tmp;
-	std::list<std::vector<std::pair<double, double>>>data;
-	std::vector<std::pair<double, double>> diff;
+//#ifdef _WIN32
+//	std::string file = "V:/cableCheck.dat";
+//#else
+//	std::string file = "cableCheck.dat";
+//#endif
+//	std::vector<std::pair<double, double>> tmp;
+//	std::list<std::vector<std::pair<double, double>>>data;
+//	std::vector<std::pair<double, double>> diff;
+//
+//	for (double x = -3.14f; x < 3.14f; x += 0.01f) {
+//		tmp.push_back(std::make_pair(x, sin(x)));
+//	}
+//	flux(tmp, diff);
+//	data.push_back(tmp);
+//	data.push_back(diff);
+//	gp1.plot(data);
+//	gp.plotDat("plot.dat", 1);
+
+
+	gp.send("plot '-' using 1:2 title 'pts_A', '-' using 3:4 title 'pts_B'");
+
+	std::list<std::vector<std::pair<double, double>>> trig;
+	std::vector <std::pair<double, double>> tmp;
 
 	for (double x = -3.14f; x < 3.14f; x += 0.01f) {
 		tmp.push_back(std::make_pair(x, sin(x)));
 	}
-	flux(tmp, diff);
-	data.push_back(tmp);
-	data.push_back(diff);
-	gp1.plot(data);
-	gp.plotDat("plot.dat", 1);
+	trig.push_back(tmp);
+	tmp.clear();
+
+	for (double x = -3.14f; x < 3.14f; x += 0.01f) {
+		tmp.push_back(std::make_pair(x, cos(x)));
+	}
+	trig.push_back(tmp);
+//	tmp.clear();
+
+//	gp << trig;
+	gp.send(trig);
+
+//	printList(trig);
+//	gp << "e\n";
+//	trig.clear();
+
 	return ret::Ok;
 }
