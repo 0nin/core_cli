@@ -18,7 +18,7 @@
 //#include <stdbool.h>
 #include "Define.h"
 
-//#undef DEBUG
+//#undef NDEBUG
 
 #define DEBUG_IO
 
@@ -31,7 +31,7 @@
 #define DUMMY 999.99f
 
 
-#ifdef DEBUG
+#ifdef NDEBUG
 #define ENABLE_RUNTIME
 #define ENABLE_LOG2FILE
 #endif

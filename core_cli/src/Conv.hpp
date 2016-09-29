@@ -149,7 +149,7 @@ bool vec2dat(const std::vector<std::pair<T1, T2>> &data,
 	} else
 		return false;
 
-#ifdef DEBUG
+#ifdef NDEBUG
 	std::cout << "__X__" << " " << "__DATA__" << std::endl;
 	for (auto it = data.begin(); it != data.end(); ++it) {
 		std::cout << it->first << " " << it->second << std::endl;

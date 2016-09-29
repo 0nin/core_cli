@@ -48,7 +48,7 @@ void Application::init(void) {
 
 	cs.executeCommand("help");
 
-#ifdef DEBUG
+#ifdef NDEBUG
 //	cs.executeCommand("tau");
 //	cs.executeCommand("plot");
 //	quit();

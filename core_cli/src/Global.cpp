@@ -123,7 +123,7 @@ bool fileExist(const std::string &name) {
 //	} else
 //		return false;
 //
-//#ifdef DEBUG
+//#ifdef NDEBUG
 //	std::cout << "__X__" << " " << "__DATA__" << std::endl;
 //	for (auto it = data.begin(); it != data.end(); ++it) {
 //		std::cout << it->first << " " << it->second << std::endl;
@@ -743,7 +743,7 @@ double getTauVec(const std::vector<std::pair<double, double>>&dataVec) {
 		}
 	}
 
-#ifdef DEBUG
+#ifdef NDEBUG
 	std::cout << "TAU: " << result << std::endl;
 #endif
 
@@ -758,7 +758,7 @@ double getTauVec(const std::vector<std::pair<double, double>>&dataVec) {
 }
 
 double getTauList(const std::list<std::vector<std::pair<double, double>>>&dataList) {
-#ifndef DEBUG
+#ifndef NDEBUG
 	throw ExceptionNotImplemented("getTauList");
 #endif
 	return (double)0.0f;

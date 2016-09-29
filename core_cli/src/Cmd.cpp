@@ -127,7 +127,7 @@ unsigned tauCmd(const std::vector<std::string> &) {
 }
 
 unsigned plotCmd(const std::vector<std::string> &input) {
-	static Core::Gnuplot gp, gp1;
+	static Core::Gnuplot gp;
 
 //#ifdef _WIN32
 //	std::string file = "V:/cableCheck.dat";
@@ -166,7 +166,7 @@ unsigned plotCmd(const std::vector<std::string> &input) {
 //	tmp.clear();
 
 //	gp << trig;
-	gp.send(trig);
+	gp.plot(trig);
 
 //	printList(trig);
 //	gp << "e\n";

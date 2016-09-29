@@ -8,7 +8,6 @@
 #ifndef GNUPLOT_HPP_
 #define GNUPLOT_HPP_
 
-
 #include "Conv.hpp"
 #include "Global.hpp"
 #include <string>
@@ -25,13 +24,27 @@
 #define TMPDIR "/tmp/"
 #endif
 
-
 #define GNUPLOT_EN "wxt"
 #define GNUPLOT_NAME "gnuplot"
 
 namespace Core {
 
+template<typename T>
+std::string atos(T real) {
+#ifndef _WIN32
+	std::string str = atos(real);
+	if (str.empty())
+		return std::string("");
+#else
+	std::ostringstream strs;
+	strs << real;
+	std::string str = strs.str();
+	if (str.empty())
+	return std::string("");
+#endif
+	return str;
 
+}
 
 class Gnuplot {
 public:
@@ -69,7 +82,7 @@ public:
 //		}
 //	} c;
 
-	template <class Val1, class Val2>
+	template<class Val1, class Val2>
 	void send(const std::list<std::vector<std::pair<Val1, Val2>>>&arg) {
 		std::string tmp;
 
@@ -81,7 +94,7 @@ public:
 		for (size_t i = 0; i < maxSize; i++) {
 			for (auto it = arg.begin(); it != arg.end(); ++it) {
 				if (it->size() > i) {
-					tmp += std::to_string(it->at(i).first) + " " + std::to_string(it->at(i).second) + " ";
+					tmp += atos(it->at(i).first) + " " + atos(it->at(i).second) + " ";
 				}
 			}
 
@@ -95,7 +108,7 @@ public:
 	template <class Val1, class Val2>
 	void send(const std::vector<std::pair<Val1, Val2>> &arg) {
 		for (auto it = arg.begin(); it != arg.end(); ++it) {
-			this->send(std::to_string(it->first) + " " + std::to_string(it->second));
+			this->send(atos(it->first) + " " + atos(it->second));
 		}
 		this->send("e\n");
 	}
