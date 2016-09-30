@@ -9,19 +9,15 @@
 
 #include "Application.hpp"
 #include "Exception.hpp"
-
-//#include <sstream>
-//#include <fstream>
-//#include <cmath>
-//#include <algorithm>
-//#include <iterator>
-//#include <random>
+#include "PathList.hpp"
 
 using namespace Core;
 namespace cr = CppReadline;
 using ret = cr::Console::ReturnCode;
 
 const char digits[] = "0123456789.\t\n";
+//static PathList* singletonPathList = new PathList();
+static PathList* singletonPathList = new PathList();
 
 //int main(int argc, char *args[]) {
 int main() {

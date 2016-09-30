@@ -24,36 +24,30 @@
 #define TMPDIR "/tmp/"
 #endif
 
-#define GNUPLOT_EN "wxt"
-#define GNUPLOT_NAME "gnuplot"
+//#define "wxt" "wxt"
+//#define GNUPLOT_NAME "gnuplot"
 
 namespace Core {
 
 template<typename T>
 std::string atos(T real) {
 #ifndef _WIN32
-	std::string str = atos(real);
-	if (str.empty())
-		return std::string("");
+	std::string str = std::to_string(real);
 #else
 	std::ostringstream strs;
 	strs << real;
 	std::string str = strs.str();
-	if (str.empty())
-	return std::string("");
 #endif
 	return str;
-
 }
 
 class Gnuplot {
 public:
-
 	explicit Gnuplot() {
 #ifdef _WIN32
-		gnuplotpipe = _popen(GNUPLOT_NAME, "w");
+		gnuplotpipe = _popen("gnuplot", "w");
 #else
-		gnuplotpipe = popen(GNUPLOT_NAME, "w");
+		gnuplotpipe = popen("gnuplot > /dev/null 2>1", "w");
 #endif
 		if (!gnuplotpipe) {
 			std::cerr << ("Gnuplot not found !");
@@ -63,6 +57,10 @@ public:
 	virtual ~Gnuplot() {
 		cleanup();
 		close();
+	}
+
+	void end() {
+		this->send("e\n");
 	}
 
 	void cmd(const std::string &command) {
@@ -75,15 +73,8 @@ public:
 		render();
 	}
 
-//	struct compare {
-//		template <class Val1, class Val2>
-//		bool operator() (const std::vector<std::pair<Val1, Val2>> &i, const std::vector<std::pair<Val1, Val2>> &j) {
-//			return (i.size() > j.size());
-//		}
-//	} c;
-
 	template<class Val1, class Val2>
-	void send(const std::list<std::vector<std::pair<Val1, Val2>>>&arg) {
+	void sendRAM(const std::list<std::vector<std::pair<Val1, Val2>>>&arg) {
 		std::string tmp;
 
 		size_t maxSize=0;
@@ -101,37 +92,40 @@ public:
 			this->send(tmp);
 			tmp.clear();
 		}
+	}
 
-		this->send("e\n");
+	template<class Val1, class Val2>
+	void plotRAM(const std::list<std::vector<std::pair<Val1, Val2>>>&arg) {
+		sendRAM(arg);
+		end();
 	}
 
 	template <class Val1, class Val2>
-	void send(const std::vector<std::pair<Val1, Val2>> &arg) {
+	void sendRAM(const std::vector<std::pair<Val1, Val2>> &arg) {
 		for (auto it = arg.begin(); it != arg.end(); ++it) {
 			this->send(atos(it->first) + " " + atos(it->second));
 		}
-		this->send("e\n");
+	}
+
+	template <class Val1, class Val2>
+	void plotRAM(const std::vector<std::pair<Val1, Val2>> &arg) {
+		sendRAM(arg);
+		end();
+	}
+
+	template <class Val1, class Val2>
+	void plot(const std::vector<std::pair<Val1, Val2>> &arg) {
+		plotRAM(arg);
+	}
+
+	template <class Val1, class Val2>
+	void plot(const std::list<std::vector<std::pair<Val1, Val2>>>&arg) {
+		plotRAM(arg);
 	}
 
 
-//	void operator<<(const std::string &command) {
-//		cmd(command);
-//	}
-//
-//	template <class Val1, class Val2>
-//	void operator<<(const std::list<std::vector<std::pair<Val1, Val2>>> &arg) {
-//		send(arg);
-//	}
-//
-//	template <class Val1, class Val2>
-//	void operator<<(const std::vector<std::pair<Val1, Val2>> &arg) {
-//		send(arg);
-//	}
-
-
-
 	template<class Val1, class Val2>
-	void plot(const std::list<std::vector<std::pair<Val1, Val2>>>&dataList,const std::string &param="") {
+	void plotFile(const std::list<std::vector<std::pair<Val1, Val2>>>&dataList) {
 				std::stringstream tmp;
 				std::string path;
 				std::string fileName = "gnuplot" + atos(window) + "_" + rand(3) +".dat";
@@ -150,7 +144,7 @@ public:
 		}
 
 		cmd("set grid");
-		cmd(std::string("set term ") + GNUPLOT_EN + std::string(" ") + atos(window));
+		cmd(std::string("set term ") + "wxt" + std::string(" ") + atos(window));
 
 		//	list2dat(dataList, path);
 		typedef std::vector<std::string> StringVec;
@@ -175,13 +169,12 @@ public:
 	}
 
 	template<class Val1, class Val2>
-	void plot(const std::vector<std::pair<Val1, Val2>>&dataVec,const std::string &param="") {
+	void plotFile(const std::vector<std::pair<Val1, Val2>>&dataVec,const std::string &param="") {
 		std::stringstream tmp;
 		std::string path;
 		std::string fileName = "gnuplot" + atos(window) + "_" + rand(3) +".dat";
 		std::vector<std::string> plotDatFiles;
 
-//		for (auto it = dataList.begin(); it != dataList.end(); ++it) {
 			fileName = "gnuplot" + atos(window) + "_" + rand(3) + ".dat";
 #ifndef _WIN32
 			path = std::string("/tmp/") + fileName;
@@ -191,11 +184,9 @@ public:
 			plotDatFiles.push_back(path);
 			this->tmpFiles.push_back(path);
 			Conv::vec2dat(dataVec, path);
-//			Conv::vec2dat(*it, path);
-//		}
 
 		cmd("set grid");
-		cmd(std::string("set term ") + GNUPLOT_EN + std::string(" ") + atos(window));
+		cmd(std::string("set term ") + "wxt" + std::string(" ") + atos(window));
 
 		//	list2dat(dataList, path);
 		typedef std::vector<std::string> StringVec;
@@ -225,7 +216,7 @@ public:
 
 		cmd("set grid");
 		cmd(
-				std::string("set term ") + GNUPLOT_EN + std::string(" ")
+				std::string("set term ") + "wxt" + std::string(" ")
 						+ atos(window));
 
 		for (size_t die = 1; die <= 2 * col; die += 2) {
@@ -271,7 +262,6 @@ public:
 	#ifdef _WIN32
 		_pclose(gnuplotpipe);
 	#else
-//		cmd("exit");
 		pclose(gnuplotpipe);
 	#endif
 	}
@@ -279,7 +269,6 @@ public:
 protected:
 	FILE *gnuplotpipe = nullptr;
 	size_t window = 0;
-//	std::vector<Plot> plots;
 	std::vector<std::string> tmpFiles;
 };
 
