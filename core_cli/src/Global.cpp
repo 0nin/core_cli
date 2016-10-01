@@ -17,7 +17,12 @@ using ret = cr::Console::ReturnCode;
 
 const char digits[] = "0123456789.\t\n";
 //static PathList* singletonPathList = new PathList();
-static PathList* singletonPathList = new PathList();
+//static PathList* singletonPathList = new PathList();
+static PathList singletonPathList;
+
+Core::PathList* getPath () {
+	return &singletonPathList;
+}
 
 //int main(int argc, char *args[]) {
 int main() {

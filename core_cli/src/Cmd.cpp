@@ -94,8 +94,8 @@ unsigned csv2datCmd(const std::vector<std::string> &input) {
 	std::string path;
 	std::string out = input[1] + std::string(".csv");
 //	std::st
-	Core::PathList::getSingletonPtr()->getPath(input[1], path);
-	csv2dat(path, input[2]);
+//	Core::PathList::getSingletonPtr()->getPath(input[1], path);
+	csv2dat(input[1], input[2]);
 
 	return ret::Ok;
 }

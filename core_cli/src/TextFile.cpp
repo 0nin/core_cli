@@ -5,6 +5,7 @@
 #include "Exception.hpp"
 #include "Log.hpp"
 #include "PathList.hpp"
+#include "Global.hpp"
 
 namespace Core {
 
@@ -55,7 +56,8 @@ void TextFile::setFile(const std::string &fileName) {
 //	m_stream.open(fileName.c_str());
 //	m_stream.close();
 
-	if (PathList::getSingletonPtr()->getPath(fileName, fullPath)) {
+//	if (PathList::getSingletonPtr()->getPath(fileName, fullPath)) {
+	if (getPath()->getPath(fileName, fullPath)) {
 		this->fileName = fileName;
 		std::fstream m_stream;
 		m_stream.open(fileName.c_str());

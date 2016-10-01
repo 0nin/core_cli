@@ -8,6 +8,7 @@
 
 #include "Exception.hpp"
 #include "PathList.hpp"
+#include "Global.hpp"
 
 namespace Core {
 
@@ -104,7 +105,8 @@ void Library::configStroke(std::string stroke) {
 		return;
 	else if (head == "path" || head == "PATH") {
 		ist >> x;
-		PathList::getSingletonPtr()->addPath(x);
+//		PathList::getSingletonPtr()->addPath(x);
+		getPath()->addPath(x);
 	}
 
 	else if (head == ":") {
@@ -121,7 +123,8 @@ void Library::clear() {
 }
 
 void Library::printAllPaths() {
-	PathList::getSingletonPtr()->print();
+//	PathList::getSingletonPtr()->print();
+	getPath()->print();
 }
 
 void Library::printAll() {

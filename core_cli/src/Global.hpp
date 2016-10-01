@@ -15,6 +15,10 @@
 #include <iterator>
 #include <random>
 #include "Common.h"
+#include "PathList.hpp"
+
+
+Core::PathList* getPath ();
 
 //template<typename T>
 //extern std::string atos(T real);
