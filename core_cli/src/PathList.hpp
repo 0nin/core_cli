@@ -16,7 +16,7 @@ class PathList {
 
 public:
 	PathList() {
-		const char *env = getenv("NVSDK10OGL_ROOT");
+		const char *env = getenv("PATH");
 
 		//search local paths first, in-case someone has the SDK installed while hacking another copy
 		_pathList.push_back("./");  // present directory
